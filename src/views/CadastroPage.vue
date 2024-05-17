@@ -98,6 +98,7 @@
                             first_name: this.first_name,
                             last_name: this.last_name,
                         });
+                        this.$router.push('/');
                     } catch (error) {
                         this.message = error.response.data.error;
                         this.messageType = 'error';
