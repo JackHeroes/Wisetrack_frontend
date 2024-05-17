@@ -63,17 +63,17 @@
                 const result = await this.v$.$validate()
                 if (!result) {
                     return
-                } else {
-                    try {
-                        const response = await axios.post('http://127.0.0.1:8000/api/login/UserLoginAPI/', {
-                            username: this.username,
-                            password: this.password,
-                        });
-                        this.$router.push('/home');
-                        } catch (error) {
-                            this.message = error.response.data.error;
-                            this.messageType = 'error';
-                        }
+                } 
+
+                try {
+                    const response = await axios.post('http://127.0.0.1:8000/api/login/UserLoginAPI/', {
+                        username: this.username,
+                        password: this.password,
+                    });
+                    this.$router.push('/home');
+                } catch (error) {
+                    this.message = error.response.data.error;
+                    this.messageType = 'error';
                 }
             },
             goToCadastro() {

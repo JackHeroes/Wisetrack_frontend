@@ -89,21 +89,21 @@
                 const result = await this.v$.$validate()
                 if (!result) {
                     return
-                } else {
-                    try {
-                        const response = await axios.post('http://127.0.0.1:8000/api/register/user_create_api/', {
-                            username: this.username,
-                            email: this.email,
-                            password: this.password,
-                            first_name: this.first_name,
-                            last_name: this.last_name,
-                        });
-                        this.$router.push('/');
-                    } catch (error) {
-                        this.message = error.response.data.error;
-                        this.messageType = 'error';
-                    }
                 }
+
+                try {
+                    const response = await axios.post('http://127.0.0.1:8000/api/register/user_create_api/', {
+                        username: this.username,
+                        email: this.email,
+                        password: this.password,
+                        first_name: this.first_name,
+                        last_name: this.last_name,
+                    });
+                    this.$router.push('/');
+                } catch (error) {
+                    this.message = error.response.data.error;
+                    this.messageType = 'error';
+                }  
             },
             goToLogin() {
                 this.$router.push('/');
