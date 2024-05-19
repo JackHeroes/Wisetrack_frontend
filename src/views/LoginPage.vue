@@ -45,7 +45,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import axios from '../services/axios';
     import { useVuelidate } from '@vuelidate/core'
     import { required, helpers } from '@vuelidate/validators'
 
@@ -66,17 +66,17 @@
                 } 
 
                 try {
-                    const response = await axios.post('http://127.0.0.1:8000/api/login/UserLoginAPI/', {
+                    const response = await axios.post('login/UserLoginAPI/', {
                         username: this.username,
                         password: this.password,
-                    });
+                    }); 
                     this.$router.push('/home');
                 } catch (error) {
                     this.message = error.response.data.error;
                     this.messageType = 'error';
                 }
             },
-            goToCadastro() {
+            goToCadastro() { 
                 this.$router.push('/cadastro');
             }
         },
