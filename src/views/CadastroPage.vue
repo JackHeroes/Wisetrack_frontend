@@ -103,7 +103,7 @@
                 } catch (error) {
                     this.message = error.response.data.error;
                     this.messageType = 'error';
-                }  
+                }
             },
             goToLogin() {
                 this.$router.push('/');

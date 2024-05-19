@@ -66,10 +66,10 @@
                 } 
 
                 try {
-                    const response = await axios.post('login/UserLoginAPI/', {
+                    await axios.post('login/UserLoginAPI/', {
                         username: this.username,
                         password: this.password,
-                    }); 
+                    });
                     this.$router.push('/home');
                 } catch (error) {
                     this.message = error.response.data.error;

@@ -36,7 +36,6 @@ router.beforeEach(async (to, from, next) => {
             await axios.get('login/AuthAPI/');
             next();
         } catch (error) {
-            console.log(error)
             next('/');
         }
     } else {
