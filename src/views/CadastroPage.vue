@@ -69,8 +69,8 @@
 </template>
 <script>
     import axios from '../services/axios';
-    import { useVuelidate } from '@vuelidate/core'
     import { email, required, helpers } from '@vuelidate/validators'
+    import { useVuelidate } from '@vuelidate/core'
 
     export default {
         setup: () => ({ v$: useVuelidate() }),
@@ -92,7 +92,7 @@
                 }
 
                 try {
-                    const response = await axios.post('register/user_create_api/', {
+                    await axios.post('register/RegisterApi/', {
                         username: this.username,
                         email: this.email,
                         password: this.password,

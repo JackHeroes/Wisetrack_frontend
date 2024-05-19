@@ -1,8 +1,9 @@
+import axios from '../services/axios';
 import { createRouter, createWebHistory } from 'vue-router';
+
 import LoginPage from '../views/LoginPage.vue';
 import CadastroPage from '../views/CadastroPage.vue';
 import HomePage from '../views/HomePage.vue'
-import axios from '../services/axios';
 
 const routes = [
     {
@@ -33,7 +34,7 @@ router.beforeEach(async (to, from, next) => {
   
     if (requiresAuth) {
         try {
-            await axios.get('login/AuthAPI/');
+            await axios.get('auth/AuthApi/');
             next();
         } catch (error) {
             next('/');

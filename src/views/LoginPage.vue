@@ -46,8 +46,8 @@
 
 <script>
     import axios from '../services/axios';
-    import { useVuelidate } from '@vuelidate/core'
     import { required, helpers } from '@vuelidate/validators'
+    import { useVuelidate } from '@vuelidate/core'
 
     export default {
         setup: () => ({ v$: useVuelidate() }),
@@ -66,7 +66,7 @@
                 } 
 
                 try {
-                    await axios.post('login/UserLoginAPI/', {
+                    await axios.post('login/LoginApi/', {
                         username: this.username,
                         password: this.password,
                     });
