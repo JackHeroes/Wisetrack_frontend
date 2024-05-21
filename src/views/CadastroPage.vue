@@ -1,66 +1,78 @@
 <template>
-    <v-card class="d-flex flex-column justify-center align-center" height="1000" width="1000">
-        <h1>Cadastre-se</h1>
-        <form @submit.prevent="submit" class="w-100">
-            <v-text-field 
-                v-model="username"
-                class="mb-2"
-                label="Usuário"
-                name="username"
-                variant="outlined" 
-                :error-messages="v$?.username?.$errors.map(e => e.$message)">
-            </v-text-field>
-            <v-text-field 
-                v-model="email"
-                class="mb-2"
-                label="E-mail"
-                name="email"
-                variant="outlined" 
-                :error-messages="v$?.email?.$errors.map(e => e.$message)">
-            </v-text-field>
-            <v-text-field 
-                v-model="first_name"
-                class="mb-2"
-                label="Nome"
-                name="first_name"
-                variant="outlined" 
-                :error-messages="v$?.first_name?.$errors.map(e => e.$message)">
-            </v-text-field>
-            <v-text-field 
-                v-model="last_name"
-                class="mb-2"
-                label="Sobrenome"
-                name="last_name"
-                variant="outlined" 
-                :error-messages="v$?.last_name?.$errors.map(e => e.$message)">
-            </v-text-field>
-            <v-text-field
-                v-model="password"
-                class="mb-2"
-                label="Senha"
-                name="password"
-                variant="outlined"
-                :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
-                :error-messages="v$?.password?.$errors.map(e => e.$message)"
-                :type="visible ? 'text' : 'password'"
-                @click:append-inner="visible = !visible">
-            </v-text-field>
-            <v-btn 
-                class="mb-3"
-                size="large" 
-                type="submit" 
-                block>
-                Registre-se
-            </v-btn>
-        </form>
-        <div>
-            <v-btn 
-                variant="plain"
-                @click="goToLogin">
-                Login
-            </v-btn>
-        </div>
-    </v-card>
+    <v-container class="d-flex justify-center align-center fill-height" fluid>
+        <v-card 
+            class="d-flex flex-column justify-center align-center rounded-s-xl rounded-e-0"
+            image="https://cdn.vuetifyjs.com/docs/images/cards/dark-beach.jpg">
+        </v-card>
+        <v-card class="d-flex flex-column justify-center align-center rounded-s-0 rounded-e-xl">
+            <h1 class="v-title text-uppercase">Cadastre-se</h1>
+            <v-form @submit.prevent="submit" class="d-flex flex-column justify-center align-center w-100">
+                <v-text-field 
+                    v-model="username"
+                    class="mb-3"
+                    color="var(--main-color)"
+                    hide-details="auto"
+                    label="Usuário"
+                    name="username"
+                    variant="outlined" 
+                    :error-messages="v$?.username?.$errors.map(e => e.$message)">
+                </v-text-field>
+                <v-text-field 
+                    v-model="email"
+                    class="mb-3"
+                    color="var(--main-color)"
+                    hide-details="auto"
+                    label="E-mail"
+                    name="email"
+                    variant="outlined" 
+                    :error-messages="v$?.email?.$errors.map(e => e.$message)">
+                </v-text-field>
+                <v-text-field 
+                    v-model="first_name"
+                    class="mb-3"
+                    color="var(--main-color)"
+                    hide-details="auto"
+                    label="Nome"
+                    name="first_name"
+                    variant="outlined" 
+                    :error-messages="v$?.first_name?.$errors.map(e => e.$message)">
+                </v-text-field>
+                <v-text-field 
+                    v-model="last_name"
+                    class="mb-3"
+                    color="var(--main-color)"
+                    hide-details="auto"
+                    label="Sobrenome"
+                    name="last_name"
+                    variant="outlined" 
+                    :error-messages="v$?.last_name?.$errors.map(e => e.$message)">
+                </v-text-field>
+                <v-text-field
+                    v-model="password"
+                    class="mb-3"
+                    color="var(--main-color)"
+                    hide-details="auto"
+                    label="Senha"
+                    name="password"
+                    variant="outlined"
+                    :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
+                    :error-messages="v$?.password?.$errors.map(e => e.$message)"
+                    :type="visible ? 'text' : 'password'"
+                    @click:append-inner="visible = !visible">
+                </v-text-field>
+                <v-btn 
+                    class="v-btn-primary mb-3"
+                    size="large" 
+                    type="submit">
+                    Criar conta
+                </v-btn>
+            </v-form>
+            <p>
+                Já tem uma conta?
+                <span @click="goToLogin" class="v-link cursor-pointer">Faça login</span>
+            </p>
+        </v-card> 
+    </v-container>
     <Message 
         v-if="message"
         :message="message"
@@ -135,3 +147,6 @@
         }
     }
 </script>
+<style scoped>
+    @import "@/assets/styles/loginCadastro.css";
+</style>

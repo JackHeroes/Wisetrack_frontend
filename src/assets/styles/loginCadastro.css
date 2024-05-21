@@ -1,0 +1,27 @@
+.v-container {
+    background: var(--main-color);
+    background: linear-gradient(135deg, var(--main-color) 0%, var(--secondary-color) 100%);
+}
+
+.v-card {
+    height: 80vh;
+    width: 30%;
+}
+
+.v-title {
+    color: var(--main-color);
+}
+
+.v-text-field {
+    width: 80%;
+}
+
+.v-btn-primary {
+    background-color: var(--main-color);
+    color: var(--white);
+    width: 80%;
+}
+
+.v-link {
+    color: var(--main-color);
+}
