@@ -1,4 +1,4 @@
-import axios from '../services/axios';
+import store from '../store/store';
 import { createRouter, createWebHistory } from 'vue-router';
 
 import LoginPage from '../views/LoginPage.vue';
@@ -34,7 +34,7 @@ router.beforeEach(async (to, from, next) => {
   
     if (requiresAuth) {
         try {
-            await axios.get('auth/AuthApi/');
+            await store.dispatch('fetchUser');
             next();
         } catch (error) {
             next('/');

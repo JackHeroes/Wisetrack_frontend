@@ -1,8 +1,13 @@
 import { createApp } from 'vue';
 
 import App from './App.vue';
-import Message from './components/Message.vue'; 
 import router from './router';
+import store from './store/store';
+
+import FooterCustom from './components/FooterCustom.vue'; 
+import HorizontalMenu from './components/HorizontalMenu.vue'; 
+import Message from './components/Message.vue';
+import SidebarMenu from './components/SidebarMenu.vue';  
 
 import { createVuetify } from 'vuetify';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
@@ -27,9 +32,13 @@ const vuetify = createVuetify({
 
 const app = createApp(App);
 
+app.component('FooterCustom', FooterCustom);
+app.component('HorizontalMenu', HorizontalMenu);
 app.component('Message', Message);
+app.component('SidebarMenu', SidebarMenu);
 
 app.use(router);
+app.use(store);
 app.use(vuetify);
 
 app.mount('#app');
