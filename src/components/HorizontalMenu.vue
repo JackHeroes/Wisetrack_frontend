@@ -1,9 +1,9 @@
 <template>
-    <v-app-bar permanent>
+    <v-app-bar permanent order="-1">
         <v-app-bar-title>Teste</v-app-bar-title>
         <v-btn text to="/home">Home</v-btn>
         <v-btn text>{{ user }}</v-btn>
-        <v-btn prepend-icon="mdi-logout" text @click="logout"></v-btn>
+        <v-btn text @click="logout"><v-icon icon="mdi-logout"/></v-btn>
     </v-app-bar>
 </template>
 <script>

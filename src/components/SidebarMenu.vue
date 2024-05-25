@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer expand-on-hover rail permanent>
+    <v-navigation-drawer expand-on-hover permanent rail>
         <v-list density="compact" nav>
             <v-list-item prepend-icon="mdi-wallet" title="Método de pagamento" value="Método de pagamento"></v-list-item>
             <v-list-item prepend-icon="mdi-view-grid" title="Categorias de gastos" value="Categorias de gastos"></v-list-item>
