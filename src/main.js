@@ -8,6 +8,7 @@ import FooterCustom from './components/FooterCustom.vue';
 import HorizontalMenu from './components/HorizontalMenu.vue'; 
 import Message from './components/Message.vue';
 import SidebarMenu from './components/SidebarMenu.vue';  
+import Crud from './components/Crud.vue'; 
 
 import { createVuetify } from 'vuetify';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
@@ -36,6 +37,7 @@ app.component('FooterCustom', FooterCustom);
 app.component('HorizontalMenu', HorizontalMenu);
 app.component('Message', Message);
 app.component('SidebarMenu', SidebarMenu);
+app.component('Crud', Crud);
 
 app.use(router);
 app.use(store);

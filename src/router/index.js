@@ -3,7 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import LoginPage from '../views/LoginPage.vue';
 import CadastroPage from '../views/CadastroPage.vue';
-import HomePage from '../views/HomePage.vue'
+import HomePage from '../views/HomePage.vue';
+import CategoriaGastoPage from '../views/CategoriaGastoPage.vue'
+import MetodoPagamentoPage from '../views/MetodoPagamentoPage.vue'
 
 const routes = [
     {
@@ -20,6 +22,18 @@ const routes = [
         path: '/home', 
         component: HomePage,
         name: 'Home', 
+        meta: { requiresAuth: true }
+    },
+    { 
+        path: '/categoria-gasto', 
+        component: CategoriaGastoPage,
+        name: 'CategoriaGasto', 
+        meta: { requiresAuth: true }
+    },
+    { 
+        path: '/metodo-pagamento', 
+        component: MetodoPagamentoPage,
+        name: 'MetodoPagamento', 
         meta: { requiresAuth: true }
     },
 ];
