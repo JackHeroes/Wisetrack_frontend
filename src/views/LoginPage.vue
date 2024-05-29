@@ -47,12 +47,13 @@
                     src="\src\assets\images\">
                 </v-img>
             </v-card>
+            <SystemMessage
+                v-if="message"
+                :key="messageKey"
+                :message="message"
+                :type="messageType">
+            </SystemMessage>
         </v-container>
-        <SystemMessage
-            v-if="message"
-            :message="message"
-            :type="messageType">
-        </SystemMessage>
     </v-app>
 </template>
 <script>
@@ -69,6 +70,7 @@
             messageType: '',
             visible: false, 
             loading: false,
+            messageKey: 0,
         }),
         methods: {
             async submit() {
@@ -88,6 +90,7 @@
                 } catch (error) {
                     this.message = error.response.data.error;
                     this.messageType = 'error';
+                    this.messageKey += 1;
                 } finally {
                     this.loading = false;
                 }
