@@ -4,7 +4,7 @@
 }
 
 .v-card {
-    height: 80vh;
+    height: 90vh;
     width: 30%;
 }
 
@@ -22,6 +22,31 @@
     width: 80%;
 }
 
-.v-link {
+.v-link span {
+    padding-bottom: 3px;
+}
+
+.v-link a {
     color: var(--main-color);
+    padding-bottom: 3px;
+    position: relative;
+}
+
+.v-link a::before {
+    background-color: var(--main-color);
+    border-radius: 2px;
+    bottom: 0;
+    content: '';
+    height: 2px;
+    left: 0;
+    position: absolute;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out; 
+    width: 100%;
+}
+
+.v-link a:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
 }

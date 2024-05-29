@@ -7,7 +7,7 @@
 </template>
 <script>
 	export default {
-  		name: 'Message',
+  		name: 'SystemMessage',
   		props: {
 			message: {
 				type: String,
@@ -36,6 +36,8 @@
 </script>
 <style scoped>
 	.v-alert {
+		bottom: 0;
+		margin: 1.5rem;
 		position: absolute;
 	}
 </style>

@@ -1,14 +1,13 @@
 import { createApp } from 'vue';
-
 import App from './App.vue';
 import router from './router';
 import store from './store/store';
 
-import FooterCustom from './components/FooterCustom.vue'; 
-import HorizontalMenu from './components/HorizontalMenu.vue'; 
-import Message from './components/Message.vue';
-import SidebarMenu from './components/SidebarMenu.vue';  
-import Crud from './components/Crud.vue'; 
+import SystemFooter from './components/SystemFooter.vue'; 
+import SystemMenu from './components/SystemMenu.vue'; 
+import SystemMessage from './components/SystemMessage.vue';
+import SystemSidebar from './components/SystemSidebar.vue';  
+import SystemCrud from './components/SystemCrud.vue'; 
 
 import { createVuetify } from 'vuetify';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
@@ -33,11 +32,11 @@ const vuetify = createVuetify({
 
 const app = createApp(App);
 
-app.component('FooterCustom', FooterCustom);
-app.component('HorizontalMenu', HorizontalMenu);
-app.component('Message', Message);
-app.component('SidebarMenu', SidebarMenu);
-app.component('Crud', Crud);
+app.component('SystemFooter', SystemFooter);
+app.component('SystemMenu', SystemMenu);
+app.component('SystemMessage', SystemMessage);
+app.component('SystemSidebar', SystemSidebar);
+app.component('SystemCrud', SystemCrud);
 
 app.use(router);
 app.use(store);

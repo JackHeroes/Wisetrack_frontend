@@ -1,13 +1,14 @@
 <template>
-    <v-app>
-        <HorizontalMenu/>
-        <SidebarMenu/>
-        <v-main class="d-flex justify-center align-center">
-        </v-main>
-        <FooterCustom/>
-    </v-app>
+  <v-app>
+      <SystemMenu/>
+      <SystemSidebar/>
+      <v-main class="d-flex justify-center align-center">
+         
+      </v-main>
+      <SystemFooter/>
+  </v-app>
 </template>
 <script>
 </script>
-<style>
+<style scoped>
 </style>

@@ -5,7 +5,7 @@
 </template>    
 <script>
     export default {
-        name: 'FooterCustom',
+        name: 'SystemFooter',
         data() {
             return {
                 currentYear: new Date().getFullYear()
@@ -15,9 +15,9 @@
 </script>
 <style scoped>
     .v-footer {
-        background-color: var(--black);
-        color: var(--white);
-        font-size: 0.8rem;
-        min-height: 64px;
+        background-color: var(--black)!important;
+        color: var(--white)!important;
+        font-size: 0.8rem!important;
+        min-height: 64px!important;
     }
 </style>
