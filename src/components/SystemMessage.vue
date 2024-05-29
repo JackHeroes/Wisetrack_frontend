@@ -57,7 +57,7 @@
 		transition: opacity 1s!important;
   	}
 	
-	.fade-enter, .fade-leave-to{
+	.fade-enter, .fade-leave-to {
 		opacity: 0!important;
   	}
 </style>

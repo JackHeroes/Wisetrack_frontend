@@ -68,8 +68,8 @@
             password: '',
             message: '',
             messageType: '',
-            visible: false, 
             loading: false,
+            visible: false, 
             messageKey: 0,
         }),
         methods: {

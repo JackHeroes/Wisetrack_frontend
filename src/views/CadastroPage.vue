@@ -87,12 +87,11 @@
         username: '',
         email: '',
         name: '',
-        last_name: '',
         password: '',
         message: '',
         messageType: '',
-        visible: false,
         loading: false,
+        visible: false,
         messageKey: 0,
     }),
     methods: {
