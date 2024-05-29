@@ -53,16 +53,20 @@
     }
 
     .v-list-item {
-        transition: background-color 0.3s, color 0.3s!important;
+        transition: background-color 0.3s!important;
     }
 
     .v-list-item:hover,
     .v-sidebar-active {
         background-color: var(--main-color)!important;
-        color: var(--white)!important;
     }
 
-    .v-sidebar-active i {
+    :deep(.v-list-item__prepend i) {
+        transition: opacity 0.3s!important; 
+    }
+
+    :deep(.v-sidebar-active .v-list-item__prepend i),
+    :deep(.v-list-item:hover .v-list-item__prepend i) {
         opacity: 1!important;
     }
 </style>

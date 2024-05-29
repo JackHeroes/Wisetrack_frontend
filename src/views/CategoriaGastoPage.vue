@@ -1,25 +1,25 @@
 <template>
     <v-app>
-      <SystemMenu/>
-      <SystemSidebar/>
-      <v-main class="d-flex justify-center align-center">
-        <SystemCrud
-          :title="'Categoria de gasto'"
-          :headers="headers"
-          :items="categoriasGastos"
-          :newItemButtonText="'Nova categoria de gasto'"
-          :NenhumItem="'Nenhuma categoria cadastrada'"
-          :formFields="formFields"
-          :sortKey="'categoriaGasto'"
-          :sortOrder="'asc'"
-          @add-item="addItem"
-          @update-item="updateItem"
-          @delete-item="deleteItem"
-        />
-      </v-main>
-      <SystemFooter/>
+        <SystemMenu/>
+        <SystemSidebar/>
+        <v-main class="d-flex justify-center align-center">
+            <SystemCrud
+                :title="'Categoria de gasto'"
+                :headers="headers"
+                :items="categoriasGastos"
+                :newItemButtonText="'Nova categoria de gasto'"
+                :NenhumItem="'Nenhuma categoria cadastrada'"
+                :formFields="formFields"
+                :sortKey="'categoriaGasto'"
+                :sortOrder="'asc'"
+                @add-item="addItem"
+                @update-item="updateItem"
+                @delete-item="deleteItem"
+            />
+        </v-main>
+        <SystemFooter/>
     </v-app>
-  </template>
+</template>
   
   <script>
   import { required, helpers } from '@vuelidate/validators';

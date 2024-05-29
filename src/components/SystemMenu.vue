@@ -85,7 +85,7 @@
         background-color: var(--main-color)!important;
         bottom: 0!important;
         content: ''!important;
-        height: 5px!important;
+        height: 3px!important;
         left: 50%!important;
         position: absolute!important;
         transition: width 0.3s, left 0.3s!important;
