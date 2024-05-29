@@ -6,9 +6,9 @@
                 <v-btn 
                     class="v-btn-menu"
                     variant="plain"
-                    :class="{ 'v-menu-active': isActive('/home') }"
+                    :class="{ 'v-menu-active': isActive('/inicio') }"
                     :ripple="false"
-                    @click="navigate('/home')">
+                    @click="navigate('/inicio')">
                     Início
                 </v-btn>
                 <v-btn 
@@ -82,10 +82,10 @@
     }
 
     .v-btn-menu::before {
-        background-color: var(--main-color)!important;
+        background-color: var(--primary-color)!important;
         bottom: 0!important;
         content: ''!important;
-        height: 3px!important;
+        height: 4px!important;
         left: 50%!important;
         position: absolute!important;
         transition: width 0.3s, left 0.3s!important;

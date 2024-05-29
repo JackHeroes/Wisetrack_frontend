@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from '../views/LoginPage.vue';
 import CadastroPage from '../views/CadastroPage.vue';
 import HomePage from '../views/HomePage.vue';
+import PrimeirosPassosPage from '../views/PrimeirosPassosPage.vue'
 import CategoriaGastoPage from '../views/CategoriaGastoPage.vue'
 import MetodoPagamentoPage from '../views/MetodoPagamentoPage.vue'
 
@@ -19,9 +20,15 @@ const routes = [
         name: 'Cadastro', 
     },
     { 
-        path: '/home', 
+        path: '/inicio', 
         component: HomePage,
         name: 'Home', 
+        meta: { requiresAuth: true }
+    },
+    { 
+        path: '/primeiros-passos', 
+        component: PrimeirosPassosPage,
+        name: 'PrimeirosPassos', 
         meta: { requiresAuth: true }
     },
     { 

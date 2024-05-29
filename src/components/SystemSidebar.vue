@@ -2,6 +2,12 @@
     <v-navigation-drawer expand-on-hover permanent rail>
         <v-list density="compact" nav>
             <v-list-item 
+                prepend-icon="mdi-stairs" 
+                title="Primeiros passos" 
+                :class="{ 'v-sidebar-active': isActive('/primeiros-passos') }"
+                @click="navigate('/primeiros-passos')">
+            </v-list-item>
+            <v-list-item 
                 prepend-icon="mdi-view-grid" 
                 title="Categorias de gastos" 
                 :class="{ 'v-sidebar-active': isActive('/categoria-gasto') }"
@@ -58,15 +64,15 @@
 
     .v-list-item:hover,
     .v-sidebar-active {
-        background-color: var(--main-color)!important;
+        background-color: var(--primary-color)!important;
     }
 
-    :deep(.v-list-item__prepend i) {
+    :deep(.v-list-item__prepend .v-icon) {
         transition: opacity 0.3s!important; 
     }
 
-    :deep(.v-sidebar-active .v-list-item__prepend i),
-    :deep(.v-list-item:hover .v-list-item__prepend i) {
+    :deep(.v-sidebar-active .v-list-item__prepend .v-icon),
+    :deep(.v-list-item:hover .v-list-item__prepend .v-icon) {
         opacity: 1!important;
     }
 </style>

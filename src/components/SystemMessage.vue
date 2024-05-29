@@ -36,8 +36,8 @@
 </script>
 <style scoped>
 	.v-alert {
-		bottom: 0;
-		margin: 1.5rem;
-		position: absolute;
+		bottom: 0!important;
+		margin: 1.5rem!important;
+		position: absolute!important;
 	}
 </style>

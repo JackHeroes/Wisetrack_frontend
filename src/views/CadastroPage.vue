@@ -5,7 +5,7 @@
                 <v-img
                     class="w-100 h-100"
                     cover
-                    src="\src\assets\images\banner.png">
+                    src="\src\assets\images\">
                 </v-img>
             </v-card>
             <v-card class="d-flex flex-column justify-center align-center rounded-s-0 rounded-e-xl">
@@ -14,7 +14,7 @@
                     <v-text-field 
                         v-model="username"
                         class="mb-4"
-                        color="var(--main-color)"
+                        color="var(--primary-color)"
                         hide-details="auto"
                         label="Usuário"
                         name="username"
@@ -24,7 +24,7 @@
                     <v-text-field 
                         v-model="email"
                         class="mb-4"
-                        color="var(--main-color)"
+                        color="var(--primary-color)"
                         hide-details="auto"
                         label="E-mail"
                         name="email"
@@ -32,29 +32,19 @@
                         :error-messages="v$?.email?.$errors.map(e => e.$message)">
                     </v-text-field>
                     <v-text-field 
-                        v-model="first_name"
+                        v-model="name"
                         class="mb-4"
-                        color="var(--main-color)"
+                        color="var(--primary-color)"
                         hide-details="auto"
                         label="Nome"
-                        name="first_name"
+                        name="name"
                         variant="outlined" 
-                        :error-messages="v$?.first_name?.$errors.map(e => e.$message)">
-                    </v-text-field>
-                    <v-text-field 
-                        v-model="last_name"
-                        class="mb-4"
-                        color="var(--main-color)"
-                        hide-details="auto"
-                        label="Sobrenome"
-                        name="last_name"
-                        variant="outlined" 
-                        :error-messages="v$?.last_name?.$errors.map(e => e.$message)">
+                        :error-messages="v$?.name?.$errors.map(e => e.$message)">
                     </v-text-field>
                     <v-text-field
                         v-model="password"
                         class="mb-4"
-                        color="var(--main-color)"
+                        color="var(--primary-color)"
                         hide-details="auto"
                         label="Senha"
                         name="password"
@@ -95,7 +85,7 @@
     data: () => ({
         username: '',
         email: '',
-        first_name: '',
+        name: '',
         last_name: '',
         password: '',
         message: '',
@@ -117,7 +107,7 @@
                     username: this.username,
                     email: this.email,
                     password: this.password,
-                    first_name: this.first_name,
+                    name: this.name,
                     last_name: this.last_name,
                 });
                 this.$router.push('/');
@@ -142,13 +132,9 @@
                 required: helpers.withMessage('E-mail é obrigatório', required),
                 email: helpers.withMessage('Insira um e-mail válido', email),
             },
-            first_name: {
+            name: {
                 required: helpers.withMessage('Nome é obrigatório', required),
                 alpha: helpers.withMessage('Insira um nome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
-            },
-            last_name: {
-                required: helpers.withMessage('Sobrenome é obrigatório', required),
-                alpha: helpers.withMessage('Insira um sobrenome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
             },
             password: {
                 required: helpers.withMessage('Senha é obrigatória', required),

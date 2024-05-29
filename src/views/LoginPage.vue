@@ -7,7 +7,7 @@
                     <v-text-field 
                         v-model="username"
                         class="mb-4"
-                        color="var(--main-color)"
+                        color="var(--primary-color)"
                         hide-details="auto"
                         label="Usuário"
                         name="username"
@@ -17,7 +17,7 @@
                     <v-text-field
                         v-model="password"
                         class="mb-4"
-                        color="var(--main-color)"
+                        color="var(--primary-color)"
                         hide-details="auto"
                         label="Senha"
                         name="password"
@@ -44,7 +44,7 @@
                 <v-img
                     class="w-100 h-100"
                     cover
-                    src="\src\assets\images\banner.png">
+                    src="\src\assets\images\">
                 </v-img>
             </v-card>
         </v-container>
@@ -84,7 +84,7 @@
                         username: this.username,
                         password: this.password,
                     });
-                    this.$router.push('/home');
+                    this.$router.push('/inicio');
                 } catch (error) {
                     this.message = error.response.data.error;
                     this.messageType = 'error';
