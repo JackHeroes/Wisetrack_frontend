@@ -22,9 +22,17 @@
             </v-timeline>
         </v-main>
         <SystemFooter/>
+        <SystemMessage
+            v-if="message"
+            :key="messageKey"
+            :message="message"
+            :type="messageType">
+        </SystemMessage>
     </v-app>
 </template>
 <script>
+    import { mapGetters } from 'vuex';
+    
     export default {
         data: () => ({
             items: [
@@ -53,7 +61,11 @@
                     text: 'Acompanhe suas finanças através de gráficos e relatórios no dashboard. Tenha uma visão clara de seus gastos'
                 },
             ],
+            messageKey: 0,
         }),
+        computed: {
+            ...mapGetters(['message', 'messageType'])
+        },
     }
 </script>
 <style scoped>

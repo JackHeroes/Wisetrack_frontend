@@ -29,34 +29,50 @@
     </v-app-bar>
 </template>
 <script>
-    import { mapGetters } from 'vuex';
     import axios from '../services/axios';
+    import store from '../store/store';
+    import { mapGetters } from 'vuex';
   
     export default {
         name: 'SystemMenu',
         computed: {
-            ...mapGetters(['user']),
+            ...mapGetters(['user', 'message', 'messageType']),
             currentRoute() {
                 return this.$route.path;
             }
         },
+        watch: {
+            message(newMessage) {
+                this.handleMessage(newMessage);
+            }
+        },
         methods: {
-            isActive(route) {
-                return this.currentRoute === route;
-            },
-            navigate(route) {
-                this.$router.push(route);
-            },
             async logout() {
                 try {
                     await axios.post('logout/LogoutApi/');
                     this.$store.commit('clearUser');
                     this.$router.push('/');
                 } catch (error) {
-                    this.message = error.response.data.error;
-                    this.messageType = 'error';
+                    store.dispatch('setMessage', {
+                        message: error.response.data.error,
+                        messageType: 'error'
+                    });
+                    this.messageKey += 1;
                 }
-            }
+            },
+            isActive(route) {
+                return this.currentRoute === route;
+            },
+            navigate(route) {
+                this.$router.push(route);
+            },
+            handleMessage(message) {
+                if (message) {
+                    setTimeout(() => {
+                        store.dispatch('clearMessage');
+                    }, 3500);  
+                }
+            },
         }
     }
 </script>

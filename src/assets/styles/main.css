@@ -7,11 +7,6 @@
     --white: #FFFFFF;
 }
 
-body {
-    height: 100vh!important;
-    width: 100%!important;
-}
-
 .v-main{
     padding-right: 56px!important;
 }

@@ -3,11 +3,11 @@ import App from './App.vue';
 import router from './router';
 import store from './store/store';
 
-import SystemFooter from './components/SystemFooter.vue'; 
 import SystemMenu from './components/SystemMenu.vue'; 
-import SystemMessage from './components/SystemMessage.vue';
 import SystemSidebar from './components/SystemSidebar.vue';  
+import SystemFooter from './components/SystemFooter.vue';   
 import SystemCrud from './components/SystemCrud.vue'; 
+import SystemMessage from './components/SystemMessage.vue';
 
 import { createVuetify } from 'vuetify';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
@@ -32,11 +32,11 @@ const vuetify = createVuetify({
 
 const app = createApp(App);
 
-app.component('SystemFooter', SystemFooter);
 app.component('SystemMenu', SystemMenu);
-app.component('SystemMessage', SystemMessage);
 app.component('SystemSidebar', SystemSidebar);
+app.component('SystemFooter', SystemFooter);
 app.component('SystemCrud', SystemCrud);
+app.component('SystemMessage', SystemMessage);
 
 app.use(router);
 app.use(store);

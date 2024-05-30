@@ -77,11 +77,11 @@
     </v-app>
 </template>
 <script>
-    import store from '../store/store';
     import axios from '../services/axios';
+    import store from '../store/store';
     import { email, required, helpers } from '@vuelidate/validators'
-    import { useVuelidate } from '@vuelidate/core'
     import { mapGetters } from 'vuex';
+    import { useVuelidate } from '@vuelidate/core'
 
     export default {
         setup: () => ({ v$: useVuelidate() }),
@@ -94,14 +94,15 @@
             visible: false,
             messageKey: 0,
         }),
+        mounted() {
+            this.handleMessage(this.message, this.messageType);
+        },
         computed: {
             ...mapGetters(['message', 'messageType'])
         },
-        mounted() {
-            if (this.message) {
-                setTimeout(() => {
-                    store.dispatch('clearMessage');
-                }, 3500); 
+        watch: {
+            message(newMessage) {
+                this.handleMessage(newMessage);
             }
         },
         methods: {
@@ -138,8 +139,16 @@
                 }
             },
             goToLogin() {
+                store.dispatch('clearMessage');
                 this.$router.push('/');
-            }
+            },
+            handleMessage(message) {
+                if (message) {
+                    setTimeout(() => {
+                        store.dispatch('clearMessage');
+                    }, 3500);  
+                }
+            },
         },
         validations() {
             return {

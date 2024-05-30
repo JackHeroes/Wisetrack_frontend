@@ -51,6 +51,7 @@
 		left: 0!important;
 		margin: 1.5rem!important;
 		position: absolute!important;
+		z-index: 5000!important;
 	}
 	
 	.fade-enter-active, .fade-leave-active {

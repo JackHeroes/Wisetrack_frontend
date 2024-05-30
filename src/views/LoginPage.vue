@@ -57,39 +57,42 @@
     </v-app>
 </template>
 <script>
-    import store from '../store/store';
     import axios from '../services/axios';
-    import { required, helpers } from '@vuelidate/validators'
-    import { useVuelidate } from '@vuelidate/core'
+    import store from '../store/store';
     import { mapGetters } from 'vuex';
+    import { required, helpers } from '@vuelidate/validators';
+    import { useVuelidate } from '@vuelidate/core';
 
     export default {
         setup: () => ({ v$: useVuelidate() }),
-        data: () => ({    
-            username: '',
-            password: '',
-            loading: false,
-            visible: false, 
-            messageKey: 0,
-        }),
+        data() {
+            return {
+                username: '',
+                password: '',
+                loading: false,
+                visible: false,
+                messageKey: 0,
+            };
+        },
+        mounted() {
+            this.handleMessage(this.message, this.messageType);
+        },
         computed: {
             ...mapGetters(['message', 'messageType'])
         },
-        mounted() {
-            if (this.message) {
-                setTimeout(() => {
-                    store.dispatch('clearMessage');
-                }, 3500); 
+        watch: {
+            message(newMessage) {
+                this.handleMessage(newMessage);
             }
         },
         methods: {
             async submit() {
-                const result = await this.v$.$validate()
+                const result = await this.v$.$validate();
                 if (!result) {
-                    return
-                } 
+                    return;
+                }
 
-                this.loading = true
+                this.loading = true;
 
                 try {
                     await axios.post('login/LoginApi/', {
@@ -107,22 +110,30 @@
                     this.loading = false;
                 }
             },
-            goToCadastro() { 
+            goToCadastro() {
+                store.dispatch('clearMessage');
                 this.$router.push('/cadastro');
-            }
+            },
+            handleMessage(message) {
+                if (message) {
+                    setTimeout(() => {
+                        store.dispatch('clearMessage');
+                    }, 3500);  
+                }
+            },
         },
-        validations () {
+        validations() {
             return {
-                username: { 
+                username: {
                     required: helpers.withMessage('Usuário é obrigatório', required),
                 },
                 password: {
                     required: helpers.withMessage('Senha é obrigatória', required),
                 },
-            }
-        }
+            };
+        },
     }
 </script>
 <style scoped>
-    @import "@/assets/styles/loginCadastro.css";
+@import "@/assets/styles/loginCadastro.css";
 </style>
