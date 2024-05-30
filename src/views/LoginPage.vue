@@ -57,21 +57,31 @@
     </v-app>
 </template>
 <script>
+    import store from '../store/store';
     import axios from '../services/axios';
     import { required, helpers } from '@vuelidate/validators'
     import { useVuelidate } from '@vuelidate/core'
+    import { mapGetters } from 'vuex';
 
     export default {
         setup: () => ({ v$: useVuelidate() }),
         data: () => ({    
             username: '',
             password: '',
-            message: '',
-            messageType: '',
             loading: false,
             visible: false, 
             messageKey: 0,
         }),
+        computed: {
+            ...mapGetters(['message', 'messageType'])
+        },
+        mounted() {
+            if (this.message) {
+                setTimeout(() => {
+                    store.dispatch('clearMessage');
+                }, 3500); 
+            }
+        },
         methods: {
             async submit() {
                 const result = await this.v$.$validate()
@@ -88,8 +98,10 @@
                     });
                     this.$router.push('/inicio');
                 } catch (error) {
-                    this.message = error.response.data.error;
-                    this.messageType = 'error';
+                    store.dispatch('setMessage', {
+                        message: error.response.data.error,
+                        messageType: 'error'
+                    });
                     this.messageKey += 1;
                 } finally {
                     this.loading = false;

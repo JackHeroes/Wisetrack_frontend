@@ -4,6 +4,8 @@ import { createStore } from 'vuex';
 const store = createStore({
     state: {
         user: null,
+        message: '',
+        messageType: '',
     },
     mutations: {
         setUser(state, user) {
@@ -12,6 +14,14 @@ const store = createStore({
         clearUser(state) {
             state.user = null;
         },
+        setMessage(state, { message, messageType }) {
+            state.message = message;
+            state.messageType = messageType;
+        },
+        clearMessage(state) {
+            state.message = '';
+            state.messageType = '';
+        }
     },
     actions: {
         async fetchUser({ commit }) {
@@ -20,12 +30,24 @@ const store = createStore({
                 commit('setUser', response.data.user);
             } catch (error) {
                 commit('clearUser');
+                commit('setMessage', {
+                    message: error.response.data.error,
+                    messageType: 'error'
+                });
                 throw error;
             }
         },
+        setMessage({ commit }, payload) {
+            commit('setMessage', payload);
+        },
+        clearMessage({ commit }) {
+            commit('clearMessage');
+        }
     },
     getters: {
         user: state => state.user,
+        message: state => state.message,
+        messageType: state => state.messageType,
     },
 });
 

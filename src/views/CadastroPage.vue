@@ -77,6 +77,7 @@
     </v-app>
 </template>
 <script>
+    import store from '../store/store';
     import axios from '../services/axios';
     import { email, required, helpers } from '@vuelidate/validators'
     import { useVuelidate } from '@vuelidate/core'
@@ -88,8 +89,6 @@
         email: '',
         name: '',
         password: '',
-        message: '',
-        messageType: '',
         loading: false,
         visible: false,
         messageKey: 0,
@@ -104,18 +103,24 @@
             this.loading = true
 
             try {
-                await axios.post('register/RegisterApi/', {
+                const response = await axios.post('register/RegisterApi/', {
                     username: this.username,
                     email: this.email,
                     password: this.password,
                     name: this.name,
                     last_name: this.last_name,
                 });
+                store.dispatch('setMessage', {
+                    message: response.data.success,
+                    messageType: 'success'
+                });
                 this.$router.push('/');
             }
             catch (error) {
-                this.message = error.response.data.error;
-                this.messageType = 'error';
+                store.dispatch('setMessage', {
+                    message: error.response.data.error,
+                    messageType: 'error'
+                });
                 this.messageKey += 1;
             } finally {
                 this.loading = false;
