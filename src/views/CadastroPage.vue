@@ -81,75 +81,86 @@
     import axios from '../services/axios';
     import { email, required, helpers } from '@vuelidate/validators'
     import { useVuelidate } from '@vuelidate/core'
+    import { mapGetters } from 'vuex';
 
     export default {
-    setup: () => ({ v$: useVuelidate() }),
-    data: () => ({
-        username: '',
-        email: '',
-        name: '',
-        password: '',
-        loading: false,
-        visible: false,
-        messageKey: 0,
-    }),
-    methods: {
-        async submit() {
-            const result = await this.v$.$validate();
-            if (!result) {
-                return;
-            }
-
-            this.loading = true
-
-            try {
-                const response = await axios.post('register/RegisterApi/', {
-                    username: this.username,
-                    email: this.email,
-                    password: this.password,
-                    name: this.name,
-                    last_name: this.last_name,
-                });
-                store.dispatch('setMessage', {
-                    message: response.data.success,
-                    messageType: 'success'
-                });
-                this.$router.push('/');
-            }
-            catch (error) {
-                store.dispatch('setMessage', {
-                    message: error.response.data.error,
-                    messageType: 'error'
-                });
-                this.messageKey += 1;
-            } finally {
-                this.loading = false;
+        setup: () => ({ v$: useVuelidate() }),
+        data: () => ({
+            username: '',
+            email: '',
+            name: '',
+            password: '',
+            loading: false,
+            visible: false,
+            messageKey: 0,
+        }),
+        computed: {
+            ...mapGetters(['message', 'messageType'])
+        },
+        mounted() {
+            if (this.message) {
+                setTimeout(() => {
+                    store.dispatch('clearMessage');
+                }, 3500); 
             }
         },
-        goToLogin() {
-            this.$router.push('/');
-        }
-    },
-    validations() {
-        return {
-            username: {
-                required: helpers.withMessage('Usuário é obrigatório', required),
+        methods: {
+            async submit() {
+                const result = await this.v$.$validate();
+                if (!result) {
+                    return;
+                }
+
+                this.loading = true
+
+                try {
+                    const response = await axios.post('register/RegisterApi/', {
+                        username: this.username,
+                        email: this.email,
+                        password: this.password,
+                        name: this.name,
+                        last_name: this.last_name,
+                    });
+                    store.dispatch('setMessage', {
+                        message: response.data.success,
+                        messageType: 'success'
+                    });
+                    this.$router.push('/');
+                }
+                catch (error) {
+                    store.dispatch('setMessage', {
+                        message: error.response.data.error,
+                        messageType: 'error'
+                    });
+                    this.messageKey += 1;
+                } finally {
+                    this.loading = false;
+                }
             },
-            email: {
-                required: helpers.withMessage('E-mail é obrigatório', required),
-                email: helpers.withMessage('Insira um e-mail válido', email),
-            },
-            name: {
-                required: helpers.withMessage('Nome é obrigatório', required),
-                alpha: helpers.withMessage('Insira um nome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
-            },
-            password: {
-                required: helpers.withMessage('Senha é obrigatória', required),
-                strongPassword: helpers.withMessage('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.', helpers.regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/))
-            },
-        };
-    },
-}
+            goToLogin() {
+                this.$router.push('/');
+            }
+        },
+        validations() {
+            return {
+                username: {
+                    required: helpers.withMessage('Usuário é obrigatório', required),
+                },
+                email: {
+                    required: helpers.withMessage('E-mail é obrigatório', required),
+                    email: helpers.withMessage('Insira um e-mail válido', email),
+                },
+                name: {
+                    required: helpers.withMessage('Nome é obrigatório', required),
+                    alpha: helpers.withMessage('Insira um nome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
+                },
+                password: {
+                    required: helpers.withMessage('Senha é obrigatória', required),
+                    strongPassword: helpers.withMessage('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.', helpers.regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/))
+                },
+            };
+        },
+    }
 </script>
 <style scoped>
     @import "@/assets/styles/loginCadastro.css";
