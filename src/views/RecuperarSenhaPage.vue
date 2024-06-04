@@ -4,7 +4,8 @@
             <v-card class="d-flex flex-column justify-center align-center rounded-s-xl rounded-e-0">
                 <div class="card-header d-flex flex-column justify-center align-center">
                     <v-img></v-img>
-                    <h1 class="v-title text-uppercase mb-6">Redefina sua senha</h1>
+                    <h1 class="v-title text-uppercase mb-1">Redefina sua senha</h1>
+                    <p class="text-center mb-6">Insira seu endereço de e-mail e lhe enviaremos instruções para redefinir sua senha</p>
                 </div>
                 <div class="card-body">
                     <v-form @submit.prevent="submit" class="d-flex flex-column justify-center align-center w-100">

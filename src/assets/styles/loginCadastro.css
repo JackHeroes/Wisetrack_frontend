@@ -20,6 +20,11 @@
     color: var(--primary-color);
 }
 
+.card-header p,
+.card-body a {
+    font-size: 14px;
+}
+
 .card-body .v-btn-primary {
     background-color: var(--primary-color);
     color: var(--white);
