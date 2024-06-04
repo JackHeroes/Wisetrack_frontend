@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import LoginPage from '../views/LoginPage.vue';
 import CadastroPage from '../views/CadastroPage.vue';
+import RecuperarSenhaPage from '../views/RecuperarSenhaPage.vue';
 import HomePage from '../views/HomePage.vue';
 import PrimeirosPassosPage from '../views/PrimeirosPassosPage.vue'
 import CategoriaGastoPage from '../views/CategoriaGastoPage.vue'
@@ -20,6 +21,11 @@ const routes = [
         path: '/cadastro', 
         component: CadastroPage,
         name: 'Cadastro', 
+    },
+    { 
+        path: '/esqueci-a-senha', 
+        component: RecuperarSenhaPage,
+        name: 'RecuperarSenha', 
     },
     { 
         path: '/inicio', 

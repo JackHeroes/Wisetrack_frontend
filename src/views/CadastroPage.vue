@@ -9,63 +9,68 @@
                 </v-img>
             </v-card>
             <v-card class="d-flex flex-column justify-center align-center rounded-s-0 rounded-e-xl">
-                <h1 class="v-title text-uppercase mb-4">Cadastre-se</h1>
-                <v-form @submit.prevent="submit" class="d-flex flex-column justify-center align-center w-100">
-                    <v-text-field 
-                        v-model="username"
-                        class="mb-4"
-                        color="var(--primary-color)"
-                        hide-details="auto"
-                        label="Usuário"
-                        name="username"
-                        variant="outlined" 
-                        :error-messages="v$?.username?.$errors.map(e => e.$message)">
-                    </v-text-field>
-                    <v-text-field 
-                        v-model="email"
-                        class="mb-4"
-                        color="var(--primary-color)"
-                        hide-details="auto"
-                        label="E-mail"
-                        name="email"
-                        variant="outlined" 
-                        :error-messages="v$?.email?.$errors.map(e => e.$message)">
-                    </v-text-field>
-                    <v-text-field 
-                        v-model="name"
-                        class="mb-4"
-                        color="var(--primary-color)"
-                        hide-details="auto"
-                        label="Nome"
-                        name="name"
-                        variant="outlined" 
-                        :error-messages="v$?.name?.$errors.map(e => e.$message)">
-                    </v-text-field>
-                    <v-text-field
-                        v-model="password"
-                        class="mb-4"
-                        color="var(--primary-color)"
-                        hide-details="auto"
-                        label="Senha"
-                        name="password"
-                        variant="outlined"
-                        :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
-                        :error-messages="v$?.password?.$errors.map(e => e.$message)"
-                        :type="visible ? 'text' : 'password'"
-                        @click:append-inner="visible = !visible">
-                    </v-text-field>
-                    <v-btn 
-                        class="v-btn-primary mb-4"
-                        size="large" 
-                        type="submit"
-                        :loading="loading">
-                        Criar conta
-                    </v-btn>
-                </v-form>
-                <p class="v-link">
-                    <span>Já tem uma conta? </span>
+                <div class="card-header d-flex flex-column justify-center align-center">
+                    <v-img></v-img>
+                    <h1 class="v-title text-uppercase mb-6">Cadastre-se</h1>
+                </div>
+                <div class="card-body">
+                    <v-form @submit.prevent="submit" class="d-flex flex-column justify-center align-center w-100">
+                        <v-text-field 
+                            v-model="username"
+                            class="mb-3 w-100"
+                            color="var(--primary-color)"
+                            hide-details="auto"
+                            label="Usuário"
+                            name="username"
+                            variant="outlined" 
+                            :error-messages="v$?.username?.$errors.map(e => e.$message)">
+                        </v-text-field>
+                        <v-text-field 
+                            v-model="email"
+                            class="mb-3 w-100"
+                            color="var(--primary-color)"
+                            hide-details="auto"
+                            label="E-mail"
+                            name="email"
+                            variant="outlined" 
+                            :error-messages="v$?.email?.$errors.map(e => e.$message)">
+                        </v-text-field>
+                        <v-text-field 
+                            v-model="name"
+                            class="mb-3 w-100"
+                            color="var(--primary-color)"
+                            hide-details="auto"
+                            label="Nome"
+                            name="name"
+                            variant="outlined" 
+                            :error-messages="v$?.name?.$errors.map(e => e.$message)">
+                        </v-text-field>
+                        <v-text-field
+                            v-model="password"
+                            class="mb-4 w-100"
+                            color="var(--primary-color)"
+                            hide-details="auto"
+                            label="Senha"
+                            name="password"
+                            variant="outlined"
+                            :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
+                            :error-messages="v$?.password?.$errors.map(e => e.$message)"
+                            :type="visible ? 'text' : 'password'"
+                            @click:append-inner="visible = !visible">
+                        </v-text-field>
+                        <v-btn 
+                            class="v-btn-primary mb-6 w-100"
+                            size="large" 
+                            type="submit"
+                            :loading="loading">
+                            Criar conta
+                        </v-btn>
+                    </v-form>
+                </div>
+                <div class="card-footer d-flex justify-center align-center ga-1">
+                    <span>Já tem uma conta?</span>
                     <a @click="goToLogin" class="cursor-pointer">Faça login</a>
-                </p>
+                </div>
             </v-card> 
             <SystemMessage
                 v-if="message"
