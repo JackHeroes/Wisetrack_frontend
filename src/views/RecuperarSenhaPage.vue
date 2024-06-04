@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-container class="d-flex justify-center align-center fill-height" fluid>
-            <v-card class="d-flex flex-column justify-center align-center rounded-s-xl rounded-e-0">
+            <v-card class="d-flex flex-column justify-center align-center rounded-xl">
                 <div class="card-header d-flex flex-column justify-center align-center">
                     <v-img></v-img>
                     <h1 class="v-title text-uppercase mb-1">Redefina sua senha</h1>
@@ -33,13 +33,6 @@
                     <a @click="goToLogin" class="cursor-pointer">Faça login</a>
                 </div>
             </v-card>   
-            <v-card class="d-flex flex-column justify-center align-center rounded-s-0 rounded-e-xl">
-                <v-img
-                    class="w-100 h-100"
-                    cover
-                    src="\src\assets\images\">
-                </v-img>
-            </v-card>
             <SystemMessage
                 v-if="message"
                 :key="messageKey"
@@ -85,7 +78,7 @@
                 this.loading = true
 
                 try {
-                    const response = await axios.post('password/PasswordApi/', {
+                    const response = await axios.post('password/PasswordForgotApi/', {
                         email: this.email,
                     });
                     store.dispatch('setMessage', {
