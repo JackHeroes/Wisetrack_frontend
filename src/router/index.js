@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from '../views/LoginPage.vue';
 import CadastroPage from '../views/CadastroPage.vue';
 import RecuperarSenhaPage from '../views/RecuperarSenhaPage.vue';
+import RedefinirSenhaPage from '../views/RedefinirSenhaPage.vue';
 import HomePage from '../views/HomePage.vue';
 import PrimeirosPassosPage from '../views/PrimeirosPassosPage.vue'
 import CategoriaGastoPage from '../views/CategoriaGastoPage.vue'
@@ -26,6 +27,11 @@ const routes = [
         path: '/esqueci-a-senha', 
         component: RecuperarSenhaPage,
         name: 'RecuperarSenha', 
+    },
+    { 
+        path: '/redefinir-senha', 
+        component: RedefinirSenhaPage,
+        name: 'RedefinirSenha', 
     },
     { 
         path: '/inicio', 
