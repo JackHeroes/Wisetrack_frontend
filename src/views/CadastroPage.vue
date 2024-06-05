@@ -23,6 +23,7 @@
                             label="Usuário"
                             name="username"
                             variant="outlined" 
+                            density="compact"
                             :error-messages="v$?.username?.$errors.map(e => e.$message)">
                         </v-text-field>
                         <v-text-field 
@@ -33,18 +34,33 @@
                             label="E-mail"
                             name="email"
                             variant="outlined" 
+                            density="compact"
                             :error-messages="v$?.email?.$errors.map(e => e.$message)">
                         </v-text-field>
-                        <v-text-field 
-                            v-model="name"
-                            class="mb-3 w-100"
-                            color="var(--primary-color)"
-                            hide-details="auto"
-                            label="Nome"
-                            name="name"
-                            variant="outlined" 
-                            :error-messages="v$?.name?.$errors.map(e => e.$message)">
-                        </v-text-field>
+                        <div class="d-flex ga-2 w-100">
+                            <v-text-field 
+                                v-model="first_name"
+                                class="mb-3 w-100"
+                                color="var(--primary-color)"
+                                hide-details="auto"
+                                label="Nome"
+                                name="first_name"
+                                variant="outlined" 
+                                density="compact"
+                                :error-messages="v$?.first_name?.$errors.map(e => e.$message)">
+                            </v-text-field>
+                                <v-text-field 
+                                v-model="last_name"
+                                class="mb-3 w-100"
+                                color="var(--primary-color)"
+                                hide-details="auto"
+                                label="Sobrenome"
+                                name="last_name"
+                                variant="outlined" 
+                                density="compact"
+                                :error-messages="v$?.last_name?.$errors.map(e => e.$message)">
+                            </v-text-field>
+                        </div>
                         <v-text-field
                             v-model="password"
                             class="mb-4 w-100"
@@ -53,6 +69,7 @@
                             label="Senha"
                             name="password"
                             variant="outlined"
+                            density="compact"
                             :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
                             :error-messages="v$?.password?.$errors.map(e => e.$message)"
                             :type="visible ? 'text' : 'password'"
@@ -93,7 +110,8 @@
         data: () => ({
             username: '',
             email: '',
-            name: '',
+            first_name: '',
+            last_name: '',
             password: '',
             loading: false,
             visible: false,
@@ -123,9 +141,9 @@
                     const response = await axios.post('register/RegisterApi/', {
                         username: this.username,
                         email: this.email,
-                        password: this.password,
-                        name: this.name,
+                        first_name: this.first_name,
                         last_name: this.last_name,
+                        password: this.password,
                     });
                     store.dispatch('setMessage', {
                         message: response.data.success,
@@ -164,7 +182,11 @@
                     required: helpers.withMessage('E-mail é obrigatório', required),
                     email: helpers.withMessage('Insira um e-mail válido', email),
                 },
-                name: {
+                first_name: {
+                    required: helpers.withMessage('Nome é obrigatório', required),
+                    alpha: helpers.withMessage('Insira um nome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
+                },
+                last_name: {
                     required: helpers.withMessage('Nome é obrigatório', required),
                     alpha: helpers.withMessage('Insira um nome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
                 },
