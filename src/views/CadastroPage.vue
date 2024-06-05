@@ -37,30 +37,28 @@
                             density="compact"
                             :error-messages="v$?.email?.$errors.map(e => e.$message)">
                         </v-text-field>
-                        <div class="d-flex ga-2 w-100">
+                        <v-text-field 
+                            v-model="first_name"
+                            class="mb-3 w-100"
+                            color="var(--primary-color)"
+                            hide-details="auto"
+                            label="Nome"
+                            name="first_name"
+                            variant="outlined" 
+                            density="compact"
+                            :error-messages="v$?.first_name?.$errors.map(e => e.$message)">
+                        </v-text-field>
                             <v-text-field 
-                                v-model="first_name"
-                                class="mb-3 w-100"
-                                color="var(--primary-color)"
-                                hide-details="auto"
-                                label="Nome"
-                                name="first_name"
-                                variant="outlined" 
-                                density="compact"
-                                :error-messages="v$?.first_name?.$errors.map(e => e.$message)">
-                            </v-text-field>
-                                <v-text-field 
-                                v-model="last_name"
-                                class="mb-3 w-100"
-                                color="var(--primary-color)"
-                                hide-details="auto"
-                                label="Sobrenome"
-                                name="last_name"
-                                variant="outlined" 
-                                density="compact"
-                                :error-messages="v$?.last_name?.$errors.map(e => e.$message)">
-                            </v-text-field>
-                        </div>
+                            v-model="last_name"
+                            class="mb-3 w-100"
+                            color="var(--primary-color)"
+                            hide-details="auto"
+                            label="Sobrenome"
+                            name="last_name"
+                            variant="outlined" 
+                            density="compact"
+                            :error-messages="v$?.last_name?.$errors.map(e => e.$message)">
+                        </v-text-field>
                         <v-text-field
                             v-model="password"
                             class="mb-4 w-100"
