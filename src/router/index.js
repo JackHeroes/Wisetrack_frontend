@@ -1,5 +1,6 @@
 import store from '../store/store';
 import { createRouter, createWebHistory } from 'vue-router';
+import Cookies from 'js-cookie';
 
 import LoginPage from '../views/LoginPage.vue';
 import CadastroPage from '../views/CadastroPage.vue';
@@ -29,45 +30,46 @@ const routes = [
         name: 'RecuperarSenha', 
     },
     { 
-        path: '/redefinir-senha', 
+        path: '/redefinir-senha/:password_token',
         component: RedefinirSenhaPage,
-        name: 'RedefinirSenha', 
+        name: 'RedefinirSenha',
+        meta: { requiresPasswordAuth: true }
     },
     { 
         path: '/inicio', 
         component: HomePage,
         name: 'Home', 
-        meta: { requiresAuth: true }
+        meta: { requiresUserAuth: true }
     },
     { 
         path: '/primeiros-passos', 
         component: PrimeirosPassosPage,
         name: 'PrimeirosPassos', 
-        meta: { requiresAuth: true }
+        meta: { requiresUserAuth: true }
     },
     { 
         path: '/categoria-gasto', 
         component: CategoriaGastoPage,
         name: 'CategoriaGasto', 
-        meta: { requiresAuth: true }
+        meta: { requiresUserAuth: true }
     },
     { 
         path: '/metodo-pagamento', 
         component: MetodoPagamentoPage,
         name: 'MetodoPagamento', 
-        meta: { requiresAuth: true }
+        meta: { requiresUserAuth: true }
     },
     { 
         path: '/planilha-gasto', 
         component: PlanilhaGastoPage,
         name: 'PlanilhaGasto', 
-        meta: { requiresAuth: true }
+        meta: { requiresUserAuth: true }
     },
     { 
         path: '/dashboard', 
         component: DashboardPage,
         name: 'Dashboard', 
-        meta: { requiresAuth: true }
+        meta: { requiresUserAuth: true }
     },
 ];
 
@@ -77,11 +79,23 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    const requiresPasswordAuth = to.matched.some(record => record.meta.requiresPasswordAuth);
+    const requiresUserAuth = to.matched.some(record => record.meta.requiresUserAuth);
   
-    if (requiresAuth) {
+    if (requiresUserAuth) {
         try {
-            await store.dispatch('fetchUser');
+            await store.dispatch('validateUser');
+            next();
+        } catch (error) {
+            next('/');
+        }
+    } else if (requiresPasswordAuth) {
+
+        const password_token = to.params.password_token;
+        Cookies.set('passwordToken', password_token, { sameSite: 'Lax', secure: true });
+
+        try {
+            await store.dispatch('validateToken');
             next();
         } catch (error) {
             next('/');

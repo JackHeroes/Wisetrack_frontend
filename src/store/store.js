@@ -24,12 +24,23 @@ const store = createStore({
         }
     },
     actions: {
-        async fetchUser({ commit }) {
+        async validateUser({ commit }) {
             try {
-                const response = await axios.get('auth/AuthApi/');
+                const response = await axios.get('auth/UserAuthApi/');
                 commit('setUser', response.data.user);
             } catch (error) {
                 commit('clearUser');
+                commit('setMessage', {
+                    message: error.response.data.error,
+                    messageType: 'error'
+                });
+                throw error;
+            }
+        },
+        async validateToken({ commit }) {
+            try {
+                await axios.get('/auth/PasswordAuthApi');
+            } catch (error) {
                 commit('setMessage', {
                     message: error.response.data.error,
                     messageType: 'error'

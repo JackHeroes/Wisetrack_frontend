@@ -109,6 +109,7 @@
                         username: this.username,
                         password: this.password,
                     });
+                    store.dispatch('clearMessage');
                     this.$router.push('/inicio');
                 } catch (error) {
                     store.dispatch('setMessage', {
