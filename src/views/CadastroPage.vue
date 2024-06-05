@@ -187,8 +187,8 @@
                     alpha: helpers.withMessage('Insira um nome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
                 },
                 last_name: {
-                    required: helpers.withMessage('Nome é obrigatório', required),
-                    alpha: helpers.withMessage('Insira um nome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
+                    required: helpers.withMessage('Sobrenome é obrigatório', required),
+                    alpha: helpers.withMessage('Insira um sobrenome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
                 },
                 password: {
                     required: helpers.withMessage('Senha é obrigatória', required),
