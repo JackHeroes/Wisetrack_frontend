@@ -1,6 +1,6 @@
+import Cookies from 'js-cookie';
 import store from '../store/store';
 import { createRouter, createWebHistory } from 'vue-router';
-import Cookies from 'js-cookie';
 
 import LoginPage from '../views/LoginPage.vue';
 import CadastroPage from '../views/CadastroPage.vue';

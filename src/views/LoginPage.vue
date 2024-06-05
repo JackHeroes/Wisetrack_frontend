@@ -16,7 +16,7 @@
                             label="Usuário"
                             name="username"
                             variant="outlined" 
-                            density="compact"
+                            density="comfortable"
                             :error-messages="v$?.username?.$errors.map(e => e.$message)">
                         </v-text-field>
                         <v-text-field
@@ -27,7 +27,7 @@
                             label="Senha"
                             name="password"
                             variant="outlined"
-                            density="compact"
+                            density="comfortable"
                             :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
                             :error-messages="v$?.password?.$errors.map(e => e.$message)"
                             :type="visible ? 'text' : 'password'"

@@ -23,7 +23,7 @@
                             label="Usuário"
                             name="username"
                             variant="outlined" 
-                            density="compact"
+                            density="comfortable"
                             :error-messages="v$?.username?.$errors.map(e => e.$message)">
                         </v-text-field>
                         <v-text-field 
@@ -34,7 +34,7 @@
                             label="E-mail"
                             name="email"
                             variant="outlined" 
-                            density="compact"
+                            density="comfortable"
                             :error-messages="v$?.email?.$errors.map(e => e.$message)">
                         </v-text-field>
                         <v-text-field 
@@ -45,7 +45,7 @@
                             label="Nome"
                             name="first_name"
                             variant="outlined" 
-                            density="compact"
+                            density="comfortable"
                             :error-messages="v$?.first_name?.$errors.map(e => e.$message)">
                         </v-text-field>
                             <v-text-field 
@@ -56,7 +56,7 @@
                             label="Sobrenome"
                             name="last_name"
                             variant="outlined" 
-                            density="compact"
+                            density="comfortable"
                             :error-messages="v$?.last_name?.$errors.map(e => e.$message)">
                         </v-text-field>
                         <v-text-field
@@ -67,7 +67,7 @@
                             label="Senha"
                             name="password"
                             variant="outlined"
-                            density="compact"
+                            density="comfortable"
                             :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
                             :error-messages="v$?.password?.$errors.map(e => e.$message)"
                             :type="visible ? 'text' : 'password'"

@@ -17,7 +17,7 @@
                             label="E-mail"
                             name="email"
                             variant="outlined" 
-                            density="compact"
+                            density="comfortable"
                             :error-messages="v$?.email?.$errors.map(e => e.$message)">
                         </v-text-field>
                         <v-btn 
