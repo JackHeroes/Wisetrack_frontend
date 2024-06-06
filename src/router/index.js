@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie';
+import cookies from 'js-cookie';
 import store from '../store/store';
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -92,7 +92,7 @@ router.beforeEach(async (to, from, next) => {
     } else if (requiresPasswordAuth) {
 
         const passwordToken = to.params.passwordToken;
-        Cookies.set('passwordToken', passwordToken, { 
+        cookies.set('passwordToken', passwordToken, { 
             expires: new Date(new Date().getTime() + 15 * 60 * 1000),
             secure: true, 
             sameSite: 'Lax' 
