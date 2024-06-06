@@ -12,26 +12,26 @@
                             v-model="username"
                             class="mb-3 w-100"
                             color="var(--primary-color)"
+                            density="comfortable"
                             hide-details="auto"
                             label="Usuário"
                             name="username"
                             variant="outlined" 
-                            density="comfortable"
                             :error-messages="v$?.username?.$errors.map(e => e.$message)">
                         </v-text-field>
                         <v-text-field
                             v-model="password"
                             class="mb-1 w-100"
                             color="var(--primary-color)"
+                            density="comfortable"
                             hide-details="auto"
                             label="Senha"
                             name="password"
                             variant="outlined"
-                            density="comfortable"
-                            :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
+                            :append-inner-icon="passwordVisible ? 'mdi-eye' : 'mdi-eye-off'"
                             :error-messages="v$?.password?.$errors.map(e => e.$message)"
-                            :type="visible ? 'text' : 'password'"
-                            @click:append-inner="visible = !visible">
+                            :type="passwordVisible ? 'text' : 'password'"
+                            @click:append-inner="passwordVisible = !passwordVisible">
                         </v-text-field>
                         <div class="d-flex justify-end align-center cursor-pointer mb-4">
                             <a @click="goToSenha">Esqueceu a senha?</a>
@@ -59,7 +59,7 @@
             </v-card>
             <SystemMessage
                 v-if="message"
-                :key="messageKey"
+                :key="messagekey"
                 :message="message"
                 :type="messageType">
             </SystemMessage>
@@ -80,8 +80,8 @@
                 username: '',
                 password: '',
                 loading: false,
-                visible: false,
-                messageKey: 0,
+                passwordVisible: false,
+                messagekey: 0,
             };
         },
         mounted() {
@@ -116,7 +116,7 @@
                         message: error.response.data.error,
                         messageType: 'error'
                     });
-                    this.messageKey += 1;
+                    this.messagekey += 1;
                 } finally {
                     this.loading = false;
                 }
@@ -149,5 +149,5 @@
     }
 </script>
 <style scoped>
-@import "@/assets/styles/loginCadastro.css";
+    @import "@/assets/styles/loginCadastro.css";
 </style>

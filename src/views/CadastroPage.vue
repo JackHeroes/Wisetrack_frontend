@@ -19,59 +19,59 @@
                             v-model="username"
                             class="mb-3 w-100"
                             color="var(--primary-color)"
+                            density="comfortable"
                             hide-details="auto"
                             label="Usuário"
                             name="username"
                             variant="outlined" 
-                            density="comfortable"
                             :error-messages="v$?.username?.$errors.map(e => e.$message)">
                         </v-text-field>
                         <v-text-field 
                             v-model="email"
                             class="mb-3 w-100"
                             color="var(--primary-color)"
+                            density="comfortable"
                             hide-details="auto"
                             label="E-mail"
                             name="email"
-                            variant="outlined" 
-                            density="comfortable"
+                            variant="outlined"
                             :error-messages="v$?.email?.$errors.map(e => e.$message)">
                         </v-text-field>
                         <v-text-field 
-                            v-model="first_name"
+                            v-model="firstName"
                             class="mb-3 w-100"
                             color="var(--primary-color)"
+                            density="comfortable"
                             hide-details="auto"
                             label="Nome"
-                            name="first_name"
-                            variant="outlined" 
-                            density="comfortable"
-                            :error-messages="v$?.first_name?.$errors.map(e => e.$message)">
+                            name="firstName"
+                            variant="outlined"
+                            :error-messages="v$?.firstName?.$errors.map(e => e.$message)">
                         </v-text-field>
                             <v-text-field 
-                            v-model="last_name"
+                            v-model="lastName"
                             class="mb-3 w-100"
                             color="var(--primary-color)"
+                            density="comfortable"
                             hide-details="auto"
                             label="Sobrenome"
-                            name="last_name"
-                            variant="outlined" 
-                            density="comfortable"
-                            :error-messages="v$?.last_name?.$errors.map(e => e.$message)">
+                            name="lastName"
+                            variant="outlined"
+                            :error-messages="v$?.lastName?.$errors.map(e => e.$message)">
                         </v-text-field>
                         <v-text-field
                             v-model="password"
                             class="mb-4 w-100"
                             color="var(--primary-color)"
+                            density="comfortable"
                             hide-details="auto"
                             label="Senha"
                             name="password"
                             variant="outlined"
-                            density="comfortable"
-                            :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
+                            :append-inner-icon="passwordVisible ? 'mdi-eye' : 'mdi-eye-off'"
                             :error-messages="v$?.password?.$errors.map(e => e.$message)"
-                            :type="visible ? 'text' : 'password'"
-                            @click:append-inner="visible = !visible">
+                            :type="passwordVisible ? 'text' : 'password'"
+                            @click:append-inner="passwordVisible = !passwordVisible">
                         </v-text-field>
                         <v-btn 
                             class="v-btn-primary mb-6 w-100"
@@ -108,11 +108,11 @@
         data: () => ({
             username: '',
             email: '',
-            first_name: '',
-            last_name: '',
+            firstName: '',
+            lastName: '',
             password: '',
             loading: false,
-            visible: false,
+            passwordVisible: false,
             messageKey: 0,
         }),
         mounted() {
@@ -139,8 +139,8 @@
                     const response = await axios.post('register/RegisterApi/', {
                         username: this.username,
                         email: this.email,
-                        first_name: this.first_name,
-                        last_name: this.last_name,
+                        firstName: this.firstName,
+                        lastName: this.lastName,
                         password: this.password,
                     });
                     store.dispatch('setMessage', {
@@ -180,11 +180,11 @@
                     required: helpers.withMessage('E-mail é obrigatório', required),
                     email: helpers.withMessage('Insira um e-mail válido', email),
                 },
-                first_name: {
+                firstName: {
                     required: helpers.withMessage('Nome é obrigatório', required),
                     alpha: helpers.withMessage('Insira um nome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
                 },
-                last_name: {
+                lastName: {
                     required: helpers.withMessage('Sobrenome é obrigatório', required),
                     alpha: helpers.withMessage('Insira um sobrenome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
                 },

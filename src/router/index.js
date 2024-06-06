@@ -30,7 +30,7 @@ const routes = [
         name: 'RecuperarSenha', 
     },
     { 
-        path: '/redefinir-senha/:password_token',
+        path: '/redefinir-senha/:passwordToken',
         component: RedefinirSenhaPage,
         name: 'RedefinirSenha',
         meta: { requiresPasswordAuth: true }
@@ -91,8 +91,12 @@ router.beforeEach(async (to, from, next) => {
         }
     } else if (requiresPasswordAuth) {
 
-        const password_token = to.params.password_token;
-        Cookies.set('passwordToken', password_token, { sameSite: 'Lax', secure: true });
+        const passwordToken = to.params.passwordToken;
+        Cookies.set('passwordToken', passwordToken, { 
+            expires: new Date(new Date().getTime() + 15 * 60 * 1000),
+            secure: true, 
+            sameSite: 'Lax' 
+        });
 
         try {
             await store.dispatch('validateToken');

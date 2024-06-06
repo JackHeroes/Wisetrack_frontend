@@ -1,7 +1,7 @@
-import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store/store';
+import { createApp } from 'vue';
 
 import SystemMenu from './components/SystemMenu.vue'; 
 import SystemSidebar from './components/SystemSidebar.vue';  

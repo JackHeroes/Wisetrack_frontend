@@ -12,29 +12,29 @@
                             v-model="password"
                             class="mb-4 w-100"
                             color="var(--primary-color)"
+                            density="comfortable"
                             hide-details="auto"
                             label="Senha"
                             name="password"
                             variant="outlined"
-                            density="comfortable"
-                            :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
+                            :append-inner-icon="passwordVisible ? 'mdi-eye' : 'mdi-eye-off'"
                             :error-messages="v$?.password?.$errors.map(e => e.$message)"
-                            :type="visible ? 'text' : 'password'"
-                            @click:append-inner="visible = !visible">
+                            :type="passwordVisible ? 'text' : 'password'"
+                            @click:append-inner="passwordVisible = !passwordVisible">
                         </v-text-field>
                         <v-text-field
-                            v-model="confirm_password"
+                            v-model="confirmPassword"
                             class="mb-4 w-100"
                             color="var(--primary-color)"
+                            density="comfortable"
                             hide-details="auto"
                             label="Confirmar senha"
-                            name="confirm_password"
+                            name="confirmPassword"
                             variant="outlined"
-                            density="comfortable"
-                            :append-inner-icon="confirm_visible ? 'mdi-eye' : 'mdi-eye-off'"
-                            :error-messages="v$?.confirm_password?.$errors.map(e => e.$message)"
-                            :type="confirm_visible ? 'text' : 'password'"
-                            @click:append-inner="confirm_visible = !confirm_visible">
+                            :append-inner-icon="confirmPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'"
+                            :error-messages="v$?.confirmPassword?.$errors.map(e => e.$message)"
+                            :type="confirmPasswordVisible ? 'text' : 'password'"
+                            @click:append-inner="confirmPasswordVisible = !confirmPasswordVisible">
                         </v-text-field>
                         <v-btn 
                             class="v-btn-primary mb-6 w-100"
@@ -62,18 +62,18 @@
 <script>
     import axios from '../services/axios';
     import store from '../store/store';
-    import { required, helpers } from '@vuelidate/validators'
     import { mapGetters } from 'vuex';
+    import { required, helpers } from '@vuelidate/validators'
     import { useVuelidate } from '@vuelidate/core'
 
     export default {
         setup: () => ({ v$: useVuelidate() }),
         data: () => ({
             password: '',
-            confirm_password: '',
+            confirmPassword: '',
             loading: false,
-            visible: false,
-            confirm_visible: false,
+            passwordVisible: false,
+            confirmPasswordVisible: false,
             messageKey: 0,
         }),
         mounted() {
@@ -97,9 +97,9 @@
                 this.loading = true
 
                 try {
-                    const response = await axios.post('password/PasswordResetApi/', {
+                    const response = await axios.patch('password/PasswordResetApi/', {
                         password: this.password,
-                        confirm_password: this.confirm_password,
+                        confirmPassword: this.confirmPassword,
                     });
                     store.dispatch('setMessage', {
                         message: response.data.success,
@@ -135,7 +135,7 @@
                     required: helpers.withMessage('Senha é obrigatória', required),
                     strongPassword: helpers.withMessage('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.', helpers.regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/))
                 },
-                confirm_password: {
+                confirmPassword: {
                     required: helpers.withMessage('Confirmação de senha é obrigatória', required),
                     strongPassword: helpers.withMessage('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.', helpers.regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/))
                 },

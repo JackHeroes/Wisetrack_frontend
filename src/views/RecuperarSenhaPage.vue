@@ -13,11 +13,11 @@
                             v-model="email"
                             class="mb-4 w-100"
                             color="var(--primary-color)"
+                            density="comfortable"
                             hide-details="auto"
                             label="E-mail"
                             name="email"
-                            variant="outlined" 
-                            density="comfortable"
+                            variant="outlined"
                             :error-messages="v$?.email?.$errors.map(e => e.$message)">
                         </v-text-field>
                         <v-btn 
@@ -55,7 +55,6 @@
         data: () => ({
             email: '',
             loading: false,
-            visible: false,
             messageKey: 0,
         }),
         mounted() {
