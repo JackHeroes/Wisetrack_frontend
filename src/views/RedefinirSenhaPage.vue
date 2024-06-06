@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-container class="d-flex justify-center align-center fill-height" fluid>
-            <v-card class="d-flex flex-column justify-center align-center rounded-xl">
+            <v-card class="content-card d-flex flex-column justify-center align-center rounded-xl">
                 <div class="card-header d-flex flex-column justify-center align-center">
                     <v-img></v-img>
                     <h1 class="v-title text-center text-uppercase mb-6">Redefina sua senha</h1>
