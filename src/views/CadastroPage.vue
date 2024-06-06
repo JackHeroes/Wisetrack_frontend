@@ -1,14 +1,26 @@
 <template>
     <v-app>
         <v-container class="d-flex justify-center align-center fill-height" fluid>
-            <v-card class="d-flex flex-column justify-center align-center rounded-s-xl rounded-e-0">
+            <v-card class="image-card d-flex flex-column justify-center align-center rounded-s-xl rounded-e-0">
                 <v-img
-                    class="w-100 h-100"
-                    cover
-                    src="\src\assets\images\">
+                    class="rounded-s-xl rounded-e-0 w-100 h-100"
+                    lazy-src="\src\assets\images\cadastroBanner.png"
+                    src="\src\assets\images\cadastroBanner.png"
+                    cover>
+                    <template v-slot:placeholder>
+                        <v-row
+                            align="center"
+                            class="fill-height ma-0"
+                            justify="center">
+                            <v-progress-circular
+                                color="grey-lighten-5"
+                                indeterminate>
+                            </v-progress-circular>
+                        </v-row>
+                    </template>
                 </v-img>
             </v-card>
-            <v-card class="d-flex flex-column justify-center align-center rounded-s-0 rounded-e-xl">
+            <v-card class="content-card d-flex flex-column justify-center align-center rounded-s-0 rounded-e-xl">
                 <div class="card-header d-flex flex-column justify-center align-center">
                     <v-img></v-img>
                     <h1 class="v-title text-uppercase mb-6">Cadastre-se</h1>

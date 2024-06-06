@@ -8,28 +8,28 @@
     width: 30%;
 }
 
-.card-header,
-.card-body,
-.card-footer {
+.content-card .card-header,
+.content-card .card-body,
+.content-card .card-footer {
     width: 80%;
 }
 
-.card-header .v-title,
-.card-body a,
-.card-footer a {
+.content-card .card-header .v-title,
+.content-card .card-body a,
+.content-card .card-footer a {
     color: var(--primary-color);
 }
 
-.card-header p,
-.card-body a {
+.content-card .card-header p,
+.content-card .card-body a {
     font-size: 14px;
 }
 
-.card-body .v-btn-primary {
+.content-card .card-body .v-btn-primary {
     background-color: var(--primary-color);
     color: var(--white);
 }
 
-.v-img {
-    background-color: var(--tertiary-color);
+.image-card {
+    background-color: transparent;
 }
