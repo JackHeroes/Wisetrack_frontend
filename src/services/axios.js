@@ -1,5 +1,6 @@
 import axios from 'axios';
 import cookies from 'js-cookie';
+import router from '../router';
 
 const instance = axios.create({
     baseURL: 'http://127.0.0.1:8000/api/',
@@ -10,8 +11,26 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(config => {
+
     const csrftoken = cookies.get('csrftoken');
-    config.headers['X-CSRFToken'] = csrftoken;
+    if (csrftoken) {
+        config.headers['X-CSRFToken'] = csrftoken;
+    }
+
+    const accessToken = cookies.get('accessToken');
+    const passwordToken = cookies.get('passwordToken');
+    const currentRoute = router.currentRoute.value; 
+
+    if (currentRoute.path.includes('redefinir-senha')) {
+        if (passwordToken) {
+            config.headers['Authorization'] = `Bearer ${passwordToken}`;
+        }
+    } else {
+        if (accessToken) {
+            config.headers['Authorization'] = `Bearer ${accessToken}`;
+        }
+    }
+
     return config;
 }, error => {
     return Promise.reject(error);
