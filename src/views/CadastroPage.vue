@@ -4,8 +4,8 @@
             <v-card class="image-card d-flex flex-column justify-center align-center rounded-s-xl rounded-e-0">
                 <v-img
                     class="rounded-s-xl rounded-e-0 w-100 h-100"
-                    lazy-src="\src\assets\images\cadastroBanner.png"
-                    src="\src\assets\images\cadastroBanner.png"
+                    lazy-src="\src\assets\images\cadastroBanner.jpg"
+                    src="\src\assets\images\cadastroBanner.jpg"
                     cover>
                     <template v-slot:placeholder>
                         <v-row

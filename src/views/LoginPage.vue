@@ -53,8 +53,8 @@
             <v-card class="image-card d-flex flex-column justify-center align-center rounded-s-0 rounded-e-xl">
                 <v-img
                     class="rounded-s-0 rounded-e-xl w-100 h-100"
-                    lazy-src="\src\assets\images\loginBanner.png"
-                    src="\src\assets\images\loginBanner.png"
+                    lazy-src="\src\assets\images\loginBanner.jpg"
+                    src="\src\assets\images\loginBanner.jpg"
                     cover>
                     <template v-slot:placeholder>
                         <v-row
