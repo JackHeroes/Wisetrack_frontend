@@ -32,18 +32,13 @@
     import axios from '../services/axios';
     import store from '../store/store';
     import { mapGetters } from 'vuex';
-  
+ 
     export default {
         name: 'SystemMenu',
         computed: {
-            ...mapGetters(['user', 'message', 'messageType']),
+            ...mapGetters(['user']),
             currentRoute() {
                 return this.$route.path;
-            }
-        },
-        watch: {
-            message(newMessage) {
-                this.handleMessage(newMessage);
             }
         },
         methods: {
@@ -53,11 +48,7 @@
                     this.$store.commit('clearUser');
                     this.$router.push('/');
                 } catch (error) {
-                    store.dispatch('setMessage', {
-                        message: error.response.data.error,
-                        messageType: 'error'
-                    });
-                    this.messageKey += 1;
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
             },
             isActive(route) {
@@ -65,13 +56,6 @@
             },
             navigate(route) {
                 this.$router.push(route);
-            },
-            handleMessage(message) {
-                if (message) {
-                    setTimeout(() => {
-                        store.dispatch('clearMessage');
-                    }, 3500);  
-                }
             },
         }
     }

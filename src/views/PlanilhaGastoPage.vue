@@ -4,7 +4,7 @@
         <SystemSidebar/>
         <v-main class="d-flex justify-center align-center">
             <ag-grid-vue
-                class="ag-theme-alpine"
+                class="ag-theme-alpine pa-8"
                 style="height: 100%; width: 100%;"
                 :defaultColDef="defaultColDef"
                 :columnDefs="columnDefs"
@@ -29,7 +29,6 @@
                 { 
                     field: "gasto", 
                     headerName: "Gasto", 
-                    cellDataType: 'text'
                 },
                 { 
                     field: "data", 
@@ -37,19 +36,19 @@
                 },
                 { 
                     field: "valor", 
-                    headerName: "Valor", 
+                    headerName: "Valor",
                 },
                 { 
                     field: "metodo", 
                     headerName: "Método de Pagamento", 
                     cellEditor: 'agSelectCellEditor', 
-                    cellEditorParams: { values: ['Cartão de Crédito', 'Cartão de Débito', 'Dinheiro', 'Transferência'] } 
+                    cellEditorParams: { values: ['Cartão de Crédito', 'Cartão de Débito', 'Dinheiro', 'Transferência'] },
                 },
                 { 
                     field: "categoria", 
                     headerName: "Categoria do Gasto", 
                     cellEditor: 'agSelectCellEditor', 
-                    cellEditorParams: { values: ['Transporte', 'Alimentação', 'Saúde', 'Educação', 'Entretenimento'] } 
+                    cellEditorParams: { values: ['Transporte', 'Alimentação', 'Saúde', 'Educação', 'Entretenimento'] },
                 }
             ]);
 
@@ -96,10 +95,6 @@
                             const month = String(value.getMonth() + 1);
                             return `${date.length === 1 ? "0" + date : date}/${month.length === 1 ? "0" + month : month}/${value.getFullYear()}`;
                         },
-                    },
-                    numberString: {
-                        baseDataType: "number",
-                        extendsDataType: "number",
                     },
                 };
             });
