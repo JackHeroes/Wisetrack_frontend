@@ -79,8 +79,8 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-    const requiresPasswordAuth = to.matched.some(record => record.meta.requiresPasswordAuth);
     const requiresUserAuth = to.matched.some(record => record.meta.requiresUserAuth);
+    const requiresPasswordAuth = to.matched.some(record => record.meta.requiresPasswordAuth);
   
     if (requiresUserAuth) {
         try {
@@ -88,21 +88,26 @@ router.beforeEach(async (to, from, next) => {
             next();
         } catch (error) {
             next('/');
+            store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
         }
     } else if (requiresPasswordAuth) {
-
         const passwordToken = to.params.passwordToken;
-        cookies.set('passwordToken', passwordToken, { 
-            expires: new Date(new Date().getTime() + 15 * 60 * 1000),
-            secure: true, 
-            sameSite: 'Lax' 
-        });
+        const existingPasswordToken = cookies.get('passwordToken');
+
+        if (!existingPasswordToken || existingPasswordToken !== passwordToken) {
+            cookies.set('passwordToken', passwordToken, { 
+                expires: new Date(new Date().getTime() + 15 * 60 * 1000),
+                secure: true, 
+                sameSite: 'Lax' 
+            });
+        }
 
         try {
             await store.dispatch('validateToken');
             next();
         } catch (error) {
             next('/');
+            store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
         }
     } else {
         next();

@@ -98,13 +98,7 @@
                     <span>Já tem uma conta?</span>
                     <a @click="goToLogin" class="cursor-pointer">Faça login</a>
                 </div>
-            </v-card> 
-            <SystemMessage
-                v-if="message"
-                :key="messageKey"
-                :message="message"
-                :type="messageType">
-            </SystemMessage>
+            </v-card>
         </v-container>
     </v-app>
 </template>
@@ -112,11 +106,12 @@
     import axios from '../services/axios';
     import store from '../store/store';
     import { email, required, helpers } from '@vuelidate/validators'
-    import { mapGetters } from 'vuex';
     import { useVuelidate } from '@vuelidate/core'
 
     export default {
-        setup: () => ({ v$: useVuelidate() }),
+        setup: () => ({ 
+            v$: useVuelidate() 
+        }),
         data: () => ({
             username: '',
             email: '',
@@ -125,19 +120,7 @@
             password: '',
             loading: false,
             passwordVisible: false,
-            messageKey: 0,
         }),
-        mounted() {
-            this.handleMessage(this.message, this.messageType);
-        },
-        computed: {
-            ...mapGetters(['message', 'messageType'])
-        },
-        watch: {
-            message(newMessage) {
-                this.handleMessage(newMessage);
-            }
-        },
         methods: {
             async submit() {
                 const result = await this.v$.$validate();
@@ -155,32 +138,17 @@
                         lastName: this.lastName,
                         password: this.password,
                     });
-                    store.dispatch('setMessage', {
-                        message: response.data.success,
-                        messageType: 'success'
-                    });
                     this.$router.push('/');
+                    store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 }
                 catch (error) {
-                    store.dispatch('setMessage', {
-                        message: error.response.data.error,
-                        messageType: 'error'
-                    });
-                    this.messageKey += 1;
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 } finally {
                     this.loading = false;
                 }
             },
             goToLogin() {
-                store.dispatch('clearMessage');
                 this.$router.push('/');
-            },
-            handleMessage(message) {
-                if (message) {
-                    setTimeout(() => {
-                        store.dispatch('clearMessage');
-                    }, 3500);  
-                }
             },
         },
         validations() {

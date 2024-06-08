@@ -1,11 +1,10 @@
 import axios from '../services/axios';
 import { createStore } from 'vuex';
+import { useToast } from 'vue-toastification'
 
 const store = createStore({
     state: {
         user: null,
-        message: '',
-        messageType: '',
     },
     mutations: {
         setUser(state, user) {
@@ -14,14 +13,6 @@ const store = createStore({
         clearUser(state) {
             state.user = null;
         },
-        setMessage(state, { message, messageType }) {
-            state.message = message;
-            state.messageType = messageType;
-        },
-        clearMessage(state) {
-            state.message = '';
-            state.messageType = '';
-        }
     },
     actions: {
         async validateUser({ commit }) {
@@ -30,10 +21,6 @@ const store = createStore({
                 commit('setUser', response.data.user);
             } catch (error) {
                 commit('clearUser');
-                commit('setMessage', {
-                    message: error.response.data.error,
-                    messageType: 'error'
-                });
                 throw error;
             }
         },
@@ -41,24 +28,29 @@ const store = createStore({
             try {
                 await axios.get('/auth/PasswordAuthApi');
             } catch (error) {
-                commit('setMessage', {
-                    message: error.response.data.error,
-                    messageType: 'error'
-                });
                 throw error;
             }
         },
-        setMessage({ commit }, payload) {
-            commit('setMessage', payload);
+        showToast({ commit }, { message, messageType }) {
+            const toast = useToast();
+            switch (messageType) {
+                case 'success':
+                    toast.success(message);
+                    break;
+                case 'error':
+                    toast.error(message);
+                    break;
+                case 'warning':
+                    toast.warning(message);
+                    break;
+                case 'info':
+                    toast.info(message);
+                    break;
+            }
         },
-        clearMessage({ commit }) {
-            commit('clearMessage');
-        }
     },
     getters: {
         user: state => state.user,
-        message: state => state.message,
-        messageType: state => state.messageType,
     },
 });
 

@@ -69,43 +69,26 @@
                     </template>
                 </v-img>
             </v-card>
-            <SystemMessage
-                v-if="message"
-                :key="messagekey"
-                :message="message"
-                :type="messageType">
-            </SystemMessage>
         </v-container>
     </v-app>
 </template>
 <script>
     import axios from '../services/axios';
     import store from '../store/store';
-    import { mapGetters } from 'vuex';
     import { required, helpers } from '@vuelidate/validators';
     import { useVuelidate } from '@vuelidate/core';
 
     export default {
-        setup: () => ({ v$: useVuelidate() }),
+        setup: () => ({ 
+            v$: useVuelidate(),
+        }),
         data() {
             return {
                 username: '',
                 password: '',
                 loading: false,
                 passwordVisible: false,
-                messagekey: 0,
             };
-        },
-        mounted() {
-            this.handleMessage(this.message, this.messageType);
-        },
-        computed: {
-            ...mapGetters(['message', 'messageType'])
-        },
-        watch: {
-            message(newMessage) {
-                this.handleMessage(newMessage);
-            }
         },
         methods: {
             async submit() {
@@ -121,14 +104,9 @@
                         username: this.username,
                         password: this.password,
                     });
-                    store.dispatch('clearMessage');
                     this.$router.push('/inicio');
                 } catch (error) {
-                    store.dispatch('setMessage', {
-                        message: error.response.data.error,
-                        messageType: 'error'
-                    });
-                    this.messagekey += 1;
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 } finally {
                     this.loading = false;
                 }
@@ -137,15 +115,7 @@
                 this.$router.push('/esqueci-a-senha');
             },
             goToCadastro() {
-                store.dispatch('clearMessage');
                 this.$router.push('/cadastro');
-            },
-            handleMessage(message) {
-                if (message) {
-                    setTimeout(() => {
-                        store.dispatch('clearMessage');
-                    }, 3500);  
-                }
             },
         },
         validations() {
