@@ -28,7 +28,7 @@
             const columnDefs = ref([
                 { 
                     field: "gasto", 
-                    headerName: "Gasto", 
+                    headerName: "Gasto",                  
                 },
                 { 
                     field: "data", 
@@ -42,13 +42,17 @@
                     field: "metodo", 
                     headerName: "Método de Pagamento", 
                     cellEditor: 'agSelectCellEditor', 
-                    cellEditorParams: { values: ['Cartão de Crédito', 'Cartão de Débito', 'Dinheiro', 'Transferência'] },
+                    cellEditorParams: { 
+                        values: ['Cartão de Crédito', 'Cartão de Débito', 'Dinheiro', 'Transferência'] 
+                    },
                 },
                 { 
                     field: "categoria", 
                     headerName: "Categoria do Gasto", 
                     cellEditor: 'agSelectCellEditor', 
-                    cellEditorParams: { values: ['Transporte', 'Alimentação', 'Saúde', 'Educação', 'Entretenimento'] },
+                    cellEditorParams: { 
+                        values: ['Transporte', 'Alimentação', 'Saúde', 'Educação', 'Entretenimento'] 
+                    },
                 }
             ]);
 
@@ -63,6 +67,10 @@
             const dataTypeDefinitions = ref(null);
             onBeforeMount(() => {
                 dataTypeDefinitions.value = {
+                    text: {
+                        baseDataType: "text",
+                        extendsDataType: "text",
+                    },
                     dateString: {
                         baseDataType: "dateString",
                         extendsDataType: "dateString",
@@ -95,6 +103,14 @@
                             const month = String(value.getMonth() + 1);
                             return `${date.length === 1 ? "0" + date : date}/${month.length === 1 ? "0" + month : month}/${value.getFullYear()}`;
                         },
+                    },
+                    number: {
+                        baseDataType: "number",
+                        extendsDataType: "number",
+                        valueFormatter: (params) => {
+                            const value = isNaN(params.value) ? 0 : params.value;
+                            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+                        }
                     },
                 };
             });
