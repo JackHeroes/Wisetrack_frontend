@@ -131,7 +131,7 @@
                 this.loading = true
 
                 try {
-                    const response = await axios.post('register/RegisterApi/', {
+                    const response = await axios.post('createAccount/createAccountApi/', {
                         username: this.username,
                         email: this.email,
                         firstName: this.firstName,

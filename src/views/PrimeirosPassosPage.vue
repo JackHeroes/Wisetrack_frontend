@@ -3,30 +3,30 @@
         <SystemMenu/>
         <SystemSidebar/>
         <v-main class="d-flex justify-center align-center">
-            <v-timeline align="start">
-                <v-timeline-item
-                    v-for="(item, i) in items"
-                    fill-dot
-                    :dot-color="item.color"
-                    :icon="item.icon"
-                    :key="i">
-                    <v-card>
-                        <v-card-title :style="{ backgroundColor: item.color }">
-                            {{ item.title }}
-                        </v-card-title>
-                        <v-card-text>
-                            <p>{{ item.text }}</p>
-                        </v-card-text>
-                    </v-card>
-                </v-timeline-item>
-            </v-timeline>
+            <v-container class="pa-8" fluid>
+                <v-timeline align="start">
+                    <v-timeline-item
+                        v-for="(item, i) in items"
+                        fill-dot
+                        :dot-color="item.color"
+                        :icon="item.icon"
+                        :key="i">
+                        <v-card>
+                            <v-card-title :style="{ backgroundColor: item.color }">
+                                {{ item.title }}
+                            </v-card-title>
+                            <v-card-text>
+                                <p>{{ item.text }}</p>
+                            </v-card-text>
+                        </v-card>
+                    </v-timeline-item>
+                </v-timeline>
+            </v-container>
         </v-main>
         <SystemFooter/>
     </v-app>
 </template>
-<script>
-    import { mapGetters } from 'vuex';
-    
+<script>    
     export default {
         data: () => ({
             items: [
@@ -59,9 +59,6 @@
     }
 </script>
 <style scoped>
-    .v-timeline {
-        padding: 2rem!important;
-    }
 
     .v-card-title {
         color: var(--white)!important;

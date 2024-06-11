@@ -3,13 +3,15 @@
         <SystemMenu/>
         <SystemSidebar/>
         <v-main class="d-flex flex-column justify-center align-center">
-            <h1 class="ma-3">Bem-vindo, {{ user }}!</h1>
-            <p class="welcome-message ma-3">Pronto para começar a organizar a sua vida financeira?</p>
-            <v-btn 
-                class="ma-3"
-                @click="navigate('/primeiros-passos')">
-                Comece pelos primeiros passos!
-            </v-btn>
+            <v-container class="d-flex flex-column justify-center align-center pa-8" fluid>
+                <h1 class="ma-3">Bem-vindo, {{ user }}!</h1>
+                <p class="welcome-message ma-3">Pronto para começar a organizar a sua vida financeira?</p>
+                <v-btn 
+                    class="ma-3"
+                    @click="navigate('/primeiros-passos')">
+                    Comece pelos primeiros passos!
+                </v-btn>
+            </v-container>
         </v-main>
         <SystemFooter/>
     </v-app>

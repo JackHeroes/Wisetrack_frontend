@@ -4,7 +4,7 @@
         <SystemSidebar/>
         <v-main class="d-flex justify-center align-center">
             <ag-grid-vue
-                class="ag-theme-alpine pa-8"
+                class="ag-theme-alpine"
                 style="height: 100%; width: 100%;"
                 :defaultColDef="defaultColDef"
                 :columnDefs="columnDefs"
@@ -55,7 +55,7 @@
                     },
                 }
             ]);
-
+            
             const rowData = ref([
                 { gasto: "Supermercado", data: "01/01/2024", valor: 450, metodo: "Cartão de Crédito", categoria: "Alimentação" },
                 { gasto: "Gasolina", data: "02/02/2024", valor: 300, metodo: "Dinheiro", categoria: "Transporte" },

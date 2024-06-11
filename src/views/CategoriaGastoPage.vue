@@ -3,7 +3,7 @@
         <SystemMenu/>
         <SystemSidebar/>
         <v-main class="d-flex justify-center align-center">
-            <v-container>
+            <v-container class="pa-8" fluid>
                 <v-row>
                     <v-col cols="12">
                         <v-btn @click="openDialog('create')">Adicionar nova categoria de gasto</v-btn>
