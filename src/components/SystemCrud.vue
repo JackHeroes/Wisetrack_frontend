@@ -204,7 +204,6 @@
             async loadItems({ page, itemsPerPage, sortBy }) {
                 this.loading = true
                 try {
-                    /*
                     const response = await axios.get(this.endpoint, {
                         params: {
                             page,
@@ -213,29 +212,9 @@
                             search: this.search
                         }
                     });
-                    const dummyData = [
-                        { id_categoriaGasto: 1, categoriaGasto: 'Alimentação', obs: 'Compras de supermercado' },
-                        { id_categoriaGasto: 2, categoriaGasto: 'Transporte', obs: 'Passagem de ônibus' },
-                        { id_categoriaGasto: 3, categoriaGasto: 'Lazer', obs: 'Cinema e passeios' },
-                        { id_categoriaGasto: 4, categoriaGasto: 'Educação', obs: 'Cursos e livros' },
-                        { id_categoriaGasto: 5, categoriaGasto: 'Saúde', obs: 'Medicamentos e consultas' },
-                    ];
-
-                    this.items = dummyData;
+             
+                    this.items = response.data.results;
                     this.totalItems = response.data.count;
-                    */
-
-                    const dummyData = [
-                        { id_categoriaGasto: 1, categoriaGasto: 'Alimentação', obs: 'Compras de supermercado' },
-                        { id_categoriaGasto: 2, categoriaGasto: 'Transporte', obs: 'Passagem de ônibus' },
-                        { id_categoriaGasto: 3, categoriaGasto: 'Lazer', obs: 'Cinema e passeios' },
-                        { id_categoriaGasto: 4, categoriaGasto: 'Educação', obs: 'Cursos e livros' },
-                        { id_categoriaGasto: 5, categoriaGasto: 'Saúde', obs: 'Medicamentos e consultas' }
-                    ];
-                    const start = (page - 1) * itemsPerPage;
-                    const end = start + itemsPerPage;
-                    this.items = dummyData.slice(start, end);
-                    this.totalItems = dummyData.length;
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 } finally {
@@ -300,18 +279,6 @@
 <style scoped>
     .v-dialog {
         max-width: 500px;
-    }
-
-    .v-card-title {
-
-    }
-
-    .btn-cancel {
-        
-    }
-
-    .btn-confirm {
-        
     }
 
     .btn-confirm,
