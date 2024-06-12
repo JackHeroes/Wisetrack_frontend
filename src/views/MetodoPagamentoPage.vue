@@ -25,7 +25,7 @@
 					createDialogTitle="Criar categoria de gasto"
 					editDialogTitle="Editar categoria de gasto"
 					deleteDialogTitle="Excluir categoria de gasto"
-					deleteConfirmationText="Você tem certeza que deseja excluir a categoria de gastos '{item}'?"
+					deleteConfirmationText="Você tem certeza que deseja excluir a categoria de gastos"
 					categoriaField="categoriaGasto"/>
 			</v-container>
 		</v-main>

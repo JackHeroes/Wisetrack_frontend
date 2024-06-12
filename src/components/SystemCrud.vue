@@ -11,7 +11,7 @@
                     <v-text-field
                         v-model="search"
                         color="var(--primary-color)"
-                        label="Pesquisa"
+                        label="Pesquisar"
                         prepend-inner-icon="mdi-magnify"
                         variant="outlined"
                         single-line>
@@ -39,7 +39,7 @@
                         :page-text="'{0}-{1} de {2}'"
                         @update:options="updateTableOptions">
                         <template v-slot:item.actions="{ item }">
-                            <div class="ga-2">
+                            <div class="d-flex ga-2">
                                 <v-btn class="btn-update" @click="openDialog('edit', item)">
                                     <v-icon left>mdi-pencil</v-icon> 
                                     Editar
@@ -61,7 +61,7 @@
                         <span v-else>{{ deleteDialogTitle }}</span>
                     </v-card-title>
                     <v-card-text v-if="dialogMode === 'delete'">
-                        {{ deleteConfirmationText.replace('{item}', editedItem[categoriaField]) }}
+                        {{ deleteConfirmationText}} {{ `"${editedItem[categoriaField]}"` }}?
                     </v-card-text>
                     <v-card-text v-else>
                         <v-form>
@@ -204,6 +204,7 @@
             async loadItems({ page, itemsPerPage, sortBy }) {
                 this.loading = true
                 try {
+                    /*
                     const response = await axios.get(this.endpoint, {
                         params: {
                             page,
@@ -212,8 +213,29 @@
                             search: this.search
                         }
                     });
-                    this.items = response.data.results;
+                    const dummyData = [
+                        { id_categoriaGasto: 1, categoriaGasto: 'Alimentação', obs: 'Compras de supermercado' },
+                        { id_categoriaGasto: 2, categoriaGasto: 'Transporte', obs: 'Passagem de ônibus' },
+                        { id_categoriaGasto: 3, categoriaGasto: 'Lazer', obs: 'Cinema e passeios' },
+                        { id_categoriaGasto: 4, categoriaGasto: 'Educação', obs: 'Cursos e livros' },
+                        { id_categoriaGasto: 5, categoriaGasto: 'Saúde', obs: 'Medicamentos e consultas' },
+                    ];
+
+                    this.items = dummyData;
                     this.totalItems = response.data.count;
+                    */
+
+                    const dummyData = [
+                        { id_categoriaGasto: 1, categoriaGasto: 'Alimentação', obs: 'Compras de supermercado' },
+                        { id_categoriaGasto: 2, categoriaGasto: 'Transporte', obs: 'Passagem de ônibus' },
+                        { id_categoriaGasto: 3, categoriaGasto: 'Lazer', obs: 'Cinema e passeios' },
+                        { id_categoriaGasto: 4, categoriaGasto: 'Educação', obs: 'Cursos e livros' },
+                        { id_categoriaGasto: 5, categoriaGasto: 'Saúde', obs: 'Medicamentos e consultas' }
+                    ];
+                    const start = (page - 1) * itemsPerPage;
+                    const end = start + itemsPerPage;
+                    this.items = dummyData.slice(start, end);
+                    this.totalItems = dummyData.length;
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 } finally {
@@ -281,7 +303,7 @@
     }
 
     .v-card-title {
-        
+
     }
 
     .btn-cancel {
@@ -304,6 +326,11 @@
         background-color: var(--primary-color);
     }
     
+    .btn-update,
+    .btn-delete {
+        font-size: 0.8rem;
+    }
+
     .btn-update {
         background-color: var(--yellow);
     }
