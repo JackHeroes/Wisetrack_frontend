@@ -3,7 +3,7 @@
 		<SystemMenu/>
 		<SystemSidebar/>
 		<v-main class="d-flex justify-center align-center">
-			<v-container class="pa-8" fluid>
+			<v-container class="d-flex justify-center align-center pa-8" fluid>
 				<SystemCrud
 					endpoint="metodoPagamento/MetodoPagamentoApi/"
 					:headers="[

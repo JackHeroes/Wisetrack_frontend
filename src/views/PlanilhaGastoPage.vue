@@ -3,14 +3,16 @@
         <SystemMenu/>
         <SystemSidebar/>
         <v-main class="d-flex justify-center align-center">
-            <ag-grid-vue
-                class="ag-theme-alpine"
-                style="height: 100%; width: 100%;"
-                :defaultColDef="defaultColDef"
-                :columnDefs="columnDefs"
-                :rowData="rowData"
-                :dataTypeDefinitions="dataTypeDefinitions">
-            </ag-grid-vue>
+            <v-container class="d-flex justify-center align-center pa-8" fluid>
+                <ag-grid-vue
+                    class="ag-theme-alpine"
+                    style="height: 100%; width: 100%;"
+                    :defaultColDef="defaultColDef"
+                    :columnDefs="columnDefs"
+                    :rowData="rowData"
+                    :dataTypeDefinitions="dataTypeDefinitions">
+                </ag-grid-vue>
+            </v-container>
         </v-main>
         <SystemFooter/>
     </v-app>
