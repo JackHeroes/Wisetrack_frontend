@@ -78,7 +78,6 @@ const router = createRouter({
     routes,
 });
 
-/*
 router.beforeEach(async (to, from, next) => {
     const requiresUserAuth = to.matched.some(record => record.meta.requiresUserAuth);
     const requiresPasswordAuth = to.matched.some(record => record.meta.requiresPasswordAuth);
@@ -114,6 +113,5 @@ router.beforeEach(async (to, from, next) => {
         next();
     }
 });
-*/
 
 export default router;

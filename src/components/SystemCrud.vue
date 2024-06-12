@@ -1,94 +1,100 @@
 <template>
-    <v-app>
-        <v-container class="pa-0" fluid>
-            <v-row>
-                <v-col cols="12">
+    <v-data-table-server
+        v-model:page="page"
+        v-model:items-per-page="itemsPerPage"
+        :headers="headers"
+        :items="items"
+        :loading="loading"
+        :loading-text="'Carregando itens'"
+        :no-data-text="'Nenhum item encontrado'"
+        :search="search"
+        :items-length="totalItems"
+        @update:options="updateTableOptions">
+        <template v-slot:top>
+            <div class="data-table-header mb-3">
+                <div class="mb-3">
                     <v-btn class="btn-create" @click="openDialog('create')">{{ createButtonText }}</v-btn>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12">
+                </div>
+                <div class="mb-3">
                     <v-text-field
                         v-model="search"
                         color="var(--primary-color)"
+                        density="comfortable"
+                        hide-details="auto"
                         label="Pesquisar"
                         prepend-inner-icon="mdi-magnify"
                         variant="outlined"
                         single-line>
                     </v-text-field>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12">
-                    <v-data-table-server
-                        v-model:items-per-page="itemsPerPage"
-                        :headers="headers"
-                        :items="items"
-                        :loading="loading"
-                        :loading-text="'Carregando itens'"
-                        :no-data-text="'Nenhum item encontrado'"
-                        :search="search"
-                        :items-length="totalItems"
-                        :items-per-page-options="[
-                            {value: 5, title: '5'},
-                            {value: 10, title: '10'},
-                            {value: 50, title: '25'},
-                            {value: 100, title: '50'},
-                        ]"
-                        :items-per-page-text="'Itens por página'"
-                        :page-text="'{0}-{1} de {2}'"
-                        @update:options="updateTableOptions">
-                        <template v-slot:item.actions="{ item }">
-                            <div class="d-flex ga-2">
-                                <v-btn class="btn-update" @click="openDialog('edit', item)">
-                                    <v-icon left>mdi-pencil</v-icon> 
-                                    Editar
-                                </v-btn>
-                                <v-btn class="btn-delete" @click="openDialog('delete', item)">
-                                    <v-icon left>mdi-delete</v-icon> 
-                                    Excluir
-                                </v-btn>
-                            </div>
-                        </template>
-                    </v-data-table-server>
-                </v-col>
-            </v-row>
-            <v-dialog v-model="dialog">
-                <v-card>
-                    <v-card-title>
-                        <span v-if="dialogMode === 'create'">{{ createDialogTitle }}</span>
-                        <span v-else-if="dialogMode === 'edit'">{{ editDialogTitle }}</span>
-                        <span v-else>{{ deleteDialogTitle }}</span>
-                    </v-card-title>
-                    <v-card-text v-if="dialogMode === 'delete'">
-                        {{ deleteConfirmationText}} {{ `"${editedItem[categoriaField]}"` }}?
-                    </v-card-text>
-                    <v-card-text v-else>
-                        <v-form>
-                            <template v-for="field in fields" :key="field.name">
-                                <v-text-field
-                                    v-model="editedItem[field.name]"
-                                    class="mb-3 w-100"
-                                    color="var(--primary-color)"
-                                    density="comfortable"
-                                    hide-details="auto"
-                                    :label="field.label"
-                                    :name="field.name"
-                                    variant="outlined"
-                                    :error-messages="v$?.editedItem[field.name]?.$errors.map(e => e.$message)">
-                                </v-text-field>
-                            </template>
-                        </v-form>
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-btn class="btn-cancel" @click="closeDialog" variant="plain">Cancelar</v-btn>
-                        <v-btn class="btn-confirm" v-if="dialogMode === 'delete'" @click="handleDeleteItemConfirmed" variant="tonal">Excluir</v-btn>
-                        <v-btn class="btn-confirm" v-else @click="handleSaveItem" variant="tonal">Salvar</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-        </v-container>
-    </v-app>
+                </div>
+                <div class="d-flex justify-end">
+                    <v-select
+                        v-model="itemsPerPage"
+                        color="var(--primary-color)"
+                        density="comfortable"
+                        hide-details="auto"
+                        variant="outlined"
+                        :items="itemsPerPageOptions">
+                    </v-select>
+                </div>
+            </div>
+        </template>
+        <template v-slot:bottom>
+            <div class="data-table-footer mt-3">
+                <v-pagination
+                    v-model="page"
+                    active-color="var(--primary-color)"
+                    :length="pageCount">
+                </v-pagination>
+            </div>
+        </template>
+        <template v-slot:item.actions="{ item }">
+            <div class="data-table-items d-flex ga-2">
+                <v-btn class="btn-update" @click="openDialog('edit', item)">
+                    <v-icon left>mdi-pencil</v-icon> 
+                    editar
+                </v-btn>
+                <v-btn class="btn-delete" @click="openDialog('delete', item)">
+                    <v-icon left>mdi-delete</v-icon> 
+                    excluir
+                </v-btn>
+            </div>
+        </template>
+    </v-data-table-server>
+    <v-dialog v-model="dialog">
+        <v-card>
+            <v-card-title>
+                <span v-if="dialogMode === 'create'">{{ createDialogTitle }}</span>
+                <span v-else-if="dialogMode === 'edit'">{{ editDialogTitle }}</span>
+                <span v-else>{{ deleteDialogTitle }}</span>
+            </v-card-title>
+            <v-card-text v-if="dialogMode === 'delete'">
+                {{ deleteConfirmationText}} {{ `"${Object.values(editedItem)[1]}"` }}?
+            </v-card-text>
+            <v-card-text v-else>
+                <v-form>
+                    <template v-for="field in fields" :key="field.name">
+                        <v-text-field
+                            v-model="editedItem[field.name]"
+                            class="mb-3 w-100"
+                            color="var(--primary-color)"
+                            density="comfortable"
+                            hide-details="auto"
+                            :label="field.label"
+                            :name="field.name"
+                            variant="outlined"
+                            :error-messages="v$?.editedItem[field.name]?.$errors.map(e => e.$message)">
+                        </v-text-field>
+                    </template>
+                </v-form>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn class="btn-cancel" @click="closeDialog" variant="plain">Cancelar</v-btn>
+                <v-btn class="btn-confirm" v-if="dialogMode === 'delete'" @click="handleDeleteItem" variant="tonal">Excluir</v-btn>
+                <v-btn class="btn-confirm" v-else @click="handleSaveItem" variant="tonal">Salvar</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </template>
 <script>
     import axios from '../services/axios';
@@ -114,6 +120,10 @@
                 type: Object,
                 required: true
             },
+            idField: {
+                type: String,
+                required: true
+            },
             createButtonText: {
                 type: String,
                 required: true
@@ -134,10 +144,6 @@
                 type: String,
                 required: true
             },
-            categoriaField: {
-                type: String,
-                required: true
-            }
         },
         setup() {
             return { 
@@ -148,6 +154,7 @@
             return {
                 page: 1,
                 itemsPerPage: 5,
+                itemsPerPageOptions: [5, 10, 25, 50],
                 sortBy: [],
                 dialog: false,
                 loading: true,
@@ -158,6 +165,11 @@
                 editedItem: { ...this.itemDefault },
                 defaultItem: { ...this.itemDefault }
             };
+        },
+        computed: {
+            pageCount() {
+                return Math.ceil(this.totalItems / this.itemsPerPage)
+            },
         },
         watch: {
             dialog(val) {
@@ -196,7 +208,7 @@
                 this.closeDialog();
                 this.reloadItems();
             },
-            async handleDeleteItemConfirmed() {
+            async handleDeleteItem() {
                 await this.deleteExistingItem();
                 this.closeDialog();
                 this.reloadItems();
@@ -231,8 +243,7 @@
             },
             async createNewItem() {
                 try {
-                    const { ...data } = this.editedItem;
-                    const response = await axios.post(this.endpoint, data);
+                    const response = await axios.post(this.endpoint, this.editedItem);
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
@@ -248,7 +259,7 @@
             },
             async deleteExistingItem() {
                 try {
-                    const response = await axios.delete(this.endpoint, { data: { [this.categoriaField]: this.editedItem[this.categoriaField] } });
+                    const response = await axios.delete(this.endpoint, { data: { [this.idField]: this.editedItem[this.idField] }});
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
@@ -277,32 +288,31 @@
     };
 </script>
 <style scoped>
-    .v-dialog {
-        max-width: 500px;
-    }
-
-    .btn-confirm,
-    .btn-create,
-    .btn-update,
-    .btn-delete {
+    .data-table-header .btn-create,
+    .data-table-items .btn-update,
+    .data-table-items .btn-delete,
+    .v-dialog .btn-confirm {
         color: var(--white);
     }
 
-    .btn-confirm,
-    .btn-create {
+    .data-table-header .btn-create,
+    .v-dialog .btn-confirm {
         background-color: var(--primary-color);
     }
-    
-    .btn-update,
-    .btn-delete {
-        font-size: 0.8rem;
+
+    .data-table-header .v-select {
+        max-width: 100px;
     }
 
-    .btn-update {
+    .data-table-items .btn-update {
         background-color: var(--yellow);
     }
 
-    .btn-delete {
+    .data-table-items .btn-delete {
         background-color: var(--red);
+    }
+
+    .v-dialog {
+        max-width: 500px;
     }
 </style>

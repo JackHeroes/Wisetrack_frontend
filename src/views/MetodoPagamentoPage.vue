@@ -5,28 +5,28 @@
 		<v-main class="d-flex justify-center align-center">
 			<v-container class="pa-8" fluid>
 				<SystemCrud
-					endpoint="categoriaGasto/CategoriaGastoApi/"
+					endpoint="metodoPagamento/MetodoPagamentoApi/"
 					:headers="[
-						{ key: 'id_categoriaGasto', title: 'Id' },
-						{ key: 'categoriaGasto', title: 'Categoria de gasto' },
+						{ key: 'id_metodoPagamento', title: 'Id' },
+						{ key: 'metodoPagamento', title: 'Metodo de pagamento' },
 						{ key: 'obs', title: 'Observação' },
 						{ key: 'actions', title: 'Ações', sortable: false }
 					]"
 					:fields="[
-						{ name: 'categoriaGasto', label: 'Categoria de gasto', required: true, alpha: true },
+						{ name: 'metodoPagamento', label: 'Metodo de pagamento', required: true, alpha: true },
 						{ name: 'obs', label: 'Observação' }
 					]"
 					:itemDefault="{
-						id_categoriaGasto: null,
-						categoriaGasto: '',
+						id_metodoPagamento: null,
+						metodoPagamento: '',
 						obs: ''
 					}"
-					createButtonText="Adicionar nova categoria de gasto"
-					createDialogTitle="Criar categoria de gasto"
-					editDialogTitle="Editar categoria de gasto"
-					deleteDialogTitle="Excluir categoria de gasto"
-					deleteConfirmationText="Você tem certeza que deseja excluir a categoria de gastos"
-					categoriaField="categoriaGasto"/>
+					idField="id_metodoPagamento"
+					createButtonText="Adicionar novo metodo de pagamento"
+					createDialogTitle="Criar metodo de pagamento"
+					editDialogTitle="Editar metodo de pagamento"
+					deleteDialogTitle="Excluir metodo de pagamento"
+					deleteConfirmationText="Você tem certeza que deseja excluir o metodo de pagamento"/>
 			</v-container>
 		</v-main>
 		<SystemFooter/>
@@ -35,4 +35,4 @@
 <script>
 </script>
 <style scoped>
-</style>  
+</style> 
