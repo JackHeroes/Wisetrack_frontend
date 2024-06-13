@@ -12,8 +12,8 @@
 						{ key: 'actions', title: 'Ações', sortable: false }
 					]"
 					:fields="[
-						{ name: 'categoriaGasto', label: 'Categoria de gasto', required: true, alpha: true },
-						{ name: 'obs', label: 'Observação' }
+						{ name: 'categoriaGasto', label: 'Categoria de gasto', required: true, alpha: true, gender: 'female' },
+						{ name: 'obs', label: 'Observação', gender: 'female' }
 					]"
 					:itemDefault="{
 						id_userCategoriaGasto: null,

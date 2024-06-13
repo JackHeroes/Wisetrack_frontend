@@ -12,8 +12,8 @@
 						{ key: 'actions', title: 'Ações', sortable: false }
 					]"
 					:fields="[
-						{ name: 'metodoPagamento', label: 'Metodo de pagamento', required: true, alpha: true },
-						{ name: 'obs', label: 'Observação' }
+						{ name: 'metodoPagamento', label: 'Método de pagamento', required: true, alpha: true, gender: 'male' },
+						{ name: 'obs', label: 'Observação', gender: 'female' }
 					]"
 					:itemDefault="{
 						id_userMetodoPagamento: null,
@@ -21,11 +21,11 @@
 						obs: ''
 					}"
 					idField="id_userMetodoPagamento"
-					createButtonText="Adicionar novo metodo de pagamento"
-					createDialogTitle="Criar metodo de pagamento"
-					editDialogTitle="Editar metodo de pagamento"
-					deleteDialogTitle="Excluir metodo de pagamento"
-					deleteConfirmationText="Você tem certeza que deseja excluir o metodo de pagamento"/>
+					createButtonText="Adicionar novo método de pagamento"
+					createDialogTitle="Criar método de pagamento"
+					editDialogTitle="Editar método de pagamento"
+					deleteDialogTitle="Excluir método de pagamento"
+					deleteConfirmationText="Você tem certeza que deseja excluir o método de pagamento"/>
 			</v-container>
 		</v-main>
 		<SystemFooter/>

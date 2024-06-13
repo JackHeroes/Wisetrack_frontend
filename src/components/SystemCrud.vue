@@ -69,7 +69,7 @@
                 <span v-else>{{ deleteDialogTitle }}</span>
             </v-card-title>
             <v-card-text v-if="dialogMode === 'delete'">
-                {{ deleteConfirmationText}} {{ `"${Object.values(editedItem)[2]}"` }}?
+                {{ deleteConfirmationText}} {{ `"${Object.values(editedItem)[1]}"` }}?
             </v-card-text>
             <v-card-text v-else>
                 <v-form>
@@ -277,14 +277,20 @@
             };
             this.fields.forEach(field => {
                 if (field.required) {
+                    const requiredMessage = field.gender === 'female' 
+                        ? `${field.label} é obrigatória` 
+                        : `${field.label} é obrigatório`;
                     validations.editedItem[field.name] = {
-                        required: helpers.withMessage(`${field.label} é obrigatória`, required)
+                        required: helpers.withMessage(requiredMessage, required)
                     };
                 }
                 if (field.alpha) {
+                    const alphaMessage = field.gender === 'female' 
+                        ? `Insira uma ${field.label.toLowerCase()} válida` 
+                        : `Insira um ${field.label.toLowerCase()} válido`;
                     validations.editedItem[field.name] = {
                         ...validations.editedItem[field.name],
-                        alpha: helpers.withMessage('Insira um nome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
+                        alpha: helpers.withMessage(alphaMessage, helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
                     };
                 }
             });
