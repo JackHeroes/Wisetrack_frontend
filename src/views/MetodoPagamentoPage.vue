@@ -7,7 +7,6 @@
 				<SystemCrud
 					endpoint="metodoPagamento/MetodoPagamentoApi/"
 					:headers="[
-						{ key: 'id_metodoPagamento', title: 'Id' },
 						{ key: 'metodoPagamento', title: 'Metodo de pagamento' },
 						{ key: 'obs', title: 'Observação' },
 						{ key: 'actions', title: 'Ações', sortable: false }
@@ -17,11 +16,11 @@
 						{ name: 'obs', label: 'Observação' }
 					]"
 					:itemDefault="{
-						id_metodoPagamento: null,
+						id_userMetodoPagamento: null,
 						metodoPagamento: '',
 						obs: ''
 					}"
-					idField="id_metodoPagamento"
+					idField="id_userMetodoPagamento"
 					createButtonText="Adicionar novo metodo de pagamento"
 					createDialogTitle="Criar metodo de pagamento"
 					editDialogTitle="Editar metodo de pagamento"

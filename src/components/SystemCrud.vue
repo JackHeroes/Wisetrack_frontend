@@ -69,7 +69,7 @@
                 <span v-else>{{ deleteDialogTitle }}</span>
             </v-card-title>
             <v-card-text v-if="dialogMode === 'delete'">
-                {{ deleteConfirmationText}} {{ `"${Object.values(editedItem)[1]}"` }}?
+                {{ deleteConfirmationText}} {{ `"${Object.values(editedItem)[2]}"` }}?
             </v-card-text>
             <v-card-text v-else>
                 <v-form>
@@ -99,6 +99,7 @@
 <script>
     import axios from '../services/axios';
     import store from '../store/store';
+    import { mapGetters } from 'vuex';
     import { required, helpers } from '@vuelidate/validators';
     import { useVuelidate } from '@vuelidate/core';
 
@@ -167,6 +168,7 @@
             };
         },
         computed: {
+            ...mapGetters(['id_user']),
             pageCount() {
                 return Math.ceil(this.totalItems / this.itemsPerPage)
             },
@@ -218,10 +220,11 @@
                 try {
                     const response = await axios.get(this.endpoint, {
                         params: {
+                            id_user: this.id_user,
                             page,
                             itemsPerPage,
                             sortBy,
-                            search: this.search
+                            search: this.search,
                         }
                     });
              
@@ -243,7 +246,8 @@
             },
             async createNewItem() {
                 try {
-                    const response = await axios.post(this.endpoint, this.editedItem);
+                    const data = { ...this.editedItem, id_user: this.id_user };
+                    const response = await axios.post(this.endpoint, data);
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
@@ -251,7 +255,8 @@
             },
             async updateExistingItem() {
                 try {
-                    const response = await axios.put(this.endpoint, this.editedItem);
+                    const data = { ...this.editedItem, id_user: this.id_user };
+                    const response = await axios.put(this.endpoint, data);
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });

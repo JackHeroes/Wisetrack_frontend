@@ -7,7 +7,6 @@
 				<SystemCrud
 					endpoint="categoriaGasto/CategoriaGastoApi/"
 					:headers="[
-						{ key: 'id_categoriaGasto', title: 'Id' },
 						{ key: 'categoriaGasto', title: 'Categoria de gasto' },
 						{ key: 'obs', title: 'Observação' },
 						{ key: 'actions', title: 'Ações', sortable: false }
@@ -17,11 +16,11 @@
 						{ name: 'obs', label: 'Observação' }
 					]"
 					:itemDefault="{
-						id_categoriaGasto: null,
+						id_userCategoriaGasto: null,
 						categoriaGasto: '',
 						obs: ''
 					}"
-                    idField="id_categoriaGasto"
+                    idField="id_userCategoriaGasto"
 					createButtonText="Adicionar nova categoria de gasto"
 					createDialogTitle="Criar categoria de gasto"
 					editDialogTitle="Editar categoria de gasto"

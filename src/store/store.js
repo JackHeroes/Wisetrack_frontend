@@ -1,16 +1,19 @@
 import axios from '../services/axios';
 import { createStore } from 'vuex';
-import { useToast } from 'vue-toastification'
+import { useToast } from 'vue-toastification';
 
 const store = createStore({
     state: {
+        id_user: null,
         user: null,
     },
     mutations: {
-        setUser(state, user) {
-            state.user = user;
+        setUser(state, { id_user, username }) {
+            state.id_user = id_user;
+            state.user = username;
         },
         clearUser(state) {
+            state.id_user = null;
             state.user = null;
         },
     },
@@ -50,6 +53,7 @@ const store = createStore({
         },
     },
     getters: {
+        id_user: state => state.id_user,
         user: state => state.user,
     },
 });
