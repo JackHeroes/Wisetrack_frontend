@@ -103,7 +103,6 @@ router.beforeEach(async (to, from, next) => {
 
         if (!existingPasswordToken || existingPasswordToken !== passwordToken) {
             cookies.set('passwordToken', passwordToken, { 
-                //expires: new Date(new Date().getTime() + 15 * 60 * 1000),
                 secure: true, 
                 sameSite: 'Lax' 
             });
