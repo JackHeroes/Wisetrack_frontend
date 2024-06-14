@@ -27,7 +27,7 @@ const store = createStore({
                 throw error;
             }
         },
-        async validateToken({ commit }) {
+        async validatePassword({ commit }) {
             try {
                 await axios.get('/auth/PasswordAuthApi');
             } catch (error) {

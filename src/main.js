@@ -18,6 +18,8 @@ import '@mdi/font/css/materialdesignicons.css';
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
+import { vMaska } from "maska/vue"
+
 import { AgGridVue } from "ag-grid-vue3";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css"; 
@@ -67,5 +69,5 @@ app.use(router);
 app.use(store);
 app.use(Toast, options);
 app.use(vuetify);
-
+app.directive("maska", vMaska)
 app.mount('#app');

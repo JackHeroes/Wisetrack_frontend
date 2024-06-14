@@ -1,5 +1,9 @@
 <template>
-    <v-footer class="d-flex justify-center align-center" app permanent order="-1"> 
+    <v-footer class="d-flex justify-center align-center" 
+    app 
+    permanent 
+    height="64px"
+    order="-1"> 
         <p>© {{ currentYear }} Teste | Todos os direitos reservados</p>
     </v-footer>
 </template>    
@@ -18,6 +22,5 @@
         background-color: var(--black)!important;
         color: var(--white)!important;
         font-size: 0.8rem!important;
-        min-height: 64px!important;
     }
 </style>

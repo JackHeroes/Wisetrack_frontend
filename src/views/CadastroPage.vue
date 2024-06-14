@@ -105,6 +105,7 @@
 <script>
     import axios from '../services/axios';
     import store from '../store/store';
+    import { alpha, strongPassword } from '../services/customValidations';
     import { email, required, helpers } from '@vuelidate/validators'
     import { useVuelidate } from '@vuelidate/core'
 
@@ -124,9 +125,7 @@
         methods: {
             async submit() {
                 const result = await this.v$.$validate();
-                if (!result) {
-                    return;
-                }
+                if (!result) return
 
                 this.loading = true
 
@@ -162,15 +161,15 @@
                 },
                 firstName: {
                     required: helpers.withMessage('Nome é obrigatório', required),
-                    alpha: helpers.withMessage('Insira um nome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
+                    alpha: helpers.withMessage('Insira um nome válido', alpha)
                 },
                 lastName: {
                     required: helpers.withMessage('Sobrenome é obrigatório', required),
-                    alpha: helpers.withMessage('Insira um sobrenome válido', helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
+                    alpha: helpers.withMessage('Insira um sobrenome válido', alpha)
                 },
                 password: {
                     required: helpers.withMessage('Senha é obrigatória', required),
-                    strongPassword: helpers.withMessage('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.', helpers.regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/))
+                    strongPassword: helpers.withMessage('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.', strongPassword)
                 },
             };
         },

@@ -11,6 +11,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(config => {
+    const currentRoute = router.currentRoute.value;
 
     const csrftoken = cookies.get('csrftoken');
     if (csrftoken) {
@@ -19,7 +20,6 @@ instance.interceptors.request.use(config => {
 
     const accessToken = cookies.get('accessToken');
     const passwordToken = cookies.get('passwordToken');
-    const currentRoute = router.currentRoute.value; 
 
     if (currentRoute.path.includes('redefinir-senha')) {
         if (passwordToken) {

@@ -57,6 +57,7 @@
     import axios from '../services/axios';
     import store from '../store/store';
     import { required, helpers } from '@vuelidate/validators'
+    import { strongPassword } from '../services/customValidations';
     import { useVuelidate } from '@vuelidate/core'
 
     export default {
@@ -73,11 +74,17 @@
         methods: {
             async submit() {
                 const result = await this.v$.$validate();
-                if (!result) {
-                    return;
-                }
+                if (!result) return
 
                 this.loading = true
+
+                try {
+                    await store.dispatch('validatePassword');
+                } catch (error) {
+                    this.$router.push('/');
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    return;
+                }
 
                 try {
                     const response = await axios.patch('password/PasswordResetApi/', {
@@ -101,11 +108,11 @@
             return {   
                 password: {
                     required: helpers.withMessage('Senha é obrigatória', required),
-                    strongPassword: helpers.withMessage('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.', helpers.regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/))
+                    strongPassword: helpers.withMessage('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.', strongPassword)
                 },
                 confirmPassword: {
                     required: helpers.withMessage('Confirmação de senha é obrigatória', required),
-                    strongPassword: helpers.withMessage('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.', helpers.regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/))
+                    strongPassword: helpers.withMessage('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.', strongPassword)
                 },
             };
         },

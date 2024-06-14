@@ -14,7 +14,9 @@
                 <v-btn 
                     class="v-btn-menu"
                     variant="plain"
-                    :ripple="false">
+                    :class="{ 'v-menu-active': isActive('/conta') }"
+                    :ripple="false"
+                    @click="navigate('/conta')">
                     {{ user }}
                 </v-btn>
                 <v-btn 
@@ -32,7 +34,7 @@
     import axios from '../services/axios';
     import store from '../store/store';
     import { mapGetters } from 'vuex';
- 
+
     export default {
         name: 'SystemMenu',
         computed: {
@@ -43,6 +45,14 @@
         },
         methods: {
             async logout() {
+                try {
+                    await store.dispatch('validateUser');
+                } catch (error) {
+                    this.$router.push('/');
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    return;
+                }
+
                 try {
                     await axios.post('logout/LogoutApi/');
                     this.$store.commit('clearUser');

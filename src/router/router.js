@@ -12,6 +12,7 @@ import CategoriaGastoPage from '../views/CategoriaGastoPage.vue'
 import MetodoPagamentoPage from '../views/MetodoPagamentoPage.vue'
 import PlanilhaGastoPage from '../views/PlanilhaGastoPage.vue'
 import DashboardPage from '../views/DashboardPage.vue'
+import AccountPage from '../views/AccountPage.vue'
 
 const routes = [
     {
@@ -71,6 +72,12 @@ const routes = [
         name: 'Dashboard', 
         meta: { requiresUserAuth: true }
     },
+    { 
+        path: '/conta', 
+        component: AccountPage,
+        name: 'Conta', 
+        meta: { requiresUserAuth: true }
+    },
 ];
 
 const router = createRouter({
@@ -96,14 +103,14 @@ router.beforeEach(async (to, from, next) => {
 
         if (!existingPasswordToken || existingPasswordToken !== passwordToken) {
             cookies.set('passwordToken', passwordToken, { 
-                expires: new Date(new Date().getTime() + 15 * 60 * 1000),
+                //expires: new Date(new Date().getTime() + 15 * 60 * 1000),
                 secure: true, 
                 sameSite: 'Lax' 
             });
         }
 
         try {
-            await store.dispatch('validateToken');
+            await store.dispatch('validatePassword');
             next();
         } catch (error) {
             next('/');

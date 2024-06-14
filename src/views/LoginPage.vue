@@ -93,9 +93,7 @@
         methods: {
             async submit() {
                 const result = await this.v$.$validate();
-                if (!result) {
-                    return;
-                }
+                if (!result) return
 
                 this.loading = true;
 

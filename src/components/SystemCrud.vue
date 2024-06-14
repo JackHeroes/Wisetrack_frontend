@@ -33,6 +33,7 @@
                         color="var(--primary-color)"
                         density="comfortable"
                         hide-details="auto"
+                        max-width="100px"
                         variant="outlined"
                         :items="itemsPerPageOptions">
                     </v-select>
@@ -61,7 +62,9 @@
             </div>
         </template>
     </v-data-table-server>
-    <v-dialog v-model="dialog">
+    <v-dialog 
+        v-model="dialog"
+        max-width="500px">
         <v-card>
             <v-card-title>
                 <span v-if="dialogMode === 'create'">{{ createDialogTitle }}</span>
@@ -99,6 +102,7 @@
 <script>
     import axios from '../services/axios';
     import store from '../store/store';
+    import { alpha } from '../services/customValidations';
     import { mapGetters } from 'vuex';
     import { required, helpers } from '@vuelidate/validators';
     import { useVuelidate } from '@vuelidate/core';
@@ -217,6 +221,15 @@
             },
             async loadItems({ page, itemsPerPage, sortBy }) {
                 this.loading = true
+                
+                try {
+                    await store.dispatch('validateUser');
+                } catch (error) {
+                    this.$router.push('/');
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    return;
+                }
+
                 try {
                     const response = await axios.get(this.endpoint, {
                         params: {
@@ -246,6 +259,14 @@
             },
             async createNewItem() {
                 try {
+                    await store.dispatch('validateUser');
+                } catch (error) {
+                    this.$router.push('/');
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    return;
+                }
+
+                try {
                     const data = { ...this.editedItem, id_user: this.id_user };
                     const response = await axios.post(this.endpoint, data);
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
@@ -255,6 +276,14 @@
             },
             async updateExistingItem() {
                 try {
+                    await store.dispatch('validateUser');
+                } catch (error) {
+                    this.$router.push('/');
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    return;
+                }
+
+                try {
                     const data = { ...this.editedItem, id_user: this.id_user };
                     const response = await axios.put(this.endpoint, data);
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
@@ -263,6 +292,14 @@
                 }
             },
             async deleteExistingItem() {
+                try {
+                    await store.dispatch('validateUser');
+                } catch (error) {
+                    this.$router.push('/');
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    return;
+                }
+
                 try {
                     const response = await axios.delete(this.endpoint, { data: { [this.idField]: this.editedItem[this.idField] }});
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
@@ -290,7 +327,7 @@
                         : `Insira um ${field.label.toLowerCase()} válido`;
                     validations.editedItem[field.name] = {
                         ...validations.editedItem[field.name],
-                        alpha: helpers.withMessage(alphaMessage, helpers.regex(/^[a-zA-ZÀ-ú\s]*$/))
+                        alpha: helpers.withMessage(alphaMessage, alpha)
                     };
                 }
             });
@@ -303,27 +340,19 @@
     .data-table-items .btn-update,
     .data-table-items .btn-delete,
     .v-dialog .btn-confirm {
-        color: var(--white);
+        color: var(--white)!important;
     }
 
     .data-table-header .btn-create,
     .v-dialog .btn-confirm {
-        background-color: var(--primary-color);
-    }
-
-    .data-table-header .v-select {
-        max-width: 100px;
+        background-color: var(--primary-color)!important;
     }
 
     .data-table-items .btn-update {
-        background-color: var(--yellow);
+        background-color: var(--yellow)!important;
     }
-
+    
     .data-table-items .btn-delete {
-        background-color: var(--red);
-    }
-
-    .v-dialog {
-        max-width: 500px;
+        background-color: var(--red)!important;
     }
 </style>
