@@ -2,8 +2,8 @@
     <v-navigation-drawer expand-on-hover permanent rail>
         <v-list class="avatar-container">
             <v-list-item
-                prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-                :title="user">
+                :prepend-avatar="userImage"
+                :title="name">
             </v-list-item>
         </v-list>
         <v-divider></v-divider>
@@ -50,15 +50,24 @@
     </v-navigation-drawer>
 </template>
 <script>
+    import defaultUserImage from '@/assets/images/defaultUserImage.svg';
     import { mapGetters } from 'vuex';
 
     export default {
         name: 'SystemSidebar',
+        data() {
+            return {
+                userImage: defaultUserImage,
+            };
+        },
         computed: {
-            ...mapGetters(['user']),
+            ...mapGetters(['name']),
             currentRoute() {
                 return this.$route.path;
-            }
+            },
+            userImage() {
+                return this.userImage || defaultUserImage;
+            },
         },
         methods: {
             isActive(route) {

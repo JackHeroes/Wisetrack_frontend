@@ -6,15 +6,18 @@ const store = createStore({
     state: {
         id_user: null,
         user: null,
+        name: null,
     },
     mutations: {
-        setUser(state, { id_user, username }) {
+        setUser(state, { id_user, username, name }) {
             state.id_user = id_user;
             state.user = username;
+            state.name = name;
         },
         clearUser(state) {
             state.id_user = null;
             state.user = null;
+            state.name = null;
         },
     },
     actions: {
@@ -55,6 +58,7 @@ const store = createStore({
     getters: {
         id_user: state => state.id_user,
         user: state => state.user,
+        name: state => state.name,
     },
 });
 

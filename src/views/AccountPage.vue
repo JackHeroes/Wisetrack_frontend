@@ -10,7 +10,7 @@
                     variant="text">
                     <v-card-title class="d-flex justify-center align-center mb-6">
                         <v-avatar size="200">
-                            <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+                            <v-img :src="userImage"></v-img>
                         </v-avatar>
                     </v-card-title>
                     <v-card-text>
@@ -75,7 +75,6 @@
                             </v-text-field>
                             <v-switch
                                 v-model="changePassword"
-                                class="mb-3"
                                 color="var(--primary-color)"
                                 hide-details="auto"
                                 label="Alterar senha"
@@ -111,6 +110,14 @@
                                 :type="newPasswordVisible ? 'text' : 'password'"
                                 @click:append-inner="newPasswordVisible = !newPasswordVisible">
                             </v-text-field>
+                            <v-switch
+                                v-model="deleteAccount"
+                                color="var(--primary-color)"
+                                hide-details="auto"
+                                label="Excluir conta"
+                                inset
+                                @change="handleDeleteAccount">
+                            </v-switch>
                             <v-btn 
                                 class="v-btn-primary w-100"
                                 size="large" 
@@ -123,11 +130,34 @@
                 </v-card>
             </v-container>
         </v-main>
+        <v-dialog v-model="deleteAccountDialog" max-width="500px">
+            <v-card>
+                <v-card-title class="headline">Confirmar exclusão de conta</v-card-title>
+                <v-card-text>
+                    <v-text-field 
+                        v-model="confirmUsername"
+                        class="mb-3 w-100"
+                        color="var(--primary-color)"
+                        density="comfortable"
+                        hide-details="auto"
+                        label="Digite seu usuário para confirmar"
+                        name="confirmUsername"
+                        variant="outlined" 
+                        :error-messages="v$?.confirmUsername?.$errors.map(e => e.$message)">
+                    </v-text-field>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn class="btn-cancel" @click="cancelDelete" variant="plain">Cancelar</v-btn>
+                    <v-btn class="btn-confirm" @click="confirmDelete" variant="tonal">Excluir</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
         <SystemFooter/>
     </v-app>
 </template>
 <script>
     import axios from '../services/axios';
+    import defaultUserImage from '@/assets/images/defaultUserImage.svg';
     import store from '../store/store';
     import { alpha, maxIncome, strongPassword } from '../services/customValidations';
     import { email, required, helpers } from '@vuelidate/validators';
@@ -147,19 +177,23 @@
                 firstName: '',
                 lastName: '',
                 income: '',
-                currentPassword: '',
-                newPassword: '',
-                loading: false,
-                changePassword: false,
-                currentPasswordVisible: false,
-                newPasswordVisible: false,
                 options: {
                     number: {
                         fraction: 2,
                         locale: "pt-br",
                         unsigned: true,
                     }
-                }
+                },
+                userImage: defaultUserImage,
+                currentPassword: '',
+                newPassword: '',
+                confirmUsername: '',
+                changePassword: false,
+                currentPasswordVisible: false,
+                newPasswordVisible: false,
+                deleteAccount: false,
+                deleteAccountDialog: false,
+                loading: false,
             };
         },
         mounted() {
@@ -177,7 +211,18 @@
                     this.v$.currentPassword.$reset();
                     this.v$.newPassword.$reset();
                 }
-            }
+            },
+            deleteAccount(newValue) {
+                if (!newValue) {
+                    this.confirmUsername = '';
+                    this.v$.confirmUsername.$reset();
+                }
+            },
+            deleteAccountDialog(newValue) {
+                if (!newValue) {
+                    this.deleteAccount = false;
+                }
+            },
         },
         methods: {
             async loadUserData() {
@@ -201,6 +246,7 @@
                     this.firstName = userData.first_name;
                     this.lastName = userData.last_name;
                     this.income = new Intl.NumberFormat('pt-BR', { style: 'decimal', minimumFractionDigits: 2 }).format(userData.income);
+                    this.userImage = userData.userImage || defaultUserImage;
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
@@ -220,7 +266,7 @@
                 }
                 
                 try {
-                    const response = await axios.post('manageAccount/manageAccountApi/', {
+                    const response = await axios.put('manageAccount/manageAccountApi/', {
                         id_user: this.id_user,
                         email: this.email,
                         firstName: this.firstName,
@@ -240,6 +286,47 @@
                     this.loading = false;
                 }
             },
+            handleDeleteAccount() {
+                if (this.deleteAccount) {
+                    this.v$.$reset();
+                    this.changePassword = false;
+                    this.deleteAccountDialog = true;
+                } else {
+                    this.deleteAccountDialog = false;
+                }
+            },
+            async confirmDelete() {
+                const result = await this.v$.confirmUsername.$validate();
+                if (!result) return
+
+                try {
+                    await store.dispatch('validateUser');
+                } catch (error) {
+                    this.$router.push('/');
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    return;
+                }
+
+                try {
+                    const response = await axios.delete('manageAccount/manageAccountApi/', {
+                        data: {
+                            id_user: this.id_user,
+                            deleteAccount: this.deleteAccount,
+                        }
+                    });
+                    this.$router.push('/');
+                    store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
+                }
+                catch (error) {
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                } finally {
+                    this.loading = false;
+                }
+            },
+            cancelDelete() {
+                this.deleteAccount = false;
+                this.deleteAccountDialog = false;
+            },
         },
         validations() {
             const passwordValidations = this.changePassword ? {
@@ -249,6 +336,12 @@
                 newPassword: {
                     required: helpers.withMessage('Nova senha é obrigatória', required),
                     strongPassword: helpers.withMessage('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.', strongPassword)
+                },
+            } : {};
+
+            const deleteValidations = this.deleteAccount ? {
+                confirmUsername: {
+                    required: helpers.withMessage('Confirmar o usuário é obrigatório', required),
                 },
             } : {};
 
@@ -268,10 +361,15 @@
                 income: {
                     maxIncome: helpers.withMessage('A renda mensal deve ser no máximo 1.000.000,00', maxIncome)
                 },
-                ...passwordValidations
+                ...passwordValidations,
+                ...deleteValidations
             };
         },
     }
 </script>
 <style scoped>
+    .btn-confirm {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
 </style>
