@@ -4,8 +4,8 @@
             <v-card class="image-card d-flex flex-column justify-center align-center rounded-s-xl rounded-e-0">
                 <v-img
                     class="rounded-s-xl rounded-e-0 w-100 h-100"
-                    lazy-src="\src\assets\images\cadastroBanner.jpg"
-                    src="\src\assets\images\cadastroBanner.jpg"
+                    lazy-src="src/assets/images/banner/cadastroBanner.jpg"
+                    src="src/assets/images/banner/cadastroBanner.jpg"
                     cover>
                     <template v-slot:placeholder>
                         <v-row
@@ -130,13 +130,15 @@
                 this.loading = true
 
                 try {
-                    const response = await axios.post('createAccount/createAccountApi/', {
-                        username: this.username,
-                        email: this.email,
-                        firstName: this.firstName,
-                        lastName: this.lastName,
-                        password: this.password,
-                    });
+                    const formData = new FormData();
+                    formData.append('username', this.username);
+                    formData.append('email', this.email);
+                    formData.append('firstName', this.firstName);
+                    formData.append('lastName', this.lastName);
+                    formData.append('password', this.password);
+
+                    const response = await axios.post('createAccount/createAccountApi/', formData);
+
                     this.$router.push('/');
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 }

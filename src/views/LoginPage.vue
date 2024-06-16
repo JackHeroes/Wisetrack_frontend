@@ -53,8 +53,8 @@
             <v-card class="image-card d-flex flex-column justify-center align-center rounded-s-0 rounded-e-xl">
                 <v-img
                     class="rounded-s-0 rounded-e-xl w-100 h-100"
-                    lazy-src="\src\assets\images\loginBanner.jpg"
-                    src="\src\assets\images\loginBanner.jpg"
+                    lazy-src="src/assets/images/banner/loginBanner.jpg"
+                    src="src/assets/images/banner/loginBanner.jpg"
                     cover>
                     <template v-slot:placeholder>
                         <v-row
@@ -98,10 +98,12 @@
                 this.loading = true;
 
                 try {
-                    await axios.post('login/LoginApi/', {
-                        username: this.username,
-                        password: this.password,
-                    });
+                    const formData = new FormData();
+                    formData.append('username', this.username);
+                    formData.append('password', this.password);
+
+                    await axios.post('login/LoginApi/', formData);
+
                     this.$router.push('/inicio');
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });

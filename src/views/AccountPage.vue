@@ -168,7 +168,7 @@
 </template>
 <script>
     import axios from '../services/axios';
-    import defaultUserImage from '@/assets/images/defaultUserImage.svg';
+    import defaultUserImage from '@/assets/images/defaultUser/defaultUserImage.svg';
     import store from '../store/store';
     import { alpha, maxIncome, strongPassword } from '../services/customValidations';
     import { email, required, helpers } from '@vuelidate/validators';
@@ -324,12 +324,12 @@
                 }
 
                 try {
-                    const response = await axios.delete('manageAccount/manageAccountApi/', {
-                        data: {
-                            id_user: this.id_user,
-                            deleteAccount: this.deleteAccount,
-                        }
-                    });
+                    const formData = new FormData();
+                    formData.append('id_user', this.id_user);
+                    formData.append('deleteAccount', this.deleteAccount);
+
+                    const response = await axios.delete('manageAccount/manageAccountApi/', { data: formData });
+
                     this.$router.push('/');
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 } catch (error) {

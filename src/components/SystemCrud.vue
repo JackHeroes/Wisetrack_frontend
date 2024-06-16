@@ -264,8 +264,13 @@
                 }
 
                 try {
-                    const data = { ...this.editedItem, id_user: this.id_user };
-                    const response = await axios.post(this.endpoint, data);
+                    const formData = new FormData();
+                    Object.keys(this.editedItem).forEach(key => {
+                        formData.append(key, this.editedItem[key]);
+                    });
+                    formData.append('id_user', this.id_user);
+
+                    const response = await axios.post(this.endpoint, formData);
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
@@ -279,8 +284,13 @@
                 }
 
                 try {
-                    const data = { ...this.editedItem, id_user: this.id_user };
-                    const response = await axios.put(this.endpoint, data);
+                    const formData = new FormData();
+                    Object.keys(this.editedItem).forEach(key => {
+                        formData.append(key, this.editedItem[key]);
+                    });
+                    formData.append('id_user', this.id_user);
+
+                    const response = await axios.put(this.endpoint, formData);
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
@@ -294,7 +304,10 @@
                 }
 
                 try {
-                    const response = await axios.delete(this.endpoint, { data: { [this.idField]: this.editedItem[this.idField] }});
+                    const formData = new FormData();
+                    formData.append(this.idField, this.editedItem[this.idField]);
+
+                    const response = await axios.delete(this.endpoint, { data: formData });
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });

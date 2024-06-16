@@ -86,10 +86,12 @@
                 }
 
                 try {
-                    const response = await axios.patch('password/PasswordResetApi/', {
-                        password: this.password,
-                        confirmPassword: this.confirmPassword,
-                    });
+                    const formData = new FormData();
+                    formData.append('password', this.password);
+                    formData.append('confirmPassword', this.confirmPassword);
+
+                    const response = await axios.patch('password/PasswordResetApi/', formData);
+
                     this.$router.push('/');
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 }

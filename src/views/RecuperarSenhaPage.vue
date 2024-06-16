@@ -59,9 +59,11 @@
                 this.loading = true
 
                 try {
-                    const response = await axios.post('password/PasswordForgotApi/', {
-                        email: this.email,
-                    });
+                    const formData = new FormData();
+                    formData.append('email', this.email);
+
+                    const response = await axios.post('password/PasswordForgotApi/', formData);
+
                     this.$router.push('/');
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 }
