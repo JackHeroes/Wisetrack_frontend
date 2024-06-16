@@ -61,16 +61,16 @@
 <style scoped>
 
     .v-card-title {
-        color: var(--white);
-        font-size: 1.2rem;
+        color: var(--white)!important;
+        font-size: 1.2rem!important;
     }
 
     .v-card-text {
-        font-size: 1rem;
-        padding: 1rem;
+        font-size: 1rem!important;
+        padding: 1rem!important;
     }
 
     :deep(.v-timeline-divider__inner-dot .v-icon) {
-        color: var(--white);
+        color: var(--white)!important;
     }
 </style>

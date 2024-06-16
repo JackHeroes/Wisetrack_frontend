@@ -14,11 +14,11 @@
 }
 
 .v-container {
-    height: 100%;
-    width: 100%;
+    height: 100%!important;
+    width: 100%!important;
 }
 
 .v-btn-primary {
-    background-color: var(--primary-color);
-    color: var(--white);
+    background-color: var(--primary-color)!important;
+    color: var(--white)!important;
 }

@@ -32,17 +32,17 @@
 </script>
 <style scoped>
     .welcome-message {
-        font-size: 1.2rem;
+        font-size: 1.2rem!important;;
     }
   
     .v-btn {
-        border: 1px solid var(--primary-color);
-        color: var(--primary-color);
-        transition: all 0.3s ease;
+        border: 1px solid var(--primary-color)!important;;
+        color: var(--primary-color)!important;;
+        transition: all 0.3s ease!important;;
     }
   
     .v-btn:hover {
-        background-color: var(--primary-color);
-        color: var(--white);
+        background-color: var(--primary-color)!important;;
+        color: var(--white)!important;;
     }
 </style>
