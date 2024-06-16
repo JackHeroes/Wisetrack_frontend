@@ -7,17 +7,20 @@ const store = createStore({
         id_user: null,
         user: null,
         name: null,
+        image: null,
     },
     mutations: {
-        setUser(state, { id_user, username, name }) {
+        setUser(state, { id_user, username, name, image }) {
             state.id_user = id_user;
             state.user = username;
             state.name = name;
+            state.image = image ? `${image}?t=${new Date().getTime()}` : null;
         },
         clearUser(state) {
             state.id_user = null;
             state.user = null;
             state.name = null;
+            state.image = null;
         },
     },
     actions: {
@@ -59,6 +62,7 @@ const store = createStore({
         id_user: state => state.id_user,
         user: state => state.user,
         name: state => state.name,
+        image: state => state.image
     },
 });
 

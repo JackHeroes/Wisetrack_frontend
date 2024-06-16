@@ -9,9 +9,20 @@
                     max-width="600px"
                     variant="text">
                     <v-card-title class="d-flex justify-center align-center mb-6">
-                        <v-avatar size="200">
-                            <v-img :src="userImage"></v-img>
-                        </v-avatar>
+                        <div class="v-avatar-container">
+                            <v-avatar size="200">
+                                <v-img :src="userImage"></v-img>
+                            </v-avatar>
+                            <v-file-input 
+                                accept="image/*"
+                                hide-details="auto"
+                                prepend-icon="mdi-camera"
+                                ref="fileInput" 
+                                variant="outlined" 
+                                hide-input
+                                @change="fileChange">
+                            </v-file-input>
+                        </div>
                     </v-card-title>
                     <v-card-text>
                         <v-form @submit.prevent="submit" class="d-flex flex-column justify-center w-100">
@@ -163,6 +174,7 @@
     import { email, required, helpers } from '@vuelidate/validators';
     import { mapGetters } from 'vuex';
     import { useVuelidate } from '@vuelidate/core';
+    import { validateUser } from '../services/validateUser';
 
     export default {
         setup() {
@@ -184,6 +196,7 @@
                         unsigned: true,
                     }
                 },
+                userImageFile: null,
                 userImage: defaultUserImage,
                 currentPassword: '',
                 newPassword: '',
@@ -227,10 +240,8 @@
         methods: {
             async loadUserData() {
                 try {
-                    await store.dispatch('validateUser');
-                } catch (error) {
-                    this.$router.push('/');
-                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    await validateUser(this.$router);
+                } catch {
                     return;
                 }
 
@@ -246,7 +257,7 @@
                     this.firstName = userData.first_name;
                     this.lastName = userData.last_name;
                     this.income = new Intl.NumberFormat('pt-BR', { style: 'decimal', minimumFractionDigits: 2 }).format(userData.income);
-                    this.userImage = userData.userImage || defaultUserImage;
+                    this.userImage = userData.userImage ? `${userData.userImage}?t=${new Date().getTime()}` : defaultUserImage;
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
@@ -258,26 +269,33 @@
                 this.loading = true;
 
                 try {
-                    await store.dispatch('validateUser');
-                } catch (error) {
-                    this.$router.push('/');
-                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    await validateUser(this.$router);
+                } catch {
                     return;
                 }
                 
                 try {
-                    const response = await axios.put('manageAccount/manageAccountApi/', {
-                        id_user: this.id_user,
-                        email: this.email,
-                        firstName: this.firstName,
-                        lastName: this.lastName,
-                        income: parseFloat(this.income.replace(/[^\d,]/g, '').replace(',', '.')),
-                        changePassword: this.changePassword,
-                        currentPassword: this.changePassword ? this.currentPassword : undefined,
-                        newPassword: this.changePassword ? this.newPassword : undefined,
+                    const formData = new FormData();
+                    formData.append('id_user', this.id_user);
+                    formData.append('email', this.email);
+                    formData.append('firstName', this.firstName);
+                    formData.append('lastName', this.lastName);
+                    formData.append('income', parseFloat(this.income.replace(/[^\d,]/g, '').replace(',', '.')));
+                    if (this.userImageFile) {
+                        formData.append('userImage', this.userImageFile);
+                    }
+                    if (this.changePassword) {
+                        formData.append('currentPassword', this.currentPassword);
+                        formData.append('newPassword', this.newPassword);
+                    }
+                    
+                    const response = await axios.put('manageAccount/manageAccountApi/', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
                     });
-                    this.loadUserData();
                     this.v$.$reset();
+                    this.loadUserData();
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                 }
                 catch (error) {
@@ -300,10 +318,8 @@
                 if (!result) return
 
                 try {
-                    await store.dispatch('validateUser');
-                } catch (error) {
-                    this.$router.push('/');
-                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    await validateUser(this.$router);
+                } catch {
                     return;
                 }
 
@@ -316,8 +332,7 @@
                     });
                     this.$router.push('/');
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
-                }
-                catch (error) {
+                } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 } finally {
                     this.loading = false;
@@ -327,6 +342,17 @@
                 this.deleteAccount = false;
                 this.deleteAccountDialog = false;
             },
+            fileChange(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    this.userImageFile = file;
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.userImage = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
         },
         validations() {
             const passwordValidations = this.changePassword ? {
@@ -368,8 +394,28 @@
     }
 </script>
 <style scoped>
-    .btn-confirm {
-        background-color: var(--primary-color);
-        color: var(--white);
-    }
+.v-avatar-container {
+    max-width: 200px;
+    position: relative;
+}
+
+.v-card-title .v-file-input {
+    background-color: var(--primary-color);
+    border-radius: 100%;
+    bottom: 0;
+    color: var(--white);
+    font-size: 1.6rem;
+    padding: .6rem;
+    position: absolute;
+    right: 0;
+}
+
+.btn-confirm {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+:deep(.v-input__prepend .v-icon) {
+    opacity: 1;
+}
 </style>

@@ -55,18 +55,13 @@
 
     export default {
         name: 'SystemSidebar',
-        data() {
-            return {
-                userImage: defaultUserImage,
-            };
-        },
         computed: {
-            ...mapGetters(['name']),
+            ...mapGetters(['name', 'image']),
             currentRoute() {
                 return this.$route.path;
             },
             userImage() {
-                return this.userImage || defaultUserImage;
+                return this.image || defaultUserImage;
             },
         },
         methods: {

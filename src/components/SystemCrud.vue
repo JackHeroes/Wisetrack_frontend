@@ -106,6 +106,7 @@
     import { mapGetters } from 'vuex';
     import { required, helpers } from '@vuelidate/validators';
     import { useVuelidate } from '@vuelidate/core';
+    import { validateUser } from '../services/validateUser';
 
     export default {
         props: {
@@ -223,10 +224,8 @@
                 this.loading = true
                 
                 try {
-                    await store.dispatch('validateUser');
-                } catch (error) {
-                    this.$router.push('/');
-                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    await validateUser(this.$router);
+                } catch {
                     return;
                 }
 
@@ -259,10 +258,8 @@
             },
             async createNewItem() {
                 try {
-                    await store.dispatch('validateUser');
-                } catch (error) {
-                    this.$router.push('/');
-                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    await validateUser(this.$router);
+                } catch {
                     return;
                 }
 
@@ -276,10 +273,8 @@
             },
             async updateExistingItem() {
                 try {
-                    await store.dispatch('validateUser');
-                } catch (error) {
-                    this.$router.push('/');
-                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    await validateUser(this.$router);
+                } catch {
                     return;
                 }
 
@@ -293,10 +288,8 @@
             },
             async deleteExistingItem() {
                 try {
-                    await store.dispatch('validateUser');
-                } catch (error) {
-                    this.$router.push('/');
-                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    await validateUser(this.$router);
+                } catch {
                     return;
                 }
 

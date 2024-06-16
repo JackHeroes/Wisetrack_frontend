@@ -34,6 +34,7 @@
     import axios from '../services/axios';
     import store from '../store/store';
     import { mapGetters } from 'vuex';
+    import { validateUser } from '../services/validateUser';
 
     export default {
         name: 'SystemMenu',
@@ -46,10 +47,8 @@
         methods: {
             async logout() {
                 try {
-                    await store.dispatch('validateUser');
-                } catch (error) {
-                    this.$router.push('/');
-                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    await validateUser(this.$router);
+                } catch {
                     return;
                 }
 

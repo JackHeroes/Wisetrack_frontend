@@ -59,6 +59,7 @@
     import { required, helpers } from '@vuelidate/validators'
     import { strongPassword } from '../services/customValidations';
     import { useVuelidate } from '@vuelidate/core'
+    import { validatePassword } from '../services/validatePassword';
 
     export default {
         setup: () => ({ 
@@ -79,10 +80,8 @@
                 this.loading = true
 
                 try {
-                    await store.dispatch('validatePassword');
-                } catch (error) {
-                    this.$router.push('/');
-                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                    await validatePassword(this.$router);
+                } catch {
                     return;
                 }
 
