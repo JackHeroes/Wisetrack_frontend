@@ -24,6 +24,7 @@
                         label="Pesquisar"
                         prepend-inner-icon="mdi-magnify"
                         variant="outlined"
+                        clearable
                         single-line>
                     </v-text-field>
                 </div>

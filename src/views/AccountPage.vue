@@ -404,10 +404,10 @@
     border-radius: 100%!important;
     bottom: 0!important;
     color: var(--white)!important;
-    font-size: 1.2rem!important;
-    padding: .6rem!important;
+    font-size: 1rem!important;
+    padding: .5rem!important;
     position: absolute!important;
-    right: 0!important;
+    right: 0.5rem!important;
 }
 
 .btn-confirm {
