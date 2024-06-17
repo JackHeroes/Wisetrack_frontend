@@ -395,27 +395,27 @@
 </script>
 <style scoped>
 .v-avatar-container {
-    max-width: 200px!important;;
-    position: relative!important;;
+    max-width: 200px!important;
+    position: relative!important;
 }
 
 .v-card-title .v-file-input {
-    background-color: var(--primary-color)!important;;
-    border-radius: 100%!important;;
-    bottom: 0!important;;
-    color: var(--white)!important;;
-    font-size: 1.6rem!important;;
-    padding: .6rem!important;;
-    position: absolute!important;;
-    right: 0!important;;
+    background-color: var(--primary-color)!important;
+    border-radius: 100%!important;
+    bottom: 0!important;
+    color: var(--white)!important;
+    font-size: 1.2rem!important;
+    padding: .6rem!important;
+    position: absolute!important;
+    right: 0!important;
 }
 
 .btn-confirm {
-    background-color: var(--primary-color)!important;;
-    color: var(--white)!important;;
+    background-color: var(--primary-color)!important;
+    color: var(--white)!important;
 }
 
 :deep(.v-input__prepend .v-icon) {
-    opacity: 1!important;;
+    opacity: 1!important;
 }
 </style>
