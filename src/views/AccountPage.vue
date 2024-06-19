@@ -11,7 +11,7 @@
                     <v-card-title class="d-flex justify-center align-center mb-6">
                         <div class="v-avatar-container">
                             <v-avatar size="200">
-                                <v-img :src="userImage"></v-img>
+                                <v-img :src="image"></v-img>
                             </v-avatar>
                             <v-file-input 
                                 accept="image/*"
@@ -197,8 +197,8 @@
                         unsigned: true,
                     }
                 },
-                userImageFile: null,
-                userImage: defaultUserImage,
+                imageFile: null,
+                image: defaultUserImage,
                 currentPassword: '',
                 newPassword: '',
                 confirmUsername: '',
@@ -247,7 +247,7 @@
                 }
 
                 try {
-                    const response = await axios.get('manageAccount/manageAccountApi/', {
+                    const response = await axios.get('manageAccount/ManageAccountApi/', {
                         params: { 
                             id_user: this.id_user 
                         }
@@ -258,7 +258,7 @@
                     this.firstName = userData.first_name;
                     this.lastName = userData.last_name;
                     this.income = new Intl.NumberFormat('pt-BR', { style: 'decimal', minimumFractionDigits: 2 }).format(userData.income);
-                    this.userImage = userData.userImage ? `${userData.userImage}?t=${new Date().getTime()}` : defaultUserImage;
+                    this.image = userData.image ? `${userData.image}?t=${new Date().getTime()}` : defaultUserImage;
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
@@ -278,19 +278,19 @@
                 try {
                     const formData = new FormData();
                     formData.append('id_user', this.id_user);
-                    formData.append('email', this.email);
                     formData.append('firstName', this.firstName);
                     formData.append('lastName', this.lastName);
-                    formData.append('income', parseFloat(this.income.replace(/[^\d,]/g, '').replace(',', '.')));
-                    if (this.userImageFile) {
-                        formData.append('userImage', this.userImageFile);
+                    formData.append('income', this.income.trim() === '' ? '' : parseFloat(this.income.replace(/[^\d,]/g, '').replace(',', '.')));
+                    if (this.imageFile) {
+                        formData.append('image', this.imageFile);
                     }
                     if (this.changePassword) {
+                        formData.append('changePassword', this.changePassword);
                         formData.append('currentPassword', this.currentPassword);
                         formData.append('newPassword', this.newPassword);
                     }
                     
-                    const response = await axios.put('manageAccount/manageAccountApi/', formData, {
+                    const response = await axios.put('manageAccount/ManageAccountApi/', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
@@ -328,8 +328,9 @@
                     const formData = new FormData();
                     formData.append('id_user', this.id_user);
                     formData.append('deleteAccount', this.deleteAccount);
+                    formData.append('username', this.username);
 
-                    const response = await axios.delete('manageAccount/manageAccountApi/', { data: formData });
+                    const response = await axios.delete('manageAccount/ManageAccountApi/', { data: formData });
 
                     this.$router.push('/');
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
@@ -346,10 +347,10 @@
             fileChange(event) {
                 const file = event.target.files[0];
                 if (file) {
-                    this.userImageFile = file;
+                    this.imageFile = file;
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        this.userImage = e.target.result;
+                        this.image = e.target.result;
                     };
                     reader.readAsDataURL(file);
                 }
