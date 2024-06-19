@@ -3,7 +3,7 @@
         <v-container class="d-flex justify-center align-center fill-height" fluid>
             <v-card class="content-card d-flex flex-column justify-center align-center rounded-s-xl rounded-e-0">
                 <div class="card-header d-flex flex-column justify-center align-center">
-                    <v-img></v-img>
+                    <span class="v-logo text-uppercase">WiseTrack</span>
                     <h1 class="v-title text-uppercase mb-6">Login</h1>
                 </div>
                 <div class="card-body">

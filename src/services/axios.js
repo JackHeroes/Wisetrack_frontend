@@ -19,9 +19,14 @@ instance.interceptors.request.use(config => {
     }
 
     const accessToken = cookies.get('accessToken');
+    const emailToken = cookies.get('emailToken');
     const passwordToken = cookies.get('passwordToken');
 
-    if (currentRoute.path.includes('redefinir-senha')) {
+    if (currentRoute.path.includes('confirmar-email')) {
+        if (emailToken) {
+            config.headers['Authorization'] = `Bearer ${emailToken}`;
+        }
+    } else if (currentRoute.path.includes('redefinir-senha')) {
         if (passwordToken) {
             config.headers['Authorization'] = `Bearer ${passwordToken}`;
         }

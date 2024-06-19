@@ -22,7 +22,6 @@
             </v-card>
             <v-card class="content-card d-flex flex-column justify-center align-center rounded-s-0 rounded-e-xl">
                 <div class="card-header d-flex flex-column justify-center align-center">
-                    <v-img></v-img>
                     <h1 class="v-title text-uppercase mb-6">Cadastre-se</h1>
                 </div>
                 <div class="card-body">
@@ -137,7 +136,7 @@
                     formData.append('lastName', this.lastName);
                     formData.append('password', this.password);
 
-                    const response = await axios.post('createAccount/createAccountApi/', formData);
+                    const response = await axios.post('createAccount/CreateAccountApi/', formData);
 
                     this.$router.push('/');
                     store.dispatch('showToast', { message: response.data.success, messageType: 'success' });

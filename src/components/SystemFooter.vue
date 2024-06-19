@@ -4,7 +4,7 @@
     permanent 
     height="64px"
     order="-1"> 
-        <p>© {{ currentYear }} Teste | Todos os direitos reservados</p>
+        <p>© {{ currentYear }} WiseTrack | Todos os direitos reservados</p>
     </v-footer>
 </template>    
 <script>

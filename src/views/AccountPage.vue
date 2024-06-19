@@ -47,6 +47,7 @@
                                 label="E-mail"
                                 name="email"
                                 variant="outlined"
+                                readonly
                                 :error-messages="v$?.email?.$errors.map(e => e.$message)">
                             </v-text-field>
                             <v-text-field 

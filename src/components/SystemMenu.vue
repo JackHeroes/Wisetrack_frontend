@@ -1,6 +1,6 @@
 <template>
     <v-app-bar permanent order="-1">
-        <v-app-bar-title>Teste</v-app-bar-title>
+        <v-app-bar-title>WiseTrack</v-app-bar-title>
         <template v-slot:append>
             <div class="v-btn-group d-flex gap-3 h-100">
                 <v-btn 

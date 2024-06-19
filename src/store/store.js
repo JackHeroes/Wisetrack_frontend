@@ -33,6 +33,13 @@ const store = createStore({
                 throw error;
             }
         },
+        async validateEmail({ commit }) {
+            try {
+                await axios.get('/auth/EmailAuthApi');
+            } catch (error) {
+                throw error;
+            }
+        },
         async validatePassword({ commit }) {
             try {
                 await axios.get('/auth/PasswordAuthApi');

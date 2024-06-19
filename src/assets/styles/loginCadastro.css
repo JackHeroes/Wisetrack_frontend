@@ -14,10 +14,23 @@
     width: 80%!important;
 }
 
+.content-card .card-header {
+    position: relative!important;
+}
+
+.content-card .card-header .v-logo,
 .content-card .card-header .v-title,
 .content-card .card-body a,
 .content-card .card-footer a {
     color: var(--primary-color)!important;
+}
+
+.content-card .card-header .v-logo {
+    bottom: 72px!important;
+    font-size: 2rem!important;
+    font-weight: bold!important;
+    margin-bottom: 24px!important;
+    position: absolute!important;
 }
 
 .content-card .card-header p,

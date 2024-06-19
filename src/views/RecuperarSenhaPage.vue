@@ -3,7 +3,6 @@
         <v-container class="d-flex justify-center align-center fill-height" fluid>
             <v-card class="content-card d-flex flex-column justify-center align-center rounded-xl">
                 <div class="card-header d-flex flex-column justify-center align-center">
-                    <v-img></v-img>
                     <h1 class="v-title text-center text-uppercase mb-1">Redefina sua senha</h1>
                     <p class="text-center mb-6">Insira seu endereço de e-mail e lhe enviaremos instruções para redefinir sua senha</p>
                 </div>

@@ -6,6 +6,7 @@ import LoginPage from '../views/LoginPage.vue';
 import CadastroPage from '../views/CadastroPage.vue';
 import RecuperarSenhaPage from '../views/RecuperarSenhaPage.vue';
 import RedefinirSenhaPage from '../views/RedefinirSenhaPage.vue';
+import ConfirmarEmailPage from '../views/ConfirmarEmailPage.vue';
 import HomePage from '../views/HomePage.vue';
 import PrimeirosPassosPage from '../views/PrimeirosPassosPage.vue'
 import CategoriaGastoPage from '../views/CategoriaGastoPage.vue'
@@ -35,6 +36,12 @@ const routes = [
         component: RedefinirSenhaPage,
         name: 'RedefinirSenha',
         meta: { requiresPasswordAuth: true }
+    },
+    { 
+        path: '/confirmar-email/:emailToken',
+        component: ConfirmarEmailPage,
+        name: 'ConfirmarEmail',
+        meta: { requiresEmailAuth: true }
     },
     { 
         path: '/inicio', 
@@ -88,6 +95,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
     const requiresUserAuth = to.matched.some(record => record.meta.requiresUserAuth);
     const requiresPasswordAuth = to.matched.some(record => record.meta.requiresPasswordAuth);
+    const requiresEmailAuth = to.matched.some(record => record.meta.requiresEmailAuth);
   
     if (requiresUserAuth) {
         try {
@@ -97,6 +105,24 @@ router.beforeEach(async (to, from, next) => {
             next('/');
             store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
         }
+    } else if (requiresEmailAuth) {
+        const emailToken = to.params.emailToken;
+        const existingEmailToken = cookies.get('emailToken');
+
+        if (!existingEmailToken || existingEmailToken !== emailToken) {
+            cookies.set('emailToken', emailToken, { 
+                secure: true, 
+                sameSite: 'Lax' 
+            });
+        }
+
+        try {
+            await store.dispatch('validateEmail');
+            next();
+        } catch (error) {
+            next('/');
+            store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+        } 
     } else if (requiresPasswordAuth) {
         const passwordToken = to.params.passwordToken;
         const existingPasswordToken = cookies.get('passwordToken');
