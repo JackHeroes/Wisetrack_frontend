@@ -252,13 +252,12 @@
                             id_user: this.id_user 
                         }
                     });
-                    const userData = response.data;
-                    this.username = userData.username;
-                    this.email = userData.email;
-                    this.firstName = userData.first_name;
-                    this.lastName = userData.last_name;
-                    this.income = new Intl.NumberFormat('pt-BR', { style: 'decimal', minimumFractionDigits: 2 }).format(userData.income);
-                    this.image = userData.image ? `${userData.image}?t=${new Date().getTime()}` : defaultUserImage;
+                    this.username = response.data.username;
+                    this.email = response.data.email;
+                    this.firstName = response.data.first_name;
+                    this.lastName = response.data.last_name;
+                    this.income = new Intl.NumberFormat('pt-BR', { style: 'decimal', minimumFractionDigits: 2 }).format(response.data.income);
+                    this.image = response.data.image ? `${response.data.image}?t=${new Date().getTime()}` : defaultUserImage;
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
