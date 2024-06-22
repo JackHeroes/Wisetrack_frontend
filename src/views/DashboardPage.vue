@@ -48,8 +48,10 @@
 <script>
     import axios from '../services/axios';
     import store from '../store/store';
+    import { getMonthName } from '../charts/month/getMonthName';
     import { mapGetters } from 'vuex';
     import { validateUser } from '../services/validateUser';
+    import locale from '../charts/locale/locale'; 
 
     export default {
         data() {
@@ -90,7 +92,7 @@
                             type: 'category',
                             position: 'bottom',
                             label: {
-                                formatter: params => `Mês ${params.value}`
+                                formatter: params => getMonthName(params.value)
                             }
                         },
                         {
@@ -100,7 +102,8 @@
                                 text: 'Valor dos gastos'
                             }
                         },
-                    ]
+                    ],
+                    overlays: locale.overlays
                 },
                 categoriaDonutOptions: {
                     title: {
@@ -112,7 +115,8 @@
                         calloutLabelKey: 'categoriaGasto',
                         angleKey: 'valor',
                         innerRadiusRatio: 0.7
-                    }]
+                    }],
+                    overlays: locale.overlays
                 },
                 metodoDonutOptions: {
                     title: {
@@ -124,7 +128,8 @@
                         calloutLabelKey: 'metodoPagamento',
                         angleKey: 'valor',
                         innerRadiusRatio: 0.7
-                    }]
+                    }],
+                    overlays: locale.overlays
                 },
                 categoriaStackedOptions: {
                     title: {
@@ -137,7 +142,7 @@
                             type: 'category',
                             position: 'bottom',
                             label: {
-                                formatter: params => `Mês ${params.value}`
+                                formatter: params => getMonthName(params.value)
                             }
                         },
                         {
@@ -147,7 +152,8 @@
                                 text: 'Valor dos gastos'
                             }
                         }
-                    ]
+                    ],
+                    overlays: locale.overlays
                 },
                 metodoStackedOptions: {
                     title: {
@@ -160,7 +166,7 @@
                             type: 'category',
                             position: 'bottom',
                             label: {
-                                formatter: params => `Mês ${params.value}`
+                                formatter: params => getMonthName(params.value)
                             }
                         },
                         {
@@ -170,7 +176,8 @@
                                 text: 'Valor dos gastos'
                             }
                         }
-                    ]
+                    ],
+                    overlays: locale.overlays
                 }
             };
         },
