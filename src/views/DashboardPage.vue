@@ -47,11 +47,11 @@
 </template>
 <script>
     import axios from '../services/axios';
+    import locale from '../charts/locale/locale';
     import store from '../store/store';
     import { getMonthName } from '../charts/month/getMonthName';
     import { mapGetters } from 'vuex';
     import { validateUser } from '../services/validateUser';
-    import locale from '../charts/locale/locale'; 
 
     export default {
         data() {
@@ -61,32 +61,7 @@
                         text: 'Comparativo de gastos e renda mensal'
                     },
                     data: this.fetchGastosIncome(),
-                    series: [
-                        {
-                            type: 'bar',
-                            xKey: 'mes',
-                            yKey: 'income',
-                            yName: 'Renda',
-                            grouped: true,
-                        },
-                        {
-                            type: 'bar',
-                            xKey: 'mes',
-                            yKey: 'valor',
-                            yName: 'Gastos',
-                            grouped: true,
-                        },
-                        {
-                            type: 'line',
-                            xKey: 'mes',
-                            yKey: 'difference',
-                            yName: 'Saldo',
-                            strokeWidth: 3,
-                            marker: {
-                                size: 10
-                            }
-                        },
-                    ],
+                    series: [],
                     axes: [
                         {
                             type: 'category',
@@ -110,12 +85,7 @@
                         text: 'Top 5 categorias de gasto'
                     },
                     data: this.fetchCategorias(),
-                    series: [{
-                        type: 'donut',
-                        calloutLabelKey: 'categoriaGasto',
-                        angleKey: 'valor',
-                        innerRadiusRatio: 0.7
-                    }],
+                    series: [],
                     overlays: locale.overlays
                 },
                 metodoDonutOptions: {
@@ -123,12 +93,7 @@
                         text: 'Top 5 métodos de pagamento'
                     },
                     data: this.fetchMetodos(),
-                    series: [{
-                        type: 'donut',
-                        calloutLabelKey: 'metodoPagamento',
-                        angleKey: 'valor',
-                        innerRadiusRatio: 0.7
-                    }],
+                    series: [],
                     overlays: locale.overlays
                 },
                 categoriaStackedOptions: {
@@ -189,7 +154,7 @@
                 try {
                     await validateUser(this.$router);
                 } catch {
-                    return;
+                    return [];
                 }
 
                 try {
@@ -199,7 +164,34 @@
                         }
                     });
                     const data = response.data.data;
-                    this.gastosIncomeOptions.data = data;
+
+                    this.gastosIncomeOptions.data = Array.isArray(data) ? data : [];
+                    this.gastosIncomeOptions.series = [
+                        {
+                            type: 'bar',
+                            xKey: 'mes',
+                            yKey: 'income',
+                            yName: 'Renda',
+                            grouped: true,
+                        },
+                        {
+                            type: 'bar',
+                            xKey: 'mes',
+                            yKey: 'valor',
+                            yName: 'Gastos',
+                            grouped: true,
+                        },
+                        {
+                            type: 'line',
+                            xKey: 'mes',
+                            yKey: 'difference',
+                            yName: 'Saldo',
+                            strokeWidth: 3,
+                            marker: {
+                                size: 10
+                            }
+                        }
+                    ];
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
@@ -208,7 +200,7 @@
                 try {
                     await validateUser(this.$router);
                 } catch {
-                    return;
+                    return [];
                 }
 
                 try {
@@ -218,7 +210,14 @@
                         }
                     });
                     const data = response.data.data;
-                    this.categoriaDonutOptions.data = data;
+
+                    this.categoriaDonutOptions.data = Array.isArray(data) ? data : [];
+                    this.categoriaDonutOptions.series = [{
+                        type: 'donut',
+                        calloutLabelKey: 'categoriaGasto',
+                        angleKey: 'valor',
+                        innerRadiusRatio: 0.7
+                    }];
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
@@ -227,7 +226,7 @@
                 try {
                     await validateUser(this.$router);
                 } catch {
-                    return;
+                    return [];
                 }
 
                 try {
@@ -237,7 +236,14 @@
                         }
                     });
                     const data = response.data.data;
-                    this.metodoDonutOptions.data = data;
+
+                    this.metodoDonutOptions.data = Array.isArray(data) ? data : [];
+                    this.metodoDonutOptions.series = [{
+                        type: 'donut',
+                        calloutLabelKey: 'metodoPagamento',
+                        angleKey: 'valor',
+                        innerRadiusRatio: 0.7
+                    }];
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
@@ -246,7 +252,7 @@
                 try {
                     await validateUser(this.$router);
                 } catch {
-                    return;
+                    return [];
                 }
 
                 try {
@@ -256,16 +262,18 @@
                         }
                     });
                     const data = response.data.data;
-                    this.categoriaStackedOptions.data = data;
 
-                    const categorias = Object.keys(data[0]).filter(key => key !== 'ano' && key !== 'mes');
-                    this.categoriaStackedOptions.series = categorias.map(categoria => ({
-                        type: 'bar',
-                        xKey: 'mes',
-                        yKey: categoria,
-                        stacked: true,
-                        yName: categoria
-                    }));
+                    this.categoriaStackedOptions.data = Array.isArray(data) ? data : [];
+                    if (Array.isArray(data) && data.length > 0) {
+                        const categorias = Object.keys(data[0]).filter(key => key !== 'ano' && key !== 'mes');
+                        this.categoriaStackedOptions.series = categorias.map(categoria => ({
+                            type: 'bar',
+                            xKey: 'mes',
+                            yKey: categoria,
+                            stacked: true,
+                            yName: categoria
+                        }));
+                    }
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
@@ -274,7 +282,7 @@
                 try {
                     await validateUser(this.$router);
                 } catch {
-                    return;
+                    return [];
                 }
                 
                 try {
@@ -284,16 +292,18 @@
                         }
                     });
                     const data = response.data.data;
-                    this.metodoStackedOptions.data = data;
 
-                    const metodos = Object.keys(data[0]).filter(key => key !== 'ano' && key !== 'mes');
-                    this.metodoStackedOptions.series = metodos.map(metodo => ({
-                        type: 'bar',
-                        xKey: 'mes',
-                        yKey: metodo,
-                        stacked: true,
-                        yName: metodo
-                    }));
+                    this.metodoStackedOptions.data = Array.isArray(data) ? data : [];
+                    if (Array.isArray(data) && data.length > 0) {
+                        const metodos = Object.keys(data[0]).filter(key => key !== 'ano' && key !== 'mes');
+                        this.metodoStackedOptions.series = metodos.map(metodo => ({
+                            type: 'bar',
+                            xKey: 'mes',
+                            yKey: metodo,
+                            stacked: true,
+                            yName: metodo
+                        }));
+                    }
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
