@@ -24,6 +24,8 @@ import { AgGridVue } from "ag-grid-vue3";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css"; 
 
+import { AgChartsVue } from 'ag-charts-vue3';
+
 import './assets/styles/main.css';
 
 const vuetify = createVuetify({
@@ -64,6 +66,7 @@ app.component('SystemFooter', SystemFooter);
 app.component('SystemCrud', SystemCrud);
 
 app.component('AgGridVue', AgGridVue);
+app.component('AgChartsVue', AgChartsVue);
 
 app.use(router);
 app.use(store);
