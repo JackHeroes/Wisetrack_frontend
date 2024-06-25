@@ -44,7 +44,7 @@
                     {
                         color: 'var(--secondary-color)',
                         icon: 'mdi-view-grid',
-                        title: 'Cadastre suas categorias de gastos',
+                        title: 'Cadastre suas categorias de gasto',
                         text: 'Organize seus gastos cadastrando diferentes categorias como alimentação, transporte, saúde, lazer, dentre outros. Isso ajudará a monitorar melhor suas finanças',
                         route: '/categorias-gasto'
                     },
