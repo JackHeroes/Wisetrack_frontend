@@ -3,7 +3,9 @@
         <v-list class="avatar-container">
             <v-list-item
                 :prepend-avatar="userImage"
-                :title="name">
+                :ripple="false"
+                :title="name"
+                @click="navigate('/conta')">
             </v-list-item>
         </v-list>
         <v-divider></v-divider>
@@ -22,22 +24,22 @@
                 class="sidebar-item"
                 prepend-icon="mdi-view-grid" 
                 title="Categorias de gastos" 
-                :class="{ 'v-sidebar-active': isActive('/categoria-gasto') }"
-                @click="navigate('/categoria-gasto')">
+                :class="{ 'v-sidebar-active': isActive('/categorias-gasto') }"
+                @click="navigate('/categorias-gasto')">
             </v-list-item>
             <v-list-item 
                 class="sidebar-item"
                 prepend-icon="mdi-wallet" 
                 title="Método de pagamento" 
-                :class="{ 'v-sidebar-active': isActive('/metodo-pagamento') }"
-                @click="navigate('/metodo-pagamento')" >
+                :class="{ 'v-sidebar-active': isActive('/metodos-pagamento') }"
+                @click="navigate('/metodos-pagamento')" >
             </v-list-item>
             <v-list-item 
                 class="sidebar-item"
                 prepend-icon="mdi-cash" 
                 title="Planilha de gastos" 
-                :class="{ 'v-sidebar-active': isActive('/planilha-gasto') }"
-                @click="navigate('/planilha-gasto')" >
+                :class="{ 'v-sidebar-active': isActive('/gastos-diarios') }"
+                @click="navigate('/gastos-diarios')" >
             </v-list-item>
             <v-list-item 
                 class="sidebar-item"

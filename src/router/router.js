@@ -22,7 +22,7 @@ const routes = [
         name: 'Login', 
     },
     { 
-        path: '/cadastro', 
+        path: '/criar-conta', 
         component: CadastroPage,
         name: 'Cadastro', 
     },
@@ -56,19 +56,19 @@ const routes = [
         meta: { requiresUserAuth: true }
     },
     { 
-        path: '/categoria-gasto', 
+        path: '/categorias-gasto', 
         component: CategoriaGastoPage,
         name: 'CategoriaGasto', 
         meta: { requiresUserAuth: true }
     },
     { 
-        path: '/metodo-pagamento', 
+        path: '/metodos-pagamento', 
         component: MetodoPagamentoPage,
         name: 'MetodoPagamento', 
         meta: { requiresUserAuth: true }
     },
     { 
-        path: '/planilha-gasto', 
+        path: '/gastos-diarios', 
         component: PlanilhaGastoPage,
         name: 'PlanilhaGasto', 
         meta: { requiresUserAuth: true }

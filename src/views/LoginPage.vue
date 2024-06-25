@@ -115,7 +115,7 @@
                 this.$router.push('/esqueci-a-senha');
             },
             goToCadastro() {
-                this.$router.push('/cadastro');
+                this.$router.push('/criar-conta');
             },
         },
         validations() {
