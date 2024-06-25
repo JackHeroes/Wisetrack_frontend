@@ -255,7 +255,7 @@
     };
 </script>
 <style scoped>
-      .ag-theme-alpine {
+    .ag-theme-alpine {
         --ag-alpine-active-color: var(--primary-color)!important; 
         --ag-input-focus-border-color: var(--primary-color)!important;
         --ag-row-hover-color: var(--grid-tertiary-color)!important;

@@ -4,6 +4,29 @@
         <SystemSidebar/>
         <v-main class="d-flex justify-center align-center">
             <v-container class="d-flex flex-column justify-center align-center pa-8" fluid>
+                <div class="d-flex justify-center align-center w-100 ga-5">
+                    <v-card class="info-card rounded-xl" width="350px">
+                        <v-card-title class="d-flex justify-space-between">
+                            <span>Saldo atual</span>
+                            <v-icon color="blue">mdi-bank</v-icon>
+                        </v-card-title>
+                        <v-card-text>{{ totalBalance }}</v-card-text>
+                    </v-card>
+                    <v-card class="info-card rounded-xl" width="350px">
+                        <v-card-title class="d-flex justify-space-between">
+                            <span>Receitas</span>
+                            <v-icon color="green">mdi-arrow-up</v-icon>
+                        </v-card-title>
+                        <v-card-text>{{ totalIncome }}</v-card-text>
+                    </v-card>
+                    <v-card class="info-card rounded-xl" width="350px">
+                        <v-card-title class="d-flex justify-space-between">
+                            <span>Despesas</span>
+                            <v-icon color="red">mdi-arrow-down</v-icon>
+                        </v-card-title>
+                        <v-card-text>{{ totalExpenses }}</v-card-text>
+                    </v-card>
+                </div>
                 <div class="d-flex justify-center align-center w-100">
                     <div class="chart-container d-flex justify-center align-center w-100">
                         <ag-charts-vue 
@@ -56,6 +79,9 @@
     export default {
         data() {
             return {
+                totalIncome: 'R$ 0,00',
+                totalExpenses: 'R$ 0,00',
+                totalBalance: 'R$ 0,00',
                 gastosIncomeOptions: {
                     title: {
                         text: 'Comparativo de gastos e renda mensal'
@@ -146,10 +172,35 @@
                 }
             };
         },
+        mounted() {
+            this.fetchCardsData();
+        },
         computed: {
             ...mapGetters(['id_user']),
         },
         methods: {
+            async fetchCardsData() {
+                try {
+                    await validateUser(this.$router);
+                } catch {
+                    return;
+                }
+
+                try {
+                    const response = await axios.get('dashboard/DashboardCardsApi/', {
+                        params: {
+                            id_user: this.id_user
+                        }
+                    });
+                    const data = response.data.data;
+
+                    this.totalIncome = this.formatCurrency(data.total_income);
+                    this.totalExpenses = this.formatCurrency(data.total_expenses);
+                    this.totalBalance = this.formatCurrency(data.total_balance);
+                } catch (error) {
+                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
+                }
+            },
             async fetchGastosIncome() {
                 try {
                     await validateUser(this.$router);
@@ -307,11 +358,28 @@
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
-            }
+            },
+            formatCurrency(value) {
+                return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+            },
         }
     };
 </script>
 <style scoped>
+    .info-card .v-card-title span {
+        font-size: 1rem!important;
+        font-weight: lighter!important;
+    }
+
+    .info-card .v-card-title .v-icon {
+        font-size: 2rem!important;
+    }
+
+    .info-card .v-card-text {
+        font-size: 1.5rem!important;
+        font-weight: bold!important;
+    }
+
     .chart-container {
         margin: 20px!important;
     }

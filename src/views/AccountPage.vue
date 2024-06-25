@@ -395,28 +395,28 @@
     }
 </script>
 <style scoped>
-.v-avatar-container {
-    max-width: 200px!important;
-    position: relative!important;
-}
+    .v-avatar-container {
+        max-width: 200px!important;
+        position: relative!important;
+    }
 
-.v-card-title .v-file-input {
-    background-color: var(--primary-color)!important;
-    border-radius: 100%!important;
-    bottom: 0!important;
-    color: var(--white)!important;
-    font-size: 1rem!important;
-    padding: .5rem!important;
-    position: absolute!important;
-    right: 0.5rem!important;
-}
+    .v-card-title .v-file-input {
+        background-color: var(--primary-color)!important;
+        border-radius: 100%!important;
+        bottom: 0!important;
+        color: var(--white)!important;
+        font-size: 1rem!important;
+        padding: .5rem!important;
+        position: absolute!important;
+        right: 0.5rem!important;
+    }
 
-.btn-confirm {
-    background-color: var(--primary-color)!important;
-    color: var(--white)!important;
-}
+    .btn-confirm {
+        background-color: var(--primary-color)!important;
+        color: var(--white)!important;
+    }
 
-:deep(.v-input__prepend .v-icon) {
-    opacity: 1!important;
-}
+    :deep(.v-input__prepend .v-icon) {
+        opacity: 1!important;
+    }
 </style>

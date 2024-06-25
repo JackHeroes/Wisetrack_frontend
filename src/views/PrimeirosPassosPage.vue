@@ -80,7 +80,6 @@
     }
 </script>
 <style scoped>
-
     .v-card-title {
         color: var(--white)!important;
         font-size: 1.2rem!important;
