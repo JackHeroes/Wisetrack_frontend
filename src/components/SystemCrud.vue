@@ -343,6 +343,11 @@
     };
 </script>
 <style scoped>
+    .v-table {
+        border-radius: 24px!important;
+        padding: 2rem!important;
+    }
+
     .data-table-header .btn-create,
     .data-table-items .btn-update,
     .data-table-items .btn-delete,

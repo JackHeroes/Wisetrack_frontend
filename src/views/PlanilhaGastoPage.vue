@@ -5,7 +5,7 @@
         <v-main class="d-flex justify-center align-center">
             <v-container class="d-flex justify-center align-center pa-8" fluid>
                 <ag-grid-vue
-                    class="ag-theme-alpine"
+                    class="ag-theme-quartz"
                     rowSelection="multiple"
                     style="height: 100%; width: 100%;"
                     :defaultColDef="defaultColDef"
@@ -255,8 +255,8 @@
     };
 </script>
 <style scoped>
-    .ag-theme-alpine {
-        --ag-alpine-active-color: var(--primary-color)!important; 
+    .ag-theme-quartz {
+        --ag-active-color: var(--primary-color)!important; 
         --ag-input-focus-border-color: var(--primary-color)!important;
         --ag-row-hover-color: var(--grid-tertiary-color)!important;
         --ag-selected-row-background-color: var(--grid-secondary-color)!important; 

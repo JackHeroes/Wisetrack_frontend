@@ -22,7 +22,7 @@ import { vMaska } from "maska/vue"
 
 import { AgGridVue } from "ag-grid-vue3";
 import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css"; 
+import "ag-grid-community/styles/ag-theme-quartz.css"; 
 
 import { AgChartsVue } from 'ag-charts-vue3';
 

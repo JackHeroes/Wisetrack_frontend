@@ -36,6 +36,7 @@
     }
   
     .v-btn {
+        background-color: transparent!important;
         border: 1px solid var(--primary-color)!important;
         color: var(--primary-color)!important;
         transition: all 0.3s ease!important;

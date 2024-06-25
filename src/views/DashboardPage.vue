@@ -4,27 +4,33 @@
         <SystemSidebar/>
         <v-main class="d-flex justify-center align-center">
             <v-container class="d-flex flex-column justify-center align-center pa-8" fluid>
-                <div class="d-flex justify-center align-center w-100 ga-5 mb-8">
-                    <v-card class="info-card rounded-xl" width="350px">
-                        <v-card-title class="d-flex justify-space-between">
-                            <span>Saldo atual</span>
+                <div class="d-flex justify-center align-center w-100 mb-8">
+                    <v-card class="info-card d-flex justify-space-between align-center rounded-xl w-100 me-4">
+                        <div>
+                            <p>Saldo atual</p>
+                            <p>{{ totalBalance }}</p>
+                        </div>
+                        <div>
                             <v-icon color="blue">mdi-bank</v-icon>
-                        </v-card-title>
-                        <v-card-text>{{ totalBalance }}</v-card-text>
+                        </div>
                     </v-card>
-                    <v-card class="info-card rounded-xl" width="350px">
-                        <v-card-title class="d-flex justify-space-between">
-                            <span>Receitas</span>
+                    <v-card class="info-card d-flex justify-space-between align-center rounded-xl w-100 ms-4 me-4">
+                        <div>
+                            <p>Receitas</p>
+                            <p>{{ totalIncome }}</p>
+                        </div>
+                        <div>
                             <v-icon color="green">mdi-arrow-up</v-icon>
-                        </v-card-title>
-                        <v-card-text>{{ totalIncome }}</v-card-text>
+                        </div>
                     </v-card>
-                    <v-card class="info-card rounded-xl" width="350px">
-                        <v-card-title class="d-flex justify-space-between">
-                            <span>Despesas</span>
+                    <v-card class="info-card d-flex justify-space-between align-center rounded-xl ms-4 w-100">
+                        <div>
+                            <p>Despesas</p>
+                            <p>{{ totalExpenses }}</p>
+                        </div>
+                        <div>
                             <v-icon color="red">mdi-arrow-down</v-icon>
-                        </v-card-title>
-                        <v-card-text>{{ totalExpenses }}</v-card-text>
+                        </div>
                     </v-card>
                 </div>
                 <div class="d-flex justify-center align-center w-100">
@@ -106,7 +112,7 @@
                     ],
                     overlays: locale.overlays,
                     background: {
-                        fill: '#E4CDFB',
+                        fill: '#FFFFFF',
                     },
                 },
                 categoriaDonutOptions: {
@@ -117,7 +123,7 @@
                     series: [],
                     overlays: locale.overlays,
                     background: {
-                        fill: '#E4CDFB',
+                        fill: '#FFFFFF',
                     },
                 },
                 metodoDonutOptions: {
@@ -128,7 +134,7 @@
                     series: [],
                     overlays: locale.overlays,
                     background: {
-                        fill: '#E4CDFB',
+                        fill: '#FFFFFF',
                     },
                 },
                 categoriaStackedOptions: {
@@ -155,7 +161,7 @@
                     ],
                     overlays: locale.overlays,
                     background: {
-                        fill: '#E4CDFB',
+                        fill: '#FFFFFF',
                     },
                 },
                 metodoStackedOptions: {
@@ -182,7 +188,7 @@
                     ],
                     overlays: locale.overlays,
                     background: {
-                        fill: '#E4CDFB',
+                        fill: '#FFFFFF',
                     },
                 }
             };
@@ -383,21 +389,27 @@
 <style scoped>
     .info-card,
     .chart-container {
-        background-color: var(--tertiary-color)!important;
+        background-color: var(--white)!important;
     }
 
-    .info-card .v-card-title span {
+    .info-card {
+        padding: 1rem!important;
+    }
+
+    .info-card p:first-child {
         font-size: 1rem!important;
         font-weight: lighter!important;
+        padding: 4px!important;
     }
 
-    .info-card .v-card-title .v-icon {
-        font-size: 2rem!important;
-    }
-
-    .info-card .v-card-text {
+    .info-card p:last-child {
         font-size: 1.5rem!important;
         font-weight: bold!important;
+        padding: 4px!important;
+    }
+
+    .info-card .v-icon {
+        font-size: 2rem!important;
     }
 
     .chart-container {

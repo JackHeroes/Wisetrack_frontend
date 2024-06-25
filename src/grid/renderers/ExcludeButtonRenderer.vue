@@ -1,6 +1,9 @@
 <template>
     <div class="d-flex align-center h-100">
-        <v-btn @click="removeRow">
+        <v-btn 
+            variant="text"
+            :ripple="false"
+            @click="removeRow">
             <v-icon>mdi-delete</v-icon>
         </v-btn>
     </div>
@@ -53,7 +56,6 @@
 </script>
 <style scoped>
     .v-btn {
-        background-color: var(--red)!important;
-        color: var(--white)!important;
+        color: var(--red)!important;
     }
 </style>

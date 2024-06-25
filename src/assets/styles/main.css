@@ -5,6 +5,7 @@
     --black: #100C08;
     --gray: #333333;
     --white: #FFFFFF;
+    --smoke-white: #EDF3FB;
     --yellow: #FFC107;
     --red: #FF5252;
     --grid-secondary-color: #EAE0FF;
@@ -12,6 +13,7 @@
 }
 
 .v-main {
+    background-color: var(--smoke-white);
     padding-right: 56px!important;
 }
 

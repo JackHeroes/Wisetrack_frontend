@@ -222,14 +222,21 @@
                     this.currentPassword = '';
                     this.newPassword = '';
                     
-                    this.v$.currentPassword.$reset();
-                    this.v$.newPassword.$reset();
+                    if (this.v$.currentPassword) {
+                        this.v$.currentPassword.$reset();
+                    }
+                    if (this.v$.newPassword) {
+                        this.v$.newPassword.$reset();
+                    }
                 }
             },
             deleteAccount(newValue) {
                 if (!newValue) {
                     this.confirmUsername = '';
-                    this.v$.confirmUsername.$reset();
+                    
+                    if (this.v$.confirmUsername) {
+                        this.v$.confirmUsername.$reset();
+                    }
                 }
             },
             deleteAccountDialog(newValue) {
@@ -327,7 +334,7 @@
                     const formData = new FormData();
                     formData.append('id_user', this.id_user);
                     formData.append('deleteAccount', this.deleteAccount);
-                    formData.append('username', this.username);
+                    formData.append('confirmUsername', this.confirmUsername);
 
                     const response = await axios.delete('manageAccount/ManageAccountApi/', { data: formData });
 

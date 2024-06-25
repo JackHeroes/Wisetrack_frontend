@@ -86,6 +86,7 @@
     }
 
     .v-card-text {
+        background-color: var(--white)!important;
         font-size: 1rem!important;
         padding: 1rem!important;
     }
