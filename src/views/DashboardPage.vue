@@ -4,7 +4,7 @@
         <SystemSidebar/>
         <v-main class="d-flex justify-center align-center">
             <v-container class="d-flex flex-column justify-center align-center pa-8" fluid>
-                <div class="d-flex justify-center align-center w-100 ga-5">
+                <div class="d-flex justify-center align-center w-100 ga-5 mb-8">
                     <v-card class="info-card rounded-xl" width="350px">
                         <v-card-title class="d-flex justify-space-between">
                             <span>Saldo atual</span>
@@ -28,40 +28,40 @@
                     </v-card>
                 </div>
                 <div class="d-flex justify-center align-center w-100">
-                    <div class="chart-container d-flex justify-center align-center w-100">
+                    <v-card class="chart-container d-flex justify-center align-center rounded-xl w-100 mb-8">
                         <ag-charts-vue 
                             style="height: 500px; width: 100%;"
                             :options="gastosIncomeOptions"> 
                         </ag-charts-vue>
-                    </div>
+                    </v-card>
                 </div>
                 <div class="d-flex justify-center align-center w-100">
-                    <div class="chart-container d-flex justify-center align-center w-100">
+                    <v-card class="chart-container d-flex justify-center align-center rounded-xl w-100 me-4 mb-8">
                         <ag-charts-vue 
                             style="height: 500px; width: 500px;"
                             :options="categoriaDonutOptions"> 
                         </ag-charts-vue>
-                    </div>
-                    <div class="chart-container d-flex justify-center align-center w-100">
+                    </v-card>
+                    <v-card class="chart-container d-flex justify-center align-center rounded-xl w-100 ms-4 mb-8">
                         <ag-charts-vue 
                             style="height: 500px; width: 500px;"
                             :options="metodoDonutOptions"> 
                         </ag-charts-vue>
-                    </div>
+                    </v-card>
                 </div>
                 <div class="d-flex flex-column justify-center align-center w-100">
-                    <div class="chart-container d-flex justify-center align-center w-100">
+                    <v-card class="chart-container d-flex justify-center align-center rounded-xl w-100 mb-8">
                         <ag-charts-vue 
                             style="height: 500px; width: 100%;"
                             :options="categoriaStackedOptions"> 
                         </ag-charts-vue>
-                    </div>
-                    <div class="chart-container d-flex flex-column justify-center align-center w-100">
+                    </v-card>
+                    <v-card class="chart-container d-flex justify-center align-center rounded-xl w-100">
                         <ag-charts-vue 
                             style="height: 500px; width: 100%;"
                             :options="metodoStackedOptions"> 
                         </ag-charts-vue>
-                    </div>
+                    </v-card>
                 </div>
             </v-container>
         </v-main>
@@ -104,23 +104,32 @@
                             }
                         },
                     ],
-                    overlays: locale.overlays
+                    overlays: locale.overlays,
+                    background: {
+                        fill: '#E4CDFB',
+                    },
                 },
                 categoriaDonutOptions: {
                     title: {
-                        text: 'Top 5 categorias de gasto'
+                        text: 'Top cinco categorias de gasto'
                     },
                     data: this.fetchCategorias(),
                     series: [],
-                    overlays: locale.overlays
+                    overlays: locale.overlays,
+                    background: {
+                        fill: '#E4CDFB',
+                    },
                 },
                 metodoDonutOptions: {
                     title: {
-                        text: 'Top 5 métodos de pagamento'
+                        text: 'Top cinco métodos de pagamento'
                     },
                     data: this.fetchMetodos(),
                     series: [],
-                    overlays: locale.overlays
+                    overlays: locale.overlays,
+                    background: {
+                        fill: '#E4CDFB',
+                    },
                 },
                 categoriaStackedOptions: {
                     title: {
@@ -144,7 +153,10 @@
                             }
                         }
                     ],
-                    overlays: locale.overlays
+                    overlays: locale.overlays,
+                    background: {
+                        fill: '#E4CDFB',
+                    },
                 },
                 metodoStackedOptions: {
                     title: {
@@ -168,7 +180,10 @@
                             }
                         }
                     ],
-                    overlays: locale.overlays
+                    overlays: locale.overlays,
+                    background: {
+                        fill: '#E4CDFB',
+                    },
                 }
             };
         },
@@ -366,6 +381,12 @@
     };
 </script>
 <style scoped>
+
+    .info-card,
+    .chart-container {
+        background-color: var(--tertiary-color)!important;
+    }
+
     .info-card .v-card-title span {
         font-size: 1rem!important;
         font-weight: lighter!important;
@@ -381,6 +402,6 @@
     }
 
     .chart-container {
-        margin: 20px!important;
+        padding: 2rem!important;
     }
 </style>
