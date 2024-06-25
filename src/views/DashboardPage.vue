@@ -381,7 +381,6 @@
     };
 </script>
 <style scoped>
-
     .info-card,
     .chart-container {
         background-color: var(--tertiary-color)!important;
