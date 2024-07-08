@@ -11,6 +11,7 @@ import HomePage from '../views/HomePage.vue';
 import PrimeirosPassosPage from '../views/PrimeirosPassosPage.vue'
 import CategoriaGastoPage from '../views/CategoriaGastoPage.vue'
 import MetodoPagamentoPage from '../views/MetodoPagamentoPage.vue'
+import PlanilhaGanhoPage from '../views/PlanilhaGanhoPage.vue'
 import PlanilhaGastoPage from '../views/PlanilhaGastoPage.vue'
 import DashboardPage from '../views/DashboardPage.vue'
 import AccountPage from '../views/AccountPage.vue'
@@ -65,6 +66,12 @@ const routes = [
         path: '/metodos-pagamento', 
         component: MetodoPagamentoPage,
         name: 'MetodoPagamento', 
+        meta: { requiresUserAuth: true }
+    },
+    { 
+        path: '/ganhos', 
+        component: PlanilhaGanhoPage,
+        name: 'PlanilhaGanho', 
         meta: { requiresUserAuth: true }
     },
     { 

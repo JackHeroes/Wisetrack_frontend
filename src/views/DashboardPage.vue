@@ -242,14 +242,14 @@
                         {
                             type: 'bar',
                             xKey: 'mes',
-                            yKey: 'income',
+                            yKey: 'valor_ganho',
                             yName: 'Renda',
                             grouped: true,
                         },
                         {
                             type: 'bar',
                             xKey: 'mes',
-                            yKey: 'valor',
+                            yKey: 'valor_gasto',
                             yName: 'Gastos',
                             grouped: true,
                         },

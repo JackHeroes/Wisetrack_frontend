@@ -24,7 +24,7 @@
     </v-app>
 </template>
 <script>
-    import ExcludeGastosButtonRenderer from '../grid/renderers/ExcludeGastosButtonRenderer.vue';
+    import ExcludeGanhosButtonRenderer from '../grid/renderers/ExcludeGanhosButtonRenderer.vue';
     import axios from '../services/axios';
     import { AG_GRID_LOCALE_PT_BR } from '../grid/locale/locale'; 
     import { currencyFormatter } from '../grid/formatters/formatters';
@@ -36,7 +36,7 @@
 
     export default {
         components: {
-            ExcludeGastosButtonRenderer
+            ExcludeGanhosButtonRenderer
         },
         setup() {
             const router = useRouter();
@@ -53,12 +53,12 @@
 
             const columnDefs = ref([
                 { 
-                    field: "gasto", 
-                    headerName: "Gasto",
+                    field: "ganho", 
+                    headerName: "Ganho",
                     cellDataType: "text",
                 },
                 { 
-                    field: "gastoData", 
+                    field: "ganhoData", 
                     headerName: "Data",
                     cellDataType: "dateString",
                 },
@@ -67,20 +67,6 @@
                     headerName: "Valor",
                     cellDataType: 'number',
                     valueFormatter: currencyFormatter,
-                },
-                {
-                    field: "categoriaGasto",
-                    headerName: "Categoria do Gasto",
-                    cellDataType: "text",
-                    cellEditor: 'agSelectCellEditor',
-                    cellEditorParams: { values: [] },
-                },
-                {
-                    field: "metodoPagamento",
-                    headerName: "Método de Pagamento",
-                    cellDataType: "text",
-                    cellEditor: 'agSelectCellEditor',
-                    cellEditorParams: { values: [] },
                 },
                 { 
                     field: "obs", 
@@ -99,9 +85,9 @@
                             return null;
                         } else {
                             return {
-                                component: 'ExcludeGastosButtonRenderer',
+                                component: 'ExcludeGanhosButtonRenderer',
                                 params: {
-                                    loadGastosData
+                                    loadGanhosData
                                 }
                             };
                         }
@@ -110,7 +96,7 @@
             ]);
 
             const rowData = ref([]);
-            const pinnedTopRowData = ref([{ gasto: "", gastoData: "", valor: "", metodoPagamento: "", categoriaGasto: "", obs: "" }]);
+            const pinnedTopRowData = ref([{ ganho: "", ganhoData: "", valor: "", obs: "" }]);
             const localeText = ref(AG_GRID_LOCALE_PT_BR);
     
             const validateUserBeforeRequest = async () => {
@@ -122,21 +108,19 @@
                 }
             };
 
-            const loadGastosData = async () => {
+            const loadGanhosData = async () => {
                 try {
-                    const response = await axios.get('gastos/GastosApi/', {
+                    const response = await axios.get('ganhos/GanhosApi/', {
                         params: {
                             id_user: id_user
                         }
                     });
                     
                     rowData.value = response.data.results.map(item => ({
-                        id_userGastos: item.id_userGastos,
-                        gasto: item.gasto,
-                        gastoData: item.gastoData,
+                        id_userGanhos: item.id_userGanhos,
+                        ganho: item.ganho,
+                        ganhoData: item.ganhoData,
                         valor: Math.round(item.valor),
-                        metodoPagamento: item.metodoPagamento,
-                        categoriaGasto: item.categoriaGasto,
                         obs: item.obs,
                     }));
                 } catch (error) {
@@ -144,37 +128,9 @@
                 }
             };
 
-            const loadCategoriasData = async () => {
-                try {
-                    const response = await axios.get('categoriaGasto/GastosCategoriaGastoApi/', {
-                        params: { 
-                            id_user: id_user 
-                        }
-                    });
-                    const categoriasGasto = response.data.results.map(item => item.categoriaGasto);
-                    columnDefs.value.find(col => col.field === 'categoriaGasto').cellEditorParams.values = categoriasGasto;
-                } catch (error) {
-                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
-                }
-            };
-
-            const loadMetodosData = async () => {
-                try {
-                    const response = await axios.get('metodoPagamento/GastosMetodoPagamentoApi/', {
-                        params: { 
-                            id_user: id_user 
-                        }
-                    });
-                    const metodosPagamento = response.data.results.map(item => item.metodoPagamento);
-                    columnDefs.value.find(col => col.field === 'metodoPagamento').cellEditorParams.values = metodosPagamento;
-                } catch (error) {
-                    store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
-                }
-            };
-
             const loadData = async () => {    
                 if (await validateUserBeforeRequest()) {
-                    await Promise.all([loadGastosData(), loadCategoriasData(), loadMetodosData()]);
+                    await Promise.all([loadGanhosData()]);
                 }
             };
 
@@ -192,7 +148,7 @@
             };
 
             const addRow = () => {
-                const newRow = { gasto: "", gastoData: "", valor: "", metodoPagamento: "", categoriaGasto: "", obs: "" };
+                const newRow = { ganho: "", ganhoData: "", valor: "", obs: "" };
                 pinnedTopRowData.value = [newRow];
             };
 
@@ -206,32 +162,30 @@
                 try {
                     const formData = new FormData();
                     formData.append('id_user', id_user);
-                    formData.append('gasto', rowDataItem.gasto);
-                    formData.append('gastoData', rowDataItem.gastoData);
+                    formData.append('ganho', rowDataItem.ganho);
+                    formData.append('ganhoData', rowDataItem.ganhoData);
                     formData.append('valor', rowDataItem.valor);
-                    formData.append('metodoPagamento', rowDataItem.metodoPagamento);
-                    formData.append('categoriaGasto', rowDataItem.categoriaGasto);
                     formData.append('obs', rowDataItem.obs);
    
-                    if (rowDataItem.id_userGastos) {
-                        formData.append('id_userGastos', rowDataItem.id_userGastos);
+                    if (rowDataItem.id_userGanhos) {
+                        formData.append('id_userGanhos', rowDataItem.id_userGanhos);
 
-                        const response = await axios.put('gastos/GastosApi/', formData);
+                        const response = await axios.put('ganhos/GanhosApi/', formData);
 
                         store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                     } else {
-                        if (rowDataItem.gasto && rowDataItem.gastoData && rowDataItem.valor && rowDataItem.metodoPagamento && rowDataItem.categoriaGasto) {
-                            const response = await axios.post('gastos/GastosApi/', formData);
+                        if (rowDataItem.ganho && rowDataItem.ganhoData && rowDataItem.valor) {
+                            const response = await axios.post('ganhos/GanhosApi/', formData);
                             
-                            rowDataItem.id_userGastos = response.data.id;
+                            rowDataItem.id_userganhos = response.data.id;
                             rowData.value = [...rowData.value, { ...rowDataItem }];
-                            pinnedTopRowData.value = [{ gasto: "", gastoData: "", valor: "", metodoPagamento: "", categoriaGasto: "", obs: "" }];
+                            pinnedTopRowData.value = [{ ganho: "", ganhoData: "", valor: "", obs: "" }];
 
                             store.dispatch('showToast', { message: response.data.success, messageType: 'success' });
                         }
                     }
 
-                    await loadGastosData(); 
+                    await loadGanhosData(); 
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
                 }
@@ -244,7 +198,7 @@
                 dataTypeDefinitions,
                 pinnedTopRowData,
                 localeText,
-                loadGastosData,
+                loadGanhosData,
                 loadData,
                 onGridReady,
                 addRow,

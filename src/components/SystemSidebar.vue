@@ -37,6 +37,13 @@
             <v-list-item 
                 class="sidebar-item"
                 prepend-icon="mdi-cash" 
+                title="Planilha de ganhos" 
+                :class="{ 'v-sidebar-active': isActive('/ganhos') }"
+                @click="navigate('/ganhos')" >
+            </v-list-item>
+            <v-list-item 
+                class="sidebar-item"
+                prepend-icon="mdi-cash" 
                 title="Planilha de gastos" 
                 :class="{ 'v-sidebar-active': isActive('/gastos-diarios') }"
                 @click="navigate('/gastos-diarios')" >

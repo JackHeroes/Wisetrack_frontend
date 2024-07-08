@@ -72,19 +72,6 @@
                                 variant="outlined"
                                 :error-messages="v$?.lastName?.$errors.map(e => e.$message)">
                             </v-text-field>
-                            <v-text-field 
-                                v-model="income"
-                                class="mb-3 w-100"
-                                color="var(--primary-color)"
-                                density="comfortable"
-                                hide-details="auto"
-                                label="Renda mensal"
-                                name="income"
-                                prefix="R$"
-                                variant="outlined"
-                                v-maska="options"
-                                :error-messages="v$?.income?.$errors.map(e => e.$message)">
-                            </v-text-field>
                             <v-switch
                                 v-model="changePassword"
                                 color="var(--primary-color)"
@@ -171,7 +158,7 @@
     import axios from '../services/axios';
     import defaultUserImage from '@/assets/images/defaultUser/defaultUserImage.svg';
     import store from '../store/store';
-    import { alpha, maxIncome, strongPassword } from '../services/customValidations';
+    import { alpha, strongPassword } from '../services/customValidations';
     import { email, required, helpers } from '@vuelidate/validators';
     import { mapGetters } from 'vuex';
     import { useVuelidate } from '@vuelidate/core';
@@ -189,14 +176,6 @@
                 email: '',
                 firstName: '',
                 lastName: '',
-                income: '',
-                options: {
-                    number: {
-                        fraction: 2,
-                        locale: "pt-br",
-                        unsigned: true,
-                    }
-                },
                 imageFile: null,
                 image: defaultUserImage,
                 currentPassword: '',
@@ -263,7 +242,6 @@
                     this.email = response.data.email;
                     this.firstName = response.data.first_name;
                     this.lastName = response.data.last_name;
-                    this.income = new Intl.NumberFormat('pt-BR', { style: 'decimal', minimumFractionDigits: 2 }).format(response.data.income);
                     this.image = response.data.image ? `${response.data.image}?t=${new Date().getTime()}` : defaultUserImage;
                 } catch (error) {
                     store.dispatch('showToast', { message: error.response.data.error, messageType: 'error' });
@@ -286,7 +264,6 @@
                     formData.append('id_user', this.id_user);
                     formData.append('firstName', this.firstName);
                     formData.append('lastName', this.lastName);
-                    formData.append('income', this.income.trim() === '' ? '' : parseFloat(this.income.replace(/[^\d,]/g, '').replace(',', '.')));
                     if (this.imageFile) {
                         formData.append('image', this.imageFile);
                     }
@@ -391,9 +368,6 @@
                 lastName: {
                     required: helpers.withMessage('Sobrenome é obrigatório', required),
                     alpha: helpers.withMessage('Insira um sobrenome válido', alpha)
-                },
-                income: {
-                    maxIncome: helpers.withMessage('A renda mensal deve ser no máximo 1.000.000,00', maxIncome)
                 },
                 ...passwordValidations,
                 ...deleteValidations
