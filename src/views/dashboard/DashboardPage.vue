@@ -75,12 +75,12 @@
     </v-app>
 </template>
 <script>
-    import axios from '../services/axios';
-    import locale from '../charts/locale/locale';
-    import store from '../store/store';
-    import { getMonthName } from '../charts/month/getMonthName';
+    import axios from '../../services/axios/axios';
+    import locale from '../../services/charts/locale/locale';
+    import store from '../../store/store';
+    import { getMonthName } from '../../services/charts/month/getMonthName';
     import { mapGetters } from 'vuex';
-    import { validateUser } from '../services/validateUser';
+    import { validateUser } from '../../services/validations/validateUser';
 
     export default {
         data() {

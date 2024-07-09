@@ -24,15 +24,15 @@
     </v-app>
 </template>
 <script>
-    import ExcludeGastosButtonRenderer from '../grid/renderers/ExcludeGastosButtonRenderer.vue';
-    import axios from '../services/axios';
-    import { AG_GRID_LOCALE_PT_BR } from '../grid/locale/locale'; 
-    import { currencyFormatter } from '../grid/formatters/formatters';
-    import { dataTypeDefinitions } from '../grid/datatype/dataTypeDefinitions';
+    import ExcludeGastosButtonRenderer from '../../services/grid/renderers/ExcludeGastosButtonRenderer.vue';
+    import axios from '../../services/axios/axios';
+    import { AG_GRID_LOCALE_PT_BR } from '../../services/grid/locale/locale'; 
+    import { currencyFormatter } from '../../services/formatters/formatters';
+    import { dataTypeDefinitions } from '../../services/grid/datatype/dataTypeDefinitions';
     import { onBeforeMount, ref } from "vue";
     import { useRouter } from 'vue-router';
     import { useStore } from 'vuex';
-    import { validateUser } from '../services/validateUser';
+    import { validateUser } from '../../services/validations/validateUser';
 
     export default {
         components: {

@@ -10,8 +10,8 @@ import ConfirmarEmailPage from '../views/base/ConfirmarEmailPage.vue';
 import HomePage from '../views/home/HomePage.vue';
 import PrimeirosPassosPage from '../views/primeirosPassos/PrimeirosPassosPage.vue'
 import AccountPage from '../views/conta/AccountPage.vue'
-import CategoriaGastoPage from '../views/crud/CategoriaGastoPage.vue'
-import MetodoPagamentoPage from '../views/crud/MetodoPagamentoPage.vue'
+import CategoriaGastoPage from '../views/cruds/CategoriaGastoPage.vue'
+import MetodoPagamentoPage from '../views/cruds/MetodoPagamentoPage.vue'
 import PlanilhaGanhoPage from '../views/planilhas/PlanilhaGanhoPage.vue'
 import PlanilhaGastoPage from '../views/planilhas/PlanilhaGastoPage.vue'
 import DashboardPage from '../views/dashboard/DashboardPage.vue'

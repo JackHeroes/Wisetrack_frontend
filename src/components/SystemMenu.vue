@@ -35,10 +35,10 @@
     </v-app-bar>
 </template>
 <script>
-    import axios from '../services/axios';
+    import axios from '../services/axios/axios';
     import store from '../store/store';
     import { mapGetters } from 'vuex';
-    import { validateUser } from '../services/validateUser';
+    import { validateUser } from '../services/validations/validateUser';
 
     export default {
         name: 'SystemMenu',

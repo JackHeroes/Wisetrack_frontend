@@ -73,8 +73,8 @@
     </v-app>
 </template>
 <script>
-    import axios from '../services/axios';
-    import store from '../store/store';
+    import axios from '../../services/axios/axios';
+    import store from '../../store/store';
     import { required, helpers } from '@vuelidate/validators';
     import { useVuelidate } from '@vuelidate/core';
 

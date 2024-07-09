@@ -155,14 +155,14 @@
     </v-app>
 </template>
 <script>
-    import axios from '../services/axios';
+    import axios from '../../services/axios/axios';
     import defaultUserImage from '@/assets/images/defaultUser/defaultUserImage.svg';
-    import store from '../store/store';
-    import { alpha, strongPassword } from '../services/customValidations';
+    import store from '../../store/store';
+    import { alpha, strongPassword } from '../../services/validations/customValidations';
     import { email, required, helpers } from '@vuelidate/validators';
     import { mapGetters } from 'vuex';
     import { useVuelidate } from '@vuelidate/core';
-    import { validateUser } from '../services/validateUser';
+    import { validateUser } from '../../services/validations/validateUser';
 
     export default {
         setup() {

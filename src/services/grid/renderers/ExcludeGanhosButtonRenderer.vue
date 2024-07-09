@@ -9,10 +9,10 @@
     </div>
 </template>
 <script>
-    import axios from '../../services/axios';
+    import axios from '../../axios/axios';
     import { useRouter } from 'vue-router';
     import { useStore } from 'vuex';
-    import { validateUser } from '../../services/validateUser';
+    import { validateUser } from '../../validations/validateUser';
 
     export default {
         props: {
