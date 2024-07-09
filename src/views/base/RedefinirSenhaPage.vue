@@ -53,12 +53,12 @@
     </v-app>
 </template>
 <script>
-    import axios from '../../services/axios/axios';
-    import store from '../../store/store';
+    import axios from '@services/axios/axios';
+    import store from '@store/store';
     import { required, helpers } from '@vuelidate/validators'
-    import { strongPassword } from '../../services/validations/customValidations';
+    import { strongPassword } from '@services/validations/customValidations';
     import { useVuelidate } from '@vuelidate/core'
-    import { validatePassword } from '../../services/validations/validatePassword';
+    import { validatePassword } from '@services/validations/validatePassword';
 
     export default {
         setup: () => ({ 
@@ -119,5 +119,5 @@
     }
 </script>
 <style scoped>
-    @import "@/assets/styles/loginCadastro.css";
+    @import "@styles/loginCadastro.css";
 </style>

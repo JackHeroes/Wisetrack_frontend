@@ -1,12 +1,12 @@
 import { createApp } from 'vue';
-import App from './App.vue';
-import router from './router/router';
-import store from './store/store';
+import App from '@/App.vue';
+import router from '@router/router';
+import store from '@store/store';
 
-import SystemMenu from './components/SystemMenu.vue'; 
-import SystemSidebar from './components/SystemSidebar.vue';  
-import SystemFooter from './components/SystemFooter.vue';   
-import SystemCrud from './components/SystemCrud.vue'; 
+import SystemMenu from '@componentes/SystemMenu.vue'; 
+import SystemSidebar from '@componentes/SystemSidebar.vue';  
+import SystemFooter from '@componentes/SystemFooter.vue';   
+import SystemCrud from '@componentes/SystemCrud.vue'; 
 
 import { createVuetify } from 'vuetify';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
@@ -18,15 +18,13 @@ import '@mdi/font/css/materialdesignicons.css';
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
-import { vMaska } from "maska/vue"
-
 import { AgGridVue } from "ag-grid-vue3";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css"; 
 
 import { AgChartsVue } from 'ag-charts-vue3';
 
-import './assets/styles/main.css';
+import '@styles/main.css';
 
 const vuetify = createVuetify({
     components,
@@ -72,5 +70,4 @@ app.use(router);
 app.use(store);
 app.use(Toast, options);
 app.use(vuetify);
-app.directive("maska", vMaska)
 app.mount('#app');

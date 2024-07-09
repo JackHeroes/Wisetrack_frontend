@@ -38,5 +38,5 @@
     }
 </script>
 <style scoped>
-    @import "@/assets/styles/loginCadastro.css";
+    @import "@styles/loginCadastro.css";
 </style>

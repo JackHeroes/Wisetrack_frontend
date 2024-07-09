@@ -59,7 +59,7 @@
     </v-navigation-drawer>
 </template>
 <script>
-    import defaultUserImage from '@/assets/images/defaultUser/defaultUserImage.svg';
+    import defaultUserImage from '@images/defaultUser/defaultUserImage.svg';
     import { mapGetters } from 'vuex';
 
     export default {

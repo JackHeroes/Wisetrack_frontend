@@ -1,4 +1,4 @@
-import store from '../../store/store';
+import store from '@store/store';
 
 export async function validatePassword(router) {
     try {

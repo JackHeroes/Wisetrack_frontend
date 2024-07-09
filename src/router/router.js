@@ -1,5 +1,5 @@
 import cookies from 'js-cookie';
-import store from '../store/store';
+import store from '@store/store';
 import { createRouter, createWebHistory } from 'vue-router';
 
 import LoginPage from '../views/base/LoginPage.vue';

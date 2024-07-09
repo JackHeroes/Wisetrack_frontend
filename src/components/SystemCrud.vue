@@ -101,13 +101,13 @@
     </v-dialog>
 </template>
 <script>
-    import axios from '../services/axios/axios';
-    import store from '../store/store';
-    import { alpha } from '../services/validations/customValidations';
+    import axios from '@services/axios/axios';
+    import store from '@store/store';
+    import { alpha } from '@services/validations/customValidations';
     import { mapGetters } from 'vuex';
     import { required, helpers } from '@vuelidate/validators';
     import { useVuelidate } from '@vuelidate/core';
-    import { validateUser } from '../services/validations/validateUser';
+    import { validateUser } from '@services/validations/validateUser';
 
     export default {
         props: {

@@ -10,7 +10,13 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@services': fileURLToPath(new URL('./src/services', import.meta.url)),
+      '@store': fileURLToPath(new URL('./src/store/', import.meta.url)),
+      '@router': fileURLToPath(new URL('./src/router/', import.meta.url)),
+      '@images': fileURLToPath(new URL('./src/assets/images/', import.meta.url)),
+      '@styles': fileURLToPath(new URL('./src/assets/styles/', import.meta.url)),
+      '@componentes': fileURLToPath(new URL('./src/components/', import.meta.url)),
     }
   },
   server: {
