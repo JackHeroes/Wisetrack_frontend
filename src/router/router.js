@@ -2,19 +2,19 @@ import cookies from 'js-cookie';
 import store from '../store/store';
 import { createRouter, createWebHistory } from 'vue-router';
 
-import LoginPage from '../views/LoginPage.vue';
-import CadastroPage from '../views/CadastroPage.vue';
-import RecuperarSenhaPage from '../views/RecuperarSenhaPage.vue';
-import RedefinirSenhaPage from '../views/RedefinirSenhaPage.vue';
-import ConfirmarEmailPage from '../views/ConfirmarEmailPage.vue';
-import HomePage from '../views/HomePage.vue';
-import PrimeirosPassosPage from '../views/PrimeirosPassosPage.vue'
-import CategoriaGastoPage from '../views/CategoriaGastoPage.vue'
-import MetodoPagamentoPage from '../views/MetodoPagamentoPage.vue'
-import PlanilhaGanhoPage from '../views/PlanilhaGanhoPage.vue'
-import PlanilhaGastoPage from '../views/PlanilhaGastoPage.vue'
-import DashboardPage from '../views/DashboardPage.vue'
-import AccountPage from '../views/AccountPage.vue'
+import LoginPage from '../views/base/LoginPage.vue';
+import CadastroPage from '../views/base/CadastroPage.vue';
+import RecuperarSenhaPage from '../views/base/RecuperarSenhaPage.vue';
+import RedefinirSenhaPage from '../views/base/RedefinirSenhaPage.vue';
+import ConfirmarEmailPage from '../views/base/ConfirmarEmailPage.vue';
+import HomePage from '../views/home/HomePage.vue';
+import PrimeirosPassosPage from '../views/primeirosPassos/PrimeirosPassosPage.vue'
+import AccountPage from '../views/conta/AccountPage.vue'
+import CategoriaGastoPage from '../views/crud/CategoriaGastoPage.vue'
+import MetodoPagamentoPage from '../views/crud/MetodoPagamentoPage.vue'
+import PlanilhaGanhoPage from '../views/planilhas/PlanilhaGanhoPage.vue'
+import PlanilhaGastoPage from '../views/planilhas/PlanilhaGastoPage.vue'
+import DashboardPage from '../views/dashboard/DashboardPage.vue'
 
 const routes = [
     {

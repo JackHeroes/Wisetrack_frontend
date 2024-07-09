@@ -1,6 +1,6 @@
 import axios from 'axios';
 import cookies from 'js-cookie';
-import router from '../router/router';
+import router from '../../router/router';
 
 const instance = axios.create({
     baseURL: 'http://127.0.0.1:8000/api/',

@@ -36,24 +36,24 @@
                 items: [
                     {
                         color: 'var(--primary-color)',
-                        icon: 'mdi-currency-usd',
-                        title: 'Cadastre sua renda mensal',
-                        text: 'Adicione sua renda mensal para um acompanhamento mais preciso das suas finanças. Com isso, você poderá gerar gráficos e relatórios detalhados no dashboard, tendo uma visão clara de seus ganhos e gastos',
-                        route: '/conta'
-                    },
-                    {
-                        color: 'var(--secondary-color)',
                         icon: 'mdi-view-grid',
                         title: 'Cadastre suas categorias de gasto',
                         text: 'Organize seus gastos cadastrando diferentes categorias como alimentação, transporte, saúde, lazer, dentre outros. Isso ajudará a monitorar melhor suas finanças',
                         route: '/categorias-gasto'
                     },
                     {
-                        color: 'var(--primary-color)',
+                        color: 'var(--secondary-color)',
                         icon: 'mdi-wallet',
                         title: 'Cadastre seus métodos de pagamento',
                         text: 'Adicione seus métodos de pagamento, como cartões de crédito, débito, dentre outros. Para acompanhar suas despesas de forma mais eficiente',
                         route: '/metodos-pagamento'
+                    },
+                    {
+                        color: 'var(--primary-color)',
+                        icon: 'mdi-cash',
+                        title: 'Cadastre seus ganhos',
+                        text: 'Adicione sua renda mensal para um acompanhamento mais preciso das suas finanças. Com isso, você poderá gerar gráficos e relatórios detalhados no dashboard, tendo uma visão clara de seus ganhos e gastos',
+                        route: '/ganhos'
                     },
                     {
                         color: 'var(--secondary-color)',

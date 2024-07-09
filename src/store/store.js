@@ -1,4 +1,4 @@
-import axios from '../services/axios';
+import axios from '../services/axios/axios';
 import { createStore } from 'vuex';
 import { useToast } from 'vue-toastification';
 
