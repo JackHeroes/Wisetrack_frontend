@@ -12,8 +12,12 @@
     --grid-tertiary-color: #F5F0FF;
 }
 
+html { 
+    overflow-y: auto!important;
+}
+
 .v-main {
-    background-color: var(--smoke-white);
+    background-color: var(--smoke-white)!important;
     padding-right: 56px!important;
 }
 
